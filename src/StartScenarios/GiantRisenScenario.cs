@@ -49,11 +49,16 @@ namespace AlternateStart.StartScenarios
             }
         }
 
+        public override void PreScenarioBegin()
+        {
+            VanillaQuestsHelper.AddQuestEvent(VanillaQuestsHelper.ashFight);
+        }
+
         public override void OnScenarioBegin()
         {
             GetOrGiveQuestToHost();
 
-            VanillaQuestsHelper.AddQuestEvent(VanillaQuestsHelper.ashFight);
+            
             VanillaQuestsHelper.SkipHostToFactionChoice(false);
 
             // Add 1 to our tracker event stack. Next scene load we will reset the quest events.

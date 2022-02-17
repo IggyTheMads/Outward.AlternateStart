@@ -46,6 +46,10 @@ namespace AlternateStart.StartScenarios
             QE_BerriesPicked = CustomQuests.CreateQuestEvent(QE_BerriesPicked_UID, false, true);
         }
 
+        public override void PreScenarioBegin()
+        {
+
+        }
         public override void OnScenarioBegin()
         {
             GetOrGiveQuestToHost();

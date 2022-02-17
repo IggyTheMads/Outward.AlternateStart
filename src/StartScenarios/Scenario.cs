@@ -34,6 +34,8 @@ namespace AlternateStart.StartScenarios
 
         public abstract void UpdateQuestProgress(Quest quest);
 
+        public abstract void PreScenarioBegin(); //before teleport. Some events requiere to trigger before load screen for some reason
+
         public abstract void OnScenarioBegin();
 
         public abstract void OnStartSpawn(Character character);
@@ -64,6 +66,8 @@ namespace AlternateStart.StartScenarios
             QuestEventManager.Instance.AddEvent(ScenarioManager.QE_DestinyChosen);
 
             QuestEventManager.Instance.AddEvent(QE_ScenarioQuestEvent);
+
+            PreScenarioBegin();
 
             // Autoknock the players
             foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)

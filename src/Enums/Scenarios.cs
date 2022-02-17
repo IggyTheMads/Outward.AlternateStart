@@ -1,5 +1,6 @@
 ﻿namespace AlternateStart
 {
+    //Register new scenarios here before creating them
     public enum Scenarios
     {
         Test,

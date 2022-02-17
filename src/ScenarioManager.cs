@@ -175,10 +175,11 @@ namespace AlternateStart
             var host = CharacterManager.Instance.GetWorldHostCharacter();
 
             // Check for test scenario
+            // Change this to test a specific scenario
             if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioAreas.Test))
             {
                 Plugin.LogWarning($"~~~ Starting test scenario ~~~");
-                Plugin.Instance.StartCoroutine(startScenarios[Scenarios.Test].StartScenario());
+                Plugin.Instance.StartCoroutine(startScenarios[Scenarios.SandBandit].StartScenario());  // Change this to TEST a specific scenario
                 yield break;
             }
 

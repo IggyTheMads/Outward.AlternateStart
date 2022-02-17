@@ -22,7 +22,7 @@ namespace AlternateStart.StartScenarios
         public override Vector3 SpawnRotation => new(0, 227.3f, 0);
 
         public override string SL_Quest_FileName => "SandBanditsQuest";
-        public override int SL_Quest_ItemID => -2301;
+        public override int SL_Quest_ItemID => -2303;
 
         const string LogSignature_A = "sandbandits.objective.a";
         const string LogSignature_B = "sandbandits.objective.b";
@@ -52,12 +52,16 @@ namespace AlternateStart.StartScenarios
             }
         }
 
-        public override void OnScenarioBegin()
+        public override void PreScenarioBegin()
         {
             GetOrGiveQuestToHost();
 
-            ChangeCharactersFactions(Character.Factions.Bandits, "The Sand Corsairs sense that your allegiance is slipping...");
             VanillaQuestsHelper.SkipHostToFactionChoice(false);
+        }
+
+        public override void OnScenarioBegin()
+        {
+            ChangeCharactersFactions(Character.Factions.Bandits, "The Sand Corsairs sense that your allegiance is slipping...");
         }
 
         public override void OnStartSpawn(Character character)
@@ -69,7 +73,7 @@ namespace AlternateStart.StartScenarios
             character.Inventory.ReceiveItemReward(3000205, 1, true); //desert legs
             character.Inventory.ReceiveItemReward(2000110, 1, true); //curved sword
 
-            Plugin.Instance.StartCoroutine(UpdateQuestAfterDelay());
+            //Plugin.Instance.StartCoroutine(UpdateQuestAfterDelay());
         }
 
         static void ChangeCharactersFactions(Character.Factions faction, string notifText)
@@ -106,16 +110,19 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            if (!QuestEventManager.Instance.HasQuestEvent(QE_StartTimer))
-                return;
-
+            var host = CharacterManager.Instance.GetWorldHostCharacter();
+            if (host.Faction == Character.Factions.Bandits && !QuestEventManager.Instance.HasQuestEvent(QE_StartTimer) && SceneManagerHelper.ActiveSceneName == "Abrassar")
+            {
+                QuestEventManager.Instance.AddEvent(QE_StartTimer_UID);
+            }
+            
             var timer = QuestEventManager.Instance.GetEventActiveTimeDelta(QE_StartTimer_UID);
 
             QuestProgress progress = quest.m_questProgress;
 
-            progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), timer >= 20f);
+            progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), timer >= 0.1f);
 
-            if (timer >= 20f)
+            if (timer >= 0.1f)
             {
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 ChangeCharactersFactions(Character.Factions.Player, "You've deserted the Sand Corsairs!");
@@ -125,7 +132,7 @@ namespace AlternateStart.StartScenarios
 
                 progress.DisableQuest(QuestProgress.ProgressState.Successful);
             }
-            else // Wait another 20 seconds and update it again until its completed.
+            else // Wait another 20 seconds and update it again until its completed. //IGGY: Not working. Only deserts on load screens
                 Plugin.Instance.StartCoroutine(UpdateQuestAfterDelay());
         }
     }

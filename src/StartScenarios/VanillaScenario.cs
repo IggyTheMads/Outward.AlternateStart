@@ -20,6 +20,10 @@ namespace AlternateStart.StartScenarios
         public override string SL_Quest_FileName => null;
         public override int SL_Quest_ItemID => -1;
 
+        public override void PreScenarioBegin()
+        {
+
+        }
         public override void OnScenarioBegin()
         {
         }
