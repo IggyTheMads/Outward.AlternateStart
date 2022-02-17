@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SL_StatusEffect xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <TargetStatusIdentifier>Doom</TargetStatusIdentifier>
+  <NewStatusID>30</NewStatusID>
+  <StatusIdentifier>fullstop</StatusIdentifier>
+  <Name>Fullstop</Name>
+  <Description>Unable to act.</Description>
+  <Lifespan>-1</Lifespan>
+  <RefreshRate>0.5</RefreshRate>
+  <Purgeable>true</Purgeable>
+  <Priority>1</Priority>
+  <IgnoreBarrier>false</IgnoreBarrier>
+  <BuildupRecoverySpeed>3</BuildupRecoverySpeed>
+  <IgnoreBuildupIfApplied>false</IgnoreBuildupIfApplied>
+  <AmplifiedStatusIdentifier />
+  <RemoveRequiredStatus>false</RemoveRequiredStatus>
+  <NormalizeDamageDisplay>false</NormalizeDamageDisplay>
+  <DisplayedInHUD>false</DisplayedInHUD>
+  <IsHidden>true</IsHidden>
+  <IsMalusEffect>false</IsMalusEffect>
+  <DelayedDestroyTime>0</DelayedDestroyTime>
+  <ActionOnHit>None</ActionOnHit>
+  <FamilyMode>Reference</FamilyMode>
+  <BindFamily>
+    <UID>com.iggy.fullstop</UID>
+    <Name>fullstopFam</Name>
+    <StackBehaviour>IndependantUnique</StackBehaviour>
+    <MaxStackCount>-1</MaxStackCount>
+    <LengthType>Short</LengthType>
+  </BindFamily>
+  <PlayFXOnActivation>true</PlayFXOnActivation>
+  <FXOffset>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </FXOffset>
+  <VFXInstantiationType>VFX</VFXInstantiationType>
+  <VFXPrefab>HexDoomVFX</VFXPrefab>
+  <SpecialSFX>NONE</SpecialSFX>
+  <PlaySpecialFXOnStop>false</PlaySpecialFXOnStop>
+  <EffectBehaviour>Destroy</EffectBehaviour>
+  <Effects>
+    <SL_EffectTransform>
+      <TransformName>Effects</TransformName>
+      <Position xsi:nil="true" />
+      <Rotation xsi:nil="true" />
+      <Scale xsi:nil="true" />
+      <Effects>
+        <SL_Effect xsi:type="SL_AffectStat">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Stat_Tag>MovementSpeed</Stat_Tag>
+          <AffectQuantity>-100</AffectQuantity>
+          <IsModifier>true</IsModifier>
+          <Tags />
+        </SL_Effect>
+        <SL_Effect xsi:type="SL_AffectStamina">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <AffectQuantity>-100</AffectQuantity>
+        </SL_Effect>
+      </Effects>
+      <EffectConditions />
+      <ChildEffects />
+    </SL_EffectTransform>
+  </Effects>
+</SL_StatusEffect>
