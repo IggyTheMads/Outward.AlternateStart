@@ -184,7 +184,7 @@ namespace AlternateStart
             if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioAreas.Test))
             {
                 Plugin.LogWarning($"~~~ Starting test scenario ~~~");
-                Plugin.Instance.StartCoroutine(startScenarios[Scenarios.SandBandit].StartScenario());  // Change this to TEST a specific scenario
+                Plugin.Instance.StartCoroutine(startScenarios[Scenarios.GhostTrapScenario].StartScenario());  // Change this to TEST a specific scenario
                 yield break;
             }
 
@@ -257,27 +257,29 @@ namespace AlternateStart
         //public const int sparkID = 8200040;
         //static Character.Factions factionTesting = Character.Factions.NONE;
 
-        //static void TESTO()
-        //{
-        //    factionTesting += 1;
-        //    if (factionTesting == Character.Factions.COUNT)
-        //        factionTesting = Character.Factions.Player;
-        //
-        //    var character = CharacterManager.Instance.GetFirstLocalCharacter();
-        //    character.ChangeFaction(factionTesting);
-        //    character.CharacterUI.ShowInfoNotification($"YOU ARE NOW A {factionTesting}");
-        //}
+        //TESTING FACTION CHANGES
+        static void TESTO()
+        {
+            
+            var character = CharacterManager.Instance.GetFirstLocalCharacter();
+            var factionTesting = character.Faction + 1;
+            if (factionTesting == Character.Factions.COUNT)
+                factionTesting = Character.Factions.Player;
+        
+            character.ChangeFaction(factionTesting);
+            character.CharacterUI.ShowInfoNotification($"YOU ARE NOW A {factionTesting}");
+        }
 
-        //[HarmonyPatch(typeof(Item), "Use", new Type[] { typeof(Character) })]
-        //public class Item_Usage
-        //{
-        //    [HarmonyPrefix]
-        //    public static void Postfix(Item __instance, Character _character)
-        //    {
-        //        if (__instance.ItemID == 8100072)
-        //            TESTO();
-        //    }
-        //}
+        [HarmonyPatch(typeof(Item), "Use", new Type[] { typeof(Character) })]
+        public class Item_Usage
+        {
+            [HarmonyPrefix]
+            public static void Postfix(Item __instance, Character _character)
+            {
+                if (__instance.ItemID == 8100072)
+                    TESTO();
+            }
+        }
 
         #endregion
     }

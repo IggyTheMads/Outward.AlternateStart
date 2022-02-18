@@ -18,6 +18,7 @@
         SandBandit,
         LevantMercenary,
         RobbedTrader,
-        GhostTrapScenario
+        GhostTrapScenario //Basically a chasing scenario
+
     }
 }
