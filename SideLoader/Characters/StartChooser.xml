@@ -128,7 +128,7 @@
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
-            <SkillID>-2207</SkillID>
+            <SkillID>-2209</SkillID>
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>
@@ -170,7 +170,7 @@
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
-            <SkillID>-2209</SkillID>
+            <SkillID>-2208</SkillID>
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>
@@ -189,6 +189,16 @@
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>3</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2207</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
         </Slots>
       </SL_SkillRow>
       <SL_SkillRow>
@@ -200,7 +210,7 @@
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
-            <SkillID>-2200</SkillID>
+            <SkillID>-2211</SkillID>
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>

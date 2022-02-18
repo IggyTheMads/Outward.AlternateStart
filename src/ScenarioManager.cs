@@ -138,8 +138,8 @@ namespace AlternateStart
             yield return new WaitForSeconds(0.2f);
 
             // The player acquired a passive. Let's just check if both a difficulty and area are chosen...
-            // (or its the test)
-            if (character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioAreas.Test)
+            // OR they chose Vanilla.
+            if (character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioDifficulty.VANILLA)
                 || (IsAnyChosen<ScenarioDifficulty>(character) && IsAnyChosen<ScenarioAreas>(character)))
             {
                 // We are ready to pick and start our scenario.
@@ -181,13 +181,12 @@ namespace AlternateStart
         {
             var host = CharacterManager.Instance.GetWorldHostCharacter();
 
-            // // Check for test scenario
-            // if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioAreas.Test))
-            // {
-            //     Plugin.LogWarning($"~~~ Starting test scenario ~~~");
-            //     Plugin.Instance.StartCoroutine(startScenarios[Scenarios.Test].StartScenario());
-            //     yield break;
-            // }
+            if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioDifficulty.VANILLA))
+            {
+                // They chose the Vanilla scenario.
+                Plugin.Instance.StartCoroutine(startScenarios[Scenarios.Vanilla].StartScenario());
+                yield break;
+            }
 
             // Get our choices
             TryGetChoice(host, out ScenarioDifficulty difficultyChoice);
@@ -197,6 +196,12 @@ namespace AlternateStart
             var eligable = new List<Scenario>();
             foreach (Scenario entry in startScenarios.Values)
             {
+                if (entry.Type == Scenarios.Vanilla)
+                {
+                    // We don't want to randomly pick the Vanilla scenario.
+                    continue;
+                }
+
                 // If the Scenario's difficulty doesn't match our choice, skip.
                 if (difficultyChoice != ScenarioDifficulty.ANY && entry.Difficulty != difficultyChoice)
                     continue;

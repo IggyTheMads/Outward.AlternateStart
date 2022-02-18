@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SL_Skill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>8205100</Target_ItemID>
-  <New_ItemID>-2200</New_ItemID>
-  <Name>TESTING</Name>
-  <Description>TESTING</Description>
+  <New_ItemID>-2211</New_ItemID>
+  <Name>Vanilla</Name>
+  <Description>The vanilla Outward starting experience.</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>

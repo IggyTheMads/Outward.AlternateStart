@@ -10,7 +10,7 @@ namespace AlternateStart.StartScenarios
     public class VanillaScenario : Scenario
     {
         public override Scenarios Type => Scenarios.Vanilla;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
+        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.VANILLA;
         public override ScenarioAreas Area => ScenarioAreas.Chersonese;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Tutorial;
@@ -30,6 +30,7 @@ namespace AlternateStart.StartScenarios
         public override void OnStartSpawn(Character character)
         {
             character.Inventory.AddMoney(27);
+            character.Stats.FullStamina();
         }
 
         public override void UpdateQuestProgress(Quest quest)

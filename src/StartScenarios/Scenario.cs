@@ -113,7 +113,6 @@ namespace AlternateStart.StartScenarios
         /// <summary>
         /// Called after we load the SpawnScene for each character.
         /// </summary>
-        /// <param name="character"></param>
         public virtual void OnStartSpawn(Character character)
         {
         }
