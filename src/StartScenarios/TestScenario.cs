@@ -184,7 +184,7 @@ namespace AlternateStart.StartScenarios
             };
 
             // Create and apply the template
-            var template = testCharacter.CreateTemplate();
+            var template = testCharacter.CreateAndApplyTemplate();
 
             // Add a listener to set up our dialogue
             testCharacter.OnSetupDialogueGraph += TestCharacter_OnSetupDialogueGraph;

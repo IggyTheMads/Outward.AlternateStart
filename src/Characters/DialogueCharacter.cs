@@ -40,7 +40,7 @@ namespace AlternateStart.Characters
 
         public event Action<DialogueTree, Character> OnSetupDialogueGraph;
 
-        public SL_Character CreateTemplate()
+        public SL_Character CreateAndApplyTemplate()
         {
             SL_Character template = new()
             {
