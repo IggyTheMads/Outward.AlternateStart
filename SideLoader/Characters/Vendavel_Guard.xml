@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SL_Character xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SaveType>Temporary</SaveType>
+  <UID>com.iggy.vendavelbandit</UID>
+  <Name>Vendavel Bandit</Name>
+  <DestroyOnDeath>false</DestroyOnDeath>
+  <StartingPose>SetAsleep</StartingPose>
+  <Scale>
+    <x>1</x>
+    <y>1</y>
+    <z>1</z>
+  </Scale>
+  <StartSheathed>true</StartSheathed>
+  <SpawnPosition>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </SpawnPosition>
+  <SpawnRotation>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </SpawnRotation>
+  <Faction>Bandits</Faction>
+  <TargetableFactions />
+  <CharacterVisualsData>
+    <Gender>Male</Gender>
+    <HairColorIndex>0</HairColorIndex>
+    <HairStyleIndex>0</HairStyleIndex>
+    <HeadVariationIndex>0</HeadVariationIndex>
+    <SkinIndex>0</SkinIndex>
+  </CharacterVisualsData>
+  <Weapon_ID>2000010</Weapon_ID>
+  <Shield_ID xsi:nil="true" />
+  <Helmet_ID>3100004</Helmet_ID>
+  <Chest_ID>3100003</Chest_ID>
+  <Boots_ID>3100005</Boots_ID>
+  <Backpack_ID xsi:nil="true" />
+  <Backpack_Items />
+  <Pouch_Items>
+    <SL_ItemQty>
+      <ItemID>3100003</ItemID>
+      <Quantity>1</Quantity>
+    </SL_ItemQty>
+    <SL_ItemQty>
+      <ItemID>3100004</ItemID>
+      <Quantity>1</Quantity>
+    </SL_ItemQty>
+    <SL_ItemQty>
+      <ItemID>3100005</ItemID>
+      <Quantity>1</Quantity>
+    </SL_ItemQty>
+  </Pouch_Items>
+  <LootableOnDeath>true</LootableOnDeath>
+  <DropPouchContents>true</DropPouchContents>
+  <DropWeapons>true</DropWeapons>
+  <DropTableUIDs>
+    <string>vendavel.loot</string>
+  </DropTableUIDs>
+  <Health>5</Health>
+  <HealthRegen>0</HealthRegen>
+  <ImpactResist>0</ImpactResist>
+  <Protection>0</Protection>
+  <Barrier>0</Barrier>
+  <Damage_Resists>
+    <float>-100</float>
+    <float>-100</float>
+    <float>-100</float>
+    <float>-100</float>
+    <float>-100</float>
+    <float>-100</float>
+  </Damage_Resists>
+  <Damage_Bonus>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+  </Damage_Bonus>
+  <Status_Immunity />
+</SL_Character>
