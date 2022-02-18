@@ -115,6 +115,27 @@ namespace AlternateStart.StartScenarios
                 var quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
                 UpdateQuestProgress(quest);
             }
+
+            if(SceneManagerHelper.ActiveSceneName == "Abrassar_Dungeon6")
+            {
+                var enemies = Plugin.FindObjectsOfType<Character>();
+                ShowUIMessage(enemies.Length + "left alive.");
+            }
+        }
+
+        [HarmonyPatch(typeof(CharacterAI), "OnDeath", new Type[] { typeof(bool) })]
+        public class CharacterAI_TryActivateBasicAction
+        {
+            [HarmonyPrefix]
+            public void Prefix(CharacterAI __instance, bool _loadedDead)
+            {
+                //Debug.Log("PEPEEEE");
+                if (SceneManagerHelper.ActiveSceneName == "Abrassar_Dungeon6")
+                {
+                    var enemies = Plugin.FindObjectsOfType<Character>();
+                    Instance.ShowUIMessage(enemies.Length + "left alive.");
+                }
+            }
         }
 
         void StartDelayedQuestUpdate()

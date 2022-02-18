@@ -351,6 +351,7 @@
     <Compile Include="StartScenarios\SandBanditScenario.cs" />
     <Compile Include="StartScenarios\VanillaAlternateScenario.cs" />
     <Compile Include="StartScenarios\GhostTrapScenario.cs" />
+    <Compile Include="StartScenarios\RobbedTraderScenario.cs" />
     <Compile Include="StartScenarios\VendavelSlaveScenario.cs" />
     <Compile Include="VanillaQuestsHelper.cs" />
     <Compile Include="Enums\ScenarioAreas.cs" />

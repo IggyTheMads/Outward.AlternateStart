@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SL_Bag xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Target_ItemID>5300120</Target_ItemID>
+  <New_ItemID>-2353</New_ItemID>
+  <Name>Trader Goods</Name>
+  <Description>Requested goods for Cierzo's Alchemist.
+
+&lt;color=#ff5043&gt;Getting hit while carrying this will break it.&lt;/color&gt;</Description>
+  <LegacyItemID>-1</LegacyItemID>
+  <IsPickable>true</IsPickable>
+  <IsUsable>false</IsUsable>
+  <QtyRemovedOnUse>1</QtyRemovedOnUse>
+  <GroupItemInDisplay>false</GroupItemInDisplay>
+  <HasPhysicsWhenWorld>false</HasPhysicsWhenWorld>
+  <RepairedInRest>false</RepairedInRest>
+  <BehaviorOnNoDurability>Destroy</BehaviorOnNoDurability>
+  <CastType>NONE</CastType>
+  <CastModifier>Immobilized</CastModifier>
+  <CastLocomotionEnabled>false</CastLocomotionEnabled>
+  <MobileCastMovementMult>-1</MobileCastMovementMult>
+  <CastSheatheRequired>1</CastSheatheRequired>
+  <OverrideSellModifier>-1</OverrideSellModifier>
+  <Tags>
+    <string>Backpack</string>
+    <string>Item</string>
+  </Tags>
+  <StatsHolder xsi:type="SL_EquipmentStats">
+    <BaseValue>1200</BaseValue>
+    <RawWeight>150</RawWeight>
+    <MaxDurability>15</MaxDurability>
+    <Damage_Resistance>
+      <float>40</float>
+    </Damage_Resistance>
+    <Impact_Resistance>-50</Impact_Resistance>
+    <Damage_Protection>3</Damage_Protection>
+    <Damage_Bonus>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+    </Damage_Bonus>
+    <Impact_Bonus>0</Impact_Bonus>
+    <Stamina_Use_Penalty>100</Stamina_Use_Penalty>
+    <Mana_Use_Modifier>0</Mana_Use_Modifier>
+    <Mana_Regen>0</Mana_Regen>
+    <Movement_Penalty>40</Movement_Penalty>
+    <Pouch_Bonus>0</Pouch_Bonus>
+    <Heat_Protection>0</Heat_Protection>
+    <Cold_Protection>0</Cold_Protection>
+    <Corruption_Protection>0</Corruption_Protection>
+    <Health_Regen>0</Health_Regen>
+    <Cooldown_Reduction>0</Cooldown_Reduction>
+    <BarrierProtection>0</BarrierProtection>
+    <GlobalStatusEffectResistance>0</GlobalStatusEffectResistance>
+    <StaminaRegenModifier>0</StaminaRegenModifier>
+  </StatsHolder>
+  <ExtensionsEditBehaviour>NONE</ExtensionsEditBehaviour>
+  <ItemExtensions />
+  <EffectBehaviour>Destroy</EffectBehaviour>
+  <EffectTransforms />
+  <ItemVisuals>
+    <ResourcesPrefabPath>Assets/_Prefabs/_ItemsAssets/5000000_Others/5300000_Backpacks/5300060_AlchemistBackpack_v</ResourcesPrefabPath>
+    <Prefab_SLPack />
+    <Prefab_AssetBundle />
+    <Prefab_Name />
+    <Position>
+      <x>0</x>
+      <y>0</y>
+      <z>0</z>
+    </Position>
+    <Rotation>
+      <x>90</x>
+      <y>0</y>
+      <z>0</z>
+    </Rotation>
+    <Scale>
+      <x>1</x>
+      <y>1</y>
+      <z>1</z>
+    </Scale>
+    <PositionOffset xsi:nil="true" />
+    <RotationOffset xsi:nil="true" />
+  </ItemVisuals>
+  <EquipSlot>Back</EquipSlot>
+  <TwoHandType>None</TwoHandType>
+  <IKType>None</IKType>
+  <VisualDetectabilityAdd>100</VisualDetectabilityAdd>
+  <RequiredPlayerType>Normal</RequiredPlayerType>
+  <Capacity>0</Capacity>
+  <Restrict_Dodge>true</Restrict_Dodge>
+  <InventoryProtection>2</InventoryProtection>
+</SL_Bag>

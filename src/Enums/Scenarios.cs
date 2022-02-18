@@ -19,7 +19,7 @@
         EmercarExplorer = -2312,
         SandBandit = -2313,
         LevantMercenary = -2314,
-        //RobbedTrader = -2315, // not yet implemented
+        RobbedTrader = -2315,
         GhostTrapScenario = -2316,
     }
 }
