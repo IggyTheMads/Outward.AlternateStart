@@ -59,12 +59,21 @@ namespace AlternateStart.StartScenarios
         
         // Abstract methods (must override)
 
+        /// <summary>
+        /// Called when we spawn into our SpawnScene.
+        /// </summary>
         public abstract void OnStartSpawn();
 
+        /// <summary>
+        /// If HasQuest is true, use this to update our Quest log progress.
+        /// </summary>
         public abstract void UpdateQuestProgress(Quest quest);
 
         // Virtual methods (optional override)
 
+        /// <summary>
+        /// Called during the Awake of our Plugin, use this to set up the Scenario's quest events and things like that.
+        /// </summary>
         public virtual void Init()
         {
             SL.OnPacksLoaded += OnPacksLoaded;
@@ -72,12 +81,18 @@ namespace AlternateStart.StartScenarios
             QE_ScenarioQuestEvent = CustomQuests.CreateQuestEvent(QE_Scenario_UID, false, false, true, Plugin.QUEST_EVENT_FAMILY_NAME);
         }
 
+        /// <summary>
+        /// Called at SL.OnPacksLoaded.
+        /// </summary>
         public virtual void OnPacksLoaded()
         {
             if (HasQuest)
                 PrepareSLQuest();
         }
 
+        /// <summary>
+        /// Called as soon as the player picks this scenario in the In Between.
+        /// </summary>
         public virtual void OnScenarioChosen()
         {
             // Setup starting items etc
@@ -88,10 +103,17 @@ namespace AlternateStart.StartScenarios
             }
         }
 
+        /// <summary>
+        /// Called for each player character at OnScenarioChosen.
+        /// </summary>
         public virtual void OnScenarioChosen(Character character)
         {
         }
 
+        /// <summary>
+        /// Called after we load the SpawnScene for each character.
+        /// </summary>
+        /// <param name="character"></param>
         public virtual void OnStartSpawn(Character character)
         {
         }
@@ -177,6 +199,9 @@ namespace AlternateStart.StartScenarios
             QuestTemplate.OnQuestLoaded += UpdateQuestProgress;
         }
 
+        /// <summary>
+        /// If the host character has our quest this returns their instance of the quest, otherwise it gives it to them first.
+        /// </summary>
         public Quest GetOrGiveQuestToHost()
         {
             Character character = CharacterManager.Instance.GetWorldHostCharacter();
@@ -196,6 +221,9 @@ namespace AlternateStart.StartScenarios
             return quest;
         }
 
+        /// <summary>
+        /// Show a UI Notification message.
+        /// </summary>
         public void ShowUIMessage(string message)
         {
             if (CharacterManager.Instance == null || string.IsNullOrEmpty(message))
