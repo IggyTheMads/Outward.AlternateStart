@@ -84,6 +84,8 @@ namespace AlternateStart
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld" && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
             {
                 SetFullStop(true);
+
+                // Remove starting silver
                 foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
                 {
                     var character = CharacterManager.Instance.GetCharacter(uid);
@@ -179,14 +181,13 @@ namespace AlternateStart
         {
             var host = CharacterManager.Instance.GetWorldHostCharacter();
 
-            // Check for test scenario
-            // Change this to test a specific scenario
-            if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioAreas.Test))
-            {
-                Plugin.LogWarning($"~~~ Starting test scenario ~~~");
-                Plugin.Instance.StartCoroutine(startScenarios[Scenarios.GhostTrapScenario].StartScenario());  // Change this to TEST a specific scenario
-                yield break;
-            }
+            // // Check for test scenario
+            // if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioAreas.Test))
+            // {
+            //     Plugin.LogWarning($"~~~ Starting test scenario ~~~");
+            //     Plugin.Instance.StartCoroutine(startScenarios[Scenarios.Test].StartScenario());
+            //     yield break;
+            // }
 
             // Get our choices
             TryGetChoice(host, out ScenarioDifficulty difficultyChoice);
@@ -214,7 +215,8 @@ namespace AlternateStart
                 CharacterManager.Instance
                     .GetWorldHostCharacter()
                     .CharacterUI
-                    .ShowInfoNotification($"Sorry, there are no {difficultyChoice} {areaChoice} scenarios!");
+                    .NotificationPanel
+                    .ShowNotification($"Sorry, there are no {difficultyChoice} {areaChoice} scenarios!");
 
                 yield break; // Don't start the scenario!
             }
@@ -228,6 +230,31 @@ namespace AlternateStart
 
             // Start it!
             Plugin.Instance.StartCoroutine(scenario.StartScenario());
+        }
+
+
+        // FOR DEBUG
+
+        internal static void OnGUI()
+        {
+            if (!NetworkLevelLoader.Instance.AllPlayerDoneLoading)
+                return;
+
+            if (SceneManagerHelper.ActiveSceneName == "DreamWorld"
+                && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
+            {
+                GUILayout.BeginArea(new Rect(25, 25, 250, 30 * startScenarios.Count), GUI.skin.box);
+
+                foreach (var scenario in startScenarios)
+                {
+                    if (GUILayout.Button(scenario.Key.ToString()))
+                    {
+                        Plugin.Instance.StartCoroutine(scenario.Value.StartScenario());
+                    }
+                }
+
+                GUILayout.EndArea();
+            }
         }
 
 

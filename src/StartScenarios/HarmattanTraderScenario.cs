@@ -11,20 +11,24 @@ namespace AlternateStart.StartScenarios
     {
         public override Scenarios Type => Scenarios.HarmattanTrader;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioTheme Theme => ScenarioTheme.Magic;
         public override ScenarioAreas Area => ScenarioAreas.AntiquePlateau;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Harmattan;
         public override Vector3 SpawnPosition => default;
 
-        public override string SL_Quest_FileName => null;
-        public override int SL_Quest_ItemID => -1;
-
-        public override void PreScenarioBegin()
+        public override bool HasQuest => false;
+        public override string QuestName => "";
+        public override Dictionary<string, string> QuestLogSignatures => new()
         {
 
+        };
+
+        public override void OnScenarioChosen()
+        {
+            VanillaQuestsHelper.SkipHostToFactionChoice(false);
         }
-        public override void OnStartSpawn(Character character)
+
+        public override void OnScenarioChosen(Character character)
         {
             character.Stats.FullStamina();
             character.Inventory.ReceiveItemReward(9000010, 612, false); //bonus mega gold
@@ -32,10 +36,13 @@ namespace AlternateStart.StartScenarios
             character.Inventory.ReceiveItemReward(3000004, 1, true); //legs trader
         }
 
-        public override void OnScenarioBegin()
+        public override void OnStartSpawn()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false);
             CharacterManager.Instance.GetWorldHostCharacter().Inventory.QuestKnowledge.ReceiveQuest(VanillaQuestsHelper.enrollmentQ);
+        }
+
+        public override void OnStartSpawn(Character character)
+        {
         }
 
         public override void UpdateQuestProgress(Quest quest)
