@@ -84,6 +84,11 @@ namespace AlternateStart
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld" && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
             {
                 SetFullStop(true);
+                foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
+                {
+                    var character = CharacterManager.Instance.GetCharacter(uid);
+                    character.Inventory.RemoveMoney(27, true);
+                }
             }
         }
 

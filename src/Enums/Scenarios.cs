@@ -17,6 +17,7 @@
         EmercarExplorer,
         SandBandit,
         LevantMercenary,
-        RobbedTrader
+        RobbedTrader,
+        GhostTrapScenario
     }
 }

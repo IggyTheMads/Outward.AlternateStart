@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using HarmonyLib;
 
 namespace AlternateStart.StartScenarios
 {
@@ -29,6 +30,12 @@ namespace AlternateStart.StartScenarios
 
         static QuestEventSignature QE_StartTimer;
         const string QE_StartTimer_UID = "iggythemad.sandbandits.starttimer";
+
+        internal static SandBanditScenario Instance { get; private set; }
+        public SandBanditScenario()
+        {
+            Instance = this;
+        }
 
         public override void Init()
         {
@@ -120,9 +127,9 @@ namespace AlternateStart.StartScenarios
 
             QuestProgress progress = quest.m_questProgress;
 
-            progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), timer >= 0.1f);
+            progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), timer >= 0.4f);
 
-            if (timer >= 0.1f)
+            if (timer >= 0.4f)
             {
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 ChangeCharactersFactions(Character.Factions.Player, "You've deserted the Sand Corsairs!");
@@ -132,8 +139,37 @@ namespace AlternateStart.StartScenarios
 
                 progress.DisableQuest(QuestProgress.ProgressState.Successful);
             }
-            else // Wait another 20 seconds and update it again until its completed. //IGGY: Not working. Only deserts on load screens
+            else // Wait another 20 seconds and update it again until its completed. //IGGY: Not working. Only deserting on load screens
                 Plugin.Instance.StartCoroutine(UpdateQuestAfterDelay());
+        }
+
+        [HarmonyPatch(typeof(CharacterManager), "RequestAreaSwitch")]
+        public class CharacterManager_RequestAreaSwitch
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(CharacterManager __instance, Character _character, Area _areaToSwitchTo, int _longTravelTime, int _spawnPoint, float _offset, string _overrideLocKey)
+            {
+                if (!Instance.IsActiveScenario)
+                    return true;
+
+                // Do nothing if we are not the host.
+                if (PhotonNetwork.isNonMasterClientInRoom)
+                    return true;
+
+                if (_areaToSwitchTo.SceneName == "Levant") //IGGY: Cant make quest completion requierement work, I get null reference exception
+                {
+                    //var host = CharacterManager.Instance.GetWorldHostCharacter();
+                    //var quest = host.Inventory.SkillKnowledge.GetItemFromItemID(Instance.SL_Quest_ItemID) as Quest;
+                    //QuestProgress progress = quest.GetComponent<QuestProgress>();
+                    //if (progress.m_progressState != QuestProgress.ProgressState.Successful)
+                    //{
+                        _character.CharacterUI.ShowInfoNotification("You are not welcome here");
+                        return false;
+                    //}
+                    //return true;
+                }
+                else { return true; }
+            }
         }
     }
 }
