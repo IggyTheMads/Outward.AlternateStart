@@ -2,6 +2,7 @@
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using SideLoader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ using UnityEngine;
 namespace AlternateStart
 {
     [BepInPlugin(GUID, NAME, VERSION)]
+    [BepInDependency(SL.GUID, BepInDependency.DependencyFlags.HardDependency)]
     public class Plugin : BaseUnityPlugin
     {
         const string GUID = "com.iggy.altstart";

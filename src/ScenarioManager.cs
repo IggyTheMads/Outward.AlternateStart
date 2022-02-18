@@ -248,7 +248,7 @@ namespace AlternateStart
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld"
                 && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
             {
-                GUILayout.BeginArea(new Rect(25, 25, 250, 30 * startScenarios.Count), GUI.skin.box);
+                GUILayout.BeginArea(new Rect(25, 25, 250, 25 * startScenarios.Count), GUI.skin.box);
 
                 foreach (var scenario in startScenarios)
                 {

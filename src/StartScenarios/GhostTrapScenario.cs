@@ -91,8 +91,9 @@ namespace AlternateStart.StartScenarios
                     {
                         var interaction = activator.BasicInteraction;
                         if (interaction is InteractionOpenContainer)
+                        {
                             return false;
-
+                        }
                         else if (interaction is InteractionToggleContraption
                             && Vector3.Distance(_character.CenterPosition, Instance.SpawnPosition) < 5f)
                         {

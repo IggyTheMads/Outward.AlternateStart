@@ -339,6 +339,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Characters\DialogueCharacter.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="StartScenarios\ConfluxWatcherScenario.cs" />
     <Compile Include="StartScenarios\EnmerkarExplorerScenario.cs" />

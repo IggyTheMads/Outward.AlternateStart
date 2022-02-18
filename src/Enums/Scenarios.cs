@@ -5,7 +5,7 @@
     /// </summary>
     public enum Scenarios
     {
-        //Test = -2301,
+        Test = -2301,
         Vanilla = -2302,
         VanillaAlt = -2303,
         LevantSlums = -2304,
