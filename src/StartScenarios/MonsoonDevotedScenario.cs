@@ -11,25 +11,24 @@ namespace AlternateStart.StartScenarios
     {
         public override Scenarios Type => Scenarios.MonsoonDevoted;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioTheme Theme => ScenarioTheme.Magic;
         public override ScenarioAreas Area => ScenarioAreas.HallowedMarsh;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Monsoon;
         public override Vector3 SpawnPosition => default;
 
-        public override string SL_Quest_FileName => null;
-        public override int SL_Quest_ItemID => -1;
-
-        public override void PreScenarioBegin()
+        public override bool HasQuest => false;
+        public override string QuestName => "";
+        public override Dictionary<string, string> QuestLogSignatures => new()
         {
 
-        }
-        public override void OnScenarioBegin()
+        };
+
+        public override void OnScenarioChosen()
         {
             VanillaQuestsHelper.SkipHostToFactionChoice(false);
         }
 
-        public override void OnStartSpawn(Character character)
+        public override void OnScenarioChosen(Character character)
         {
             character.Stats.FullStamina();
             character.Inventory.ReceiveSkillReward(8100250); //chakram arc
@@ -39,6 +38,14 @@ namespace AlternateStart.StartScenarios
             character.Inventory.ReceiveItemReward(3000174, 1, true); //sandals
             character.Inventory.ReceiveItemReward(2020010, 1, false); //mace
             character.Inventory.ReceiveItemReward(5110030, 1, true); //chakram
+        }
+
+        public override void OnStartSpawn()
+        {
+        }
+
+        public override void OnStartSpawn(Character character)
+        {
         }
 
         public override void UpdateQuestProgress(Quest quest)

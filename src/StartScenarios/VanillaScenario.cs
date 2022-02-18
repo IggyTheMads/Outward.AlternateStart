@@ -11,25 +11,25 @@ namespace AlternateStart.StartScenarios
     {
         public override Scenarios Type => Scenarios.Vanilla;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioTheme Theme => ScenarioTheme.None;
         public override ScenarioAreas Area => ScenarioAreas.Chersonese;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Tutorial;
         public override Vector3 SpawnPosition => default;
 
-        public override string SL_Quest_FileName => null;
-        public override int SL_Quest_ItemID => -1;
-
-        public override void PreScenarioBegin()
+        public override bool HasQuest => false;
+        public override string QuestName => "";
+        public override Dictionary<string, string> QuestLogSignatures => new()
         {
 
-        }
-        public override void OnScenarioBegin()
+        };
+
+        public override void OnStartSpawn()
         {
         }
 
         public override void OnStartSpawn(Character character)
         {
+            character.Inventory.AddMoney(27);
         }
 
         public override void UpdateQuestProgress(Quest quest)

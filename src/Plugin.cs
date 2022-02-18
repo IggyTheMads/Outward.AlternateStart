@@ -34,6 +34,11 @@ namespace AlternateStart
             harmony.PatchAll();
         }
 
+        internal void OnGUI()
+        {
+            ScenarioManager.OnGUI();
+        }
+
         internal static void Log(object log) => Instance.Logger.LogMessage(log?.ToString() ?? string.Empty);
         internal static void LogWarning(object log) => Instance.Logger.LogWarning(log?.ToString() ?? string.Empty);
         internal static void LogError(object log) => Instance.Logger.LogError(log?.ToString() ?? string.Empty);
