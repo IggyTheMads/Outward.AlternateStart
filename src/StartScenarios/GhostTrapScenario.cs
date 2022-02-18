@@ -96,7 +96,7 @@ namespace AlternateStart.StartScenarios
                         else if (interaction is InteractionToggleContraption
                             && Vector3.Distance(_character.CenterPosition, Instance.SpawnPosition) < 5f)
                         {
-                            _character.CharacterUI.ShowInfoNotification("Lever is stuck...");
+                            _character.CharacterUI.ShowInfoNotification("The lever is stuck...");
                             return false;
                         }
                         else if (interaction is InteractionSwitchArea 

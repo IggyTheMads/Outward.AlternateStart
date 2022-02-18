@@ -17,11 +17,6 @@ namespace AlternateStart.StartScenarios
         public override Vector3 SpawnPosition => default;
 
         public override bool HasQuest => false;
-        public override string QuestName => "";
-        public override Dictionary<string, string> QuestLogSignatures => new()
-        {
-
-        };
 
         public override void OnStartSpawn()
         {
