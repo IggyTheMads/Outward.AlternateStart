@@ -93,6 +93,7 @@ namespace AlternateStart.StartScenarios
                         }
                         else if(interaction as InteractionSwitchArea == true && !_character.Inventory.OwnsOrHasEquipped(Instance.keyID))
                         {
+                            //update quest to requiere key maybe
                             _character.CharacterUI.ShowInfoNotification("It is locked...");
                             return false;
                         }
