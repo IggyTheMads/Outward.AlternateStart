@@ -84,7 +84,7 @@ namespace AlternateStart
         
         internal static IEnumerator AddPrefactionEvents(bool keepHouse)
         {
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.1f); 
         
             AddQuestEvent(playerInCierzo);
             AddQuestEvent(tutorialIntroFinished);

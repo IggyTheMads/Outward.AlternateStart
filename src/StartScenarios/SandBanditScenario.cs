@@ -116,25 +116,52 @@ namespace AlternateStart.StartScenarios
                 UpdateQuestProgress(quest);
             }
 
-            if(SceneManagerHelper.ActiveSceneName == "Abrassar_Dungeon6")
+            if (SceneManagerHelper.ActiveSceneName == "Abrassar_Dungeon6")
             {
                 var enemies = Plugin.FindObjectsOfType<Character>();
-                ShowUIMessage(enemies.Length + "left alive.");
+                int enemiesAlive = 0;
+                foreach (var enemy in enemies)
+                {
+                    if (enemy.Alive && enemy.IsAI) { enemiesAlive += 1; }
+                }
+                Instance.ShowUIMessage(enemiesAlive + "left alive.");
             }
         }
 
-        [HarmonyPatch(typeof(CharacterAI), "OnDeath", new Type[] { typeof(bool) })]
-        public class CharacterAI_TryActivateBasicAction
+        [HarmonyPatch(typeof(CharacterStats), "ReceiveDamage")]
+        public class Character_ReceiveDamage
         {
-            [HarmonyPrefix]
-            public void Prefix(CharacterAI __instance, bool _loadedDead)
+            [HarmonyPostfix]
+            public static void Postfix(CharacterStats __instance, ref float _damage, ref Character ___m_character)
             {
-                //Debug.Log("PEPEEEE");
-                if (SceneManagerHelper.ActiveSceneName == "Abrassar_Dungeon6")
+                if (!Instance.IsActiveScenario || !___m_character.IsAI) return;
+                if (SceneManagerHelper.ActiveSceneName != "Abrassar_Dungeon6") { return; }
+                if(_damage > __instance.CurrentHealth)
                 {
-                    var enemies = Plugin.FindObjectsOfType<Character>();
-                    Instance.ShowUIMessage(enemies.Length + "left alive.");
+                    Plugin.Instance.StartCoroutine(Instance.LeftAlive());
                 }
+            }
+        }
+
+        IEnumerator LeftAlive()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            var enemies = Plugin.FindObjectsOfType<Character>();
+            List<Character> enemiesAlive = new List<Character>();
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Alive && enemy.IsAI) { enemiesAlive.Add(enemy); }
+            }
+            //var host = CharacterManager.Instance?.GetWorldHostCharacter();
+            //host.Teleport(enemiesAlive.First<Character>().transform.position, host.transform.rotation);
+            if(enemiesAlive.Count > 0)
+            {
+                Instance.ShowUIMessage(enemiesAlive.Count + "left alive.");
+            }
+            else
+            {
+                //complete vengeance quest
             }
         }
 
@@ -207,11 +234,11 @@ namespace AlternateStart.StartScenarios
         //     {
         //         if (!Instance.IsActiveScenario)
         //             return true;
-// 
+        // 
         //         // Do nothing if we are not the host.
         //         if (PhotonNetwork.isNonMasterClientInRoom)
         //             return true;
-// 
+        // 
         //         if (_areaToSwitchTo.SceneName == "Levant") //IGGY: Cant make quest completion requierement work, I get null reference exception
         //         {
         //             //var host = CharacterManager.Instance.GetWorldHostCharacter();

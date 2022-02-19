@@ -84,7 +84,7 @@ namespace AlternateStart
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld" && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
             {
                 SetFullStop(true);
-
+                OnGUI();
                 // Remove starting silver
                 foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
                 {
@@ -290,7 +290,7 @@ namespace AlternateStart
         //static Character.Factions factionTesting = Character.Factions.NONE;
 
         //TESTING FACTION CHANGES
-        static void TESTO()
+        /*static void TESTO()
         {
             
             var character = CharacterManager.Instance.GetFirstLocalCharacter();
@@ -311,7 +311,7 @@ namespace AlternateStart
                 if (__instance.ItemID == 8100072)
                     TESTO();
             }
-        }
+        }*/
 
         #endregion
     }

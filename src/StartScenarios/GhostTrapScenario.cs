@@ -109,18 +109,8 @@ namespace AlternateStart.StartScenarios
                         }
                     }
                 }
-
-                //useful Stuff
-                    //InteractionOpenContainer
-                    //InteractionSwitchArea
-                    //InteractionWarp
-                    //InteractionToggleContraption
-                    //InteractionRevive
-
                 return true;
             }
         }
-
-        
     }
 }

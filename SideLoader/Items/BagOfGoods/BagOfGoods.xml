@@ -25,14 +25,22 @@
     <string>Item</string>
   </Tags>
   <StatsHolder xsi:type="SL_EquipmentStats">
-    <BaseValue>1200</BaseValue>
+    <BaseValue>3000</BaseValue>
     <RawWeight>150</RawWeight>
-    <MaxDurability>15</MaxDurability>
+    <MaxDurability>20</MaxDurability>
     <Damage_Resistance>
       <float>40</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
     </Damage_Resistance>
     <Impact_Resistance>-50</Impact_Resistance>
-    <Damage_Protection>3</Damage_Protection>
+    <Damage_Protection>5</Damage_Protection>
     <Damage_Bonus>
       <float>0</float>
       <float>0</float>
@@ -45,10 +53,10 @@
       <float>0</float>
     </Damage_Bonus>
     <Impact_Bonus>0</Impact_Bonus>
-    <Stamina_Use_Penalty>100</Stamina_Use_Penalty>
+    <Stamina_Use_Penalty>-40</Stamina_Use_Penalty>
     <Mana_Use_Modifier>0</Mana_Use_Modifier>
     <Mana_Regen>0</Mana_Regen>
-    <Movement_Penalty>40</Movement_Penalty>
+    <Movement_Penalty>20</Movement_Penalty>
     <Pouch_Bonus>0</Pouch_Bonus>
     <Heat_Protection>0</Heat_Protection>
     <Cold_Protection>0</Cold_Protection>
