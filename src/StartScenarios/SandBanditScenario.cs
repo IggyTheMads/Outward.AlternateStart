@@ -115,6 +115,54 @@ namespace AlternateStart.StartScenarios
                 var quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
                 UpdateQuestProgress(quest);
             }
+
+            if (SceneManagerHelper.ActiveSceneName == "Abrassar_Dungeon6")
+            {
+                var enemies = Plugin.FindObjectsOfType<Character>();
+                int enemiesAlive = 0;
+                foreach (var enemy in enemies)
+                {
+                    if (enemy.Alive && enemy.IsAI) { enemiesAlive += 1; }
+                }
+                Instance.ShowUIMessage(enemiesAlive + "left alive.");
+            }
+        }
+
+        [HarmonyPatch(typeof(CharacterStats), "ReceiveDamage")]
+        public class Character_ReceiveDamage
+        {
+            [HarmonyPostfix]
+            public static void Postfix(CharacterStats __instance, ref float _damage, ref Character ___m_character)
+            {
+                if (!Instance.IsActiveScenario || !___m_character.IsAI) return;
+                if (SceneManagerHelper.ActiveSceneName != "Abrassar_Dungeon6") { return; }
+                if(_damage > __instance.CurrentHealth)
+                {
+                    Plugin.Instance.StartCoroutine(Instance.LeftAlive());
+                }
+            }
+        }
+
+        IEnumerator LeftAlive()
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            var enemies = Plugin.FindObjectsOfType<Character>();
+            List<Character> enemiesAlive = new List<Character>();
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Alive && enemy.IsAI) { enemiesAlive.Add(enemy); }
+            }
+            //var host = CharacterManager.Instance?.GetWorldHostCharacter();
+            //host.Teleport(enemiesAlive.First<Character>().transform.position, host.transform.rotation);
+            if(enemiesAlive.Count > 0)
+            {
+                Instance.ShowUIMessage(enemiesAlive.Count + "left alive.");
+            }
+            else
+            {
+                //complete vengeance quest
+            }
         }
 
         void StartDelayedQuestUpdate()
@@ -186,11 +234,11 @@ namespace AlternateStart.StartScenarios
         //     {
         //         if (!Instance.IsActiveScenario)
         //             return true;
-// 
+        // 
         //         // Do nothing if we are not the host.
         //         if (PhotonNetwork.isNonMasterClientInRoom)
         //             return true;
-// 
+        // 
         //         if (_areaToSwitchTo.SceneName == "Levant") //IGGY: Cant make quest completion requierement work, I get null reference exception
         //         {
         //             //var host = CharacterManager.Instance.GetWorldHostCharacter();
