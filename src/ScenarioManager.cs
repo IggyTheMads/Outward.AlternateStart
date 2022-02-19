@@ -84,7 +84,7 @@ namespace AlternateStart
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld" && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
             {
                 SetFullStop(true);
-                OnGUI();
+
                 // Remove starting silver
                 foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
                 {
