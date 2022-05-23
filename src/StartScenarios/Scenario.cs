@@ -186,7 +186,7 @@ namespace AlternateStart.StartScenarios
                 {
                     UID = sig.Key,
                     Text = sig.Value,
-                    Type = QuestLogEntrySignature.Type.Static,
+                    Type = QuestLogEntrySignatureType.Static,
                 });
             }
 
