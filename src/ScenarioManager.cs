@@ -39,7 +39,7 @@ namespace AlternateStart
                 if (type.IsSubclassOf(typeof(Scenario)))
                 {
                     // Make an instance of the class, like "new Scenario();"
-                    var scenario = Activator.CreateInstance(type) as Scenario;
+                    Scenario scenario = Activator.CreateInstance(type) as Scenario;
                     scenario.Init();
                     // Add it to our dictionary
                     startScenarios.Add(scenario.Type, scenario);
@@ -61,7 +61,7 @@ namespace AlternateStart
                     {
                         for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
                         {
-                            var scene = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
+                            string scene = Path.GetFileNameWithoutExtension(SceneUtility.GetScenePathByBuildIndex(i));
                             if (scene == default)
                                 continue;
                             if (scene == "DreamWorld")
@@ -86,9 +86,9 @@ namespace AlternateStart
                 SetFullStop(true);
 
                 // Remove starting silver
-                foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
+                foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
                 {
-                    var character = CharacterManager.Instance.GetCharacter(uid);
+                    Character character = CharacterManager.Instance.GetCharacter(uid);
                     character.Inventory.RemoveMoney(27, true);
                 }
             }
@@ -101,9 +101,9 @@ namespace AlternateStart
             if (PhotonNetwork.isNonMasterClientInRoom)
                 return;
 
-            foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
+            foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
             {
-                var character = CharacterManager.Instance.GetCharacter(uid);
+                Character character = CharacterManager.Instance.GetCharacter(uid);
 
                 if (add)
                     character.StatusEffectMngr.AddStatusEffect(FULL_STOP_STATUS_IDENTIFIER);
@@ -179,7 +179,7 @@ namespace AlternateStart
         // This is only called when both choices are definitely set.
         static IEnumerator PickAndStartScenario()
         {
-            var host = CharacterManager.Instance.GetWorldHostCharacter();
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
 
             if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioDifficulty.VANILLA))
             {
@@ -193,7 +193,7 @@ namespace AlternateStart
             TryGetChoice(host, out ScenarioAreas areaChoice);
 
             // Determine eligable Scenarios based on choices.
-            var eligable = new List<Scenario>();
+            List<Scenario> eligable = new();
             foreach (Scenario entry in startScenarios.Values)
             {
                 if (entry.Type == Scenarios.Vanilla)
@@ -250,7 +250,7 @@ namespace AlternateStart
             {
                 GUILayout.BeginArea(new Rect(25, 25, 250, 25 * startScenarios.Count), GUI.skin.box);
 
-                foreach (var scenario in startScenarios)
+                foreach (KeyValuePair<Scenarios, Scenario> scenario in startScenarios)
                 {
                     if (GUILayout.Button(scenario.Key.ToString()))
                     {

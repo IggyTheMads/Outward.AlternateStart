@@ -80,10 +80,10 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            var host = CharacterManager.Instance.GetWorldHostCharacter();
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
             if (host.Inventory.QuestKnowledge.IsItemLearned((int)this.Type))
             {
-                var quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
+                Quest quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
                 UpdateQuestProgress(quest);
             }
         }

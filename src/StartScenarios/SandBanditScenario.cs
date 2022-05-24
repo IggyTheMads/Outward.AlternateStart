@@ -92,7 +92,7 @@ namespace AlternateStart.StartScenarios
         {
             foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
             {
-                var character = CharacterManager.Instance.GetCharacter(uid);
+                Character character = CharacterManager.Instance.GetCharacter(uid);
 
                 if (character.Faction == faction)
                     continue;
@@ -109,18 +109,18 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            var host = CharacterManager.Instance.GetWorldHostCharacter();
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
             if (host.Inventory.QuestKnowledge.IsItemLearned((int)this.Type))
             {
-                var quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
+                Quest quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
                 UpdateQuestProgress(quest);
             }
 
             if (SceneManagerHelper.ActiveSceneName == "Abrassar_Dungeon6")
             {
-                var enemies = Plugin.FindObjectsOfType<Character>();
+                Character[] enemies = Plugin.FindObjectsOfType<Character>();
                 int enemiesAlive = 0;
-                foreach (var enemy in enemies)
+                foreach (Character enemy in enemies)
                 {
                     if (enemy.Alive && enemy.IsAI) { enemiesAlive += 1; }
                 }
@@ -147,9 +147,9 @@ namespace AlternateStart.StartScenarios
         {
             yield return new WaitForSeconds(0.5f);
 
-            var enemies = Plugin.FindObjectsOfType<Character>();
-            List<Character> enemiesAlive = new List<Character>();
-            foreach (var enemy in enemies)
+            Character[] enemies = Plugin.FindObjectsOfType<Character>();
+            List<Character> enemiesAlive = new();
+            foreach (Character enemy in enemies)
             {
                 if (enemy.Alive && enemy.IsAI) { enemiesAlive.Add(enemy); }
             }
@@ -175,7 +175,7 @@ namespace AlternateStart.StartScenarios
 
         IEnumerator UpdateQuestAfterDelay()
         {
-            var timer = QuestEventManager.Instance.GetEventActiveTimeDelta(QE_StartTimer.EventUID);
+            float timer = QuestEventManager.Instance.GetEventActiveTimeDelta(QE_StartTimer.EventUID);
 
             while (timer < GRACE_PERIOD_INGAMETIME)
             {
@@ -187,14 +187,14 @@ namespace AlternateStart.StartScenarios
                 timer = QuestEventManager.Instance.GetEventActiveTimeDelta(QE_StartTimer.EventUID);
             }
 
-            var host = CharacterManager.Instance?.GetWorldHostCharacter();
+            Character host = CharacterManager.Instance?.GetWorldHostCharacter();
 
             if (!host)
                 yield break;
 
             if (host.Inventory.QuestKnowledge.IsItemLearned((int)this.Type))
             {
-                var quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
+                Quest quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
                 UpdateQuestProgress(quest);
             }
 
@@ -206,7 +206,7 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            var timer = QuestEventManager.Instance.GetEventActiveTimeDelta(QE_StartTimer.EventUID);
+            float timer = QuestEventManager.Instance.GetEventActiveTimeDelta(QE_StartTimer.EventUID);
 
             QuestProgress progress = quest.m_questProgress;
 

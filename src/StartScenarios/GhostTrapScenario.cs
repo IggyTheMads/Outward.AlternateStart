@@ -89,7 +89,7 @@ namespace AlternateStart.StartScenarios
                     InteractionActivator activator = __instance.CurrentTriggerManager as InteractionActivator;
                     if (activator.BasicInteraction != null)
                     {
-                        var interaction = activator.BasicInteraction;
+                        IInteraction interaction = activator.BasicInteraction;
                         if (interaction is InteractionOpenContainer)
                         {
                             return false;
