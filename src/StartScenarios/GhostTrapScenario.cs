@@ -35,7 +35,10 @@ namespace AlternateStart.StartScenarios
 
         //extras
         public int keyID = -2350;
-        public Vector3 KeyPosition => new(6.2f, -53f, -67.1f);
+        public Vector3 KeyPosition => new(10.2f, -53f, -70.2f);
+        public Vector3 lockedLever => new(6.3f, 0f, -117f);
+        public Vector3 lockedDoor => new(0.4f, 0f, -142f);
+        public string ghostlyTimerID = "GhostlyTimer";
 
         public GhostTrapScenario()
         {
@@ -55,21 +58,32 @@ namespace AlternateStart.StartScenarios
             character.Inventory.ReceiveItemReward(3000136, 1, true); //beggarB legs
 
             character.ChangeFaction(Character.Factions.Deer); //neutral ghosts
-            Item ghostKey = ItemManager.Instance.GenerateItemNetwork(keyID);
-            ghostKey.transform.position = KeyPosition;
         }
 
         public override void OnStartSpawn()
         {
+            Item ghostKey = ItemManager.Instance.GenerateItemNetwork(keyID);
+            ghostKey.transform.position = KeyPosition;
+            Item torch = ItemManager.Instance.GenerateItemNetwork(5100070); //cold torch
+            torch.transform.position = SpawnPosition + new Vector3(0,1f,0);
+
         }
 
         public override void OnStartSpawn(Character character)
         {
+            character.StatusEffectMngr.AddStatusEffect(ghostlyTimerID);
         }
 
         public override void UpdateQuestProgress(Quest quest)
         {
-            // TODO need to remove Deer faction at some point
+            ////////////////////////
+            ///
+            /// ADD quest that tells you to find a way out. If finding a door, update to find the key
+            ///     finding key and exiting completes the quest and you can keep the key (weapon). 
+            ///     Dying (running out of time) throws you out, but without the special ghost weapon
+            /// 
+            ////////////////////////
+
         }
 
         [HarmonyPatch(typeof(InteractionTriggerBase), "TryActivateBasicAction", new Type[] { typeof(Character), typeof(int) })]
@@ -95,13 +109,13 @@ namespace AlternateStart.StartScenarios
                             return false;
                         }
                         else if (interaction is InteractionToggleContraption
-                            && Vector3.Distance(_character.CenterPosition, Instance.SpawnPosition) < 5f)
+                            && (Vector3.Distance(_character.CenterPosition, Instance.SpawnPosition) < 5f) || Vector3.Distance(_character.CenterPosition, Instance.lockedLever) < 5f) //need to stuck center lever too
                         {
                             _character.CharacterUI.ShowInfoNotification("The lever is stuck...");
                             return false;
                         }
                         else if (interaction is InteractionSwitchArea 
-                            && !_character.Inventory.OwnsOrHasEquipped(Instance.keyID))
+                            && (!_character.Inventory.OwnsOrHasEquipped(Instance.keyID) || Vector3.Distance(_character.CenterPosition, Instance.lockedDoor) < 8f))
                         {
                             //update quest to requiere key maybe
                             _character.CharacterUI.ShowInfoNotification("It is locked...");
@@ -110,6 +124,24 @@ namespace AlternateStart.StartScenarios
                     }
                 }
                 return true;
+            }
+        }
+        [HarmonyPatch(typeof(DefeatScenariosManager), "StartDefeat")]
+        public class DefeatScenariosManager_StartDefeat
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(DefeatScenariosManager __instance)
+            {
+                if (!Instance.IsActiveScenario
+                    || PhotonNetwork.isNonMasterClientInRoom)
+                    return true;
+
+                foreach (var player in Global.Lobby.PlayersInLobby)
+                {
+                    player.ControlledCharacter.Resurrect();
+                }
+                NetworkLevelLoader.Instance.RequestSwitchArea(AreaManager.Instance.GetArea(AreaManager.AreaEnum.CierzoOutside).SceneName, 0, 1.5f);
+                return false;
             }
         }
     }

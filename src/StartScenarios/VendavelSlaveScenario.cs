@@ -61,7 +61,12 @@ namespace AlternateStart.StartScenarios
 
         public override void UpdateQuestProgress(Quest quest)
         {
-            
+            ////////////////////////
+            ///
+            /// ADD start guards hostile event if killing the armored guy
+            /// ADD Dying OR leaving the fortress through the hole, removes the armor obtained
+            /// 
+            ////////////////////////
         }
     }
 }

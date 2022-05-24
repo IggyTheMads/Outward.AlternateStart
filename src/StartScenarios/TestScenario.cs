@@ -95,6 +95,11 @@ namespace AlternateStart.StartScenarios
             var firstLog = progress.GetLogSignature(TEST_LOG_OBJECTIVE_A);
             progress.UpdateLogEntry(firstLog, berryStack >= 4);
 
+            if(berryStack > 0)
+            {
+                ShowUIMessage("Gather Gaberries: " + berryStack + "/4");
+            }
+
             // If quest completed
             if (berryStack >= 4)
             {
@@ -158,6 +163,7 @@ namespace AlternateStart.StartScenarios
 
                 // Add a quest event stack
                 QuestEventManager.Instance.AddEvent(QE_BerriesPicked, 1);
+                
 
                 // Update the quest progress (and give quest if they dont have it)
                 var quest = Instance.GetOrGiveQuestToHost();

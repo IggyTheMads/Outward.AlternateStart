@@ -11,6 +11,9 @@
         <DebugSymbols>false</DebugSymbols>
         <DebugType>none</DebugType>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <Optimize>True</Optimize>
+    </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="BepInEx.BaseLib" Version="5.4.17" />
         <PackageReference Include="HarmonyX" Version="2.5.7" />

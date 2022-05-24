@@ -127,6 +127,10 @@ namespace AlternateStart
                     return;
 
                 // TODO add logic to remove passives if ones are already chosen!!!
+                //
+                //
+                //
+                ////////////////////////////
 
                 Plugin.Instance.StartCoroutine(CheckStartPassives(_item.OwnerCharacter));
             }

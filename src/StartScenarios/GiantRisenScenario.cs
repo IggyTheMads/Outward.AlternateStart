@@ -119,6 +119,12 @@ namespace AlternateStart.StartScenarios
                 VanillaQuestsHelper.RemoveEvent(VanillaQuestsHelper.ashAllyFail);
                 VanillaQuestsHelper.RemoveEvent(VanillaQuestsHelper.ashCompleteFail);
             }
+
+            ////////////////////////
+            ///
+            /// ADD restriction to giant town for a few days
+            /// 
+            ////////////////////////
         }
     }
 }
