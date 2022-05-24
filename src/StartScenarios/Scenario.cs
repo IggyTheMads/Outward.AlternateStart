@@ -96,9 +96,9 @@ namespace AlternateStart.StartScenarios
         public virtual void OnScenarioChosen()
         {
             // Setup starting items etc
-            foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
+            foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
             {
-                var character = CharacterManager.Instance.GetCharacter(uid);
+                Character character = CharacterManager.Instance.GetCharacter(uid);
                 OnScenarioChosen(character);
             }
         }
@@ -131,7 +131,7 @@ namespace AlternateStart.StartScenarios
             // Autoknock the players
             foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
             {
-                var character = CharacterManager.Instance.GetCharacter(uid);
+                Character character = CharacterManager.Instance.GetCharacter(uid);
                 character.AutoKnock(true, Vector3.back, character);
 
                 OnScenarioChosen(character);
@@ -151,9 +151,9 @@ namespace AlternateStart.StartScenarios
         private void OnGameplayResumedAfterScenarioStart()
         {
             // Teleport players to spawn position
-            foreach (var uid in CharacterManager.Instance.PlayerCharacters.Values)
+            foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
             {
-                var character = CharacterManager.Instance.GetCharacter(uid);
+                Character character = CharacterManager.Instance.GetCharacter(uid);
 
                 if (SpawnPosition != default)
                     character.Teleport(SpawnPosition, SpawnRotation);
@@ -179,8 +179,8 @@ namespace AlternateStart.StartScenarios
                 ItemExtensions = new SL_ItemExtension[] { new SL_QuestProgress() },
             };
 
-            var list = new List<SL_QuestLogEntrySignature>();
-            foreach (var sig in this.QuestLogSignatures)
+            List<SL_QuestLogEntrySignature> list = new();
+            foreach (KeyValuePair<string, string> sig in this.QuestLogSignatures)
             {
                 list.Add(new SL_QuestLogEntrySignature()
                 {
@@ -190,7 +190,7 @@ namespace AlternateStart.StartScenarios
                 });
             }
 
-            var progress = QuestTemplate.ItemExtensions[0] as SL_QuestProgress;
+            SL_QuestProgress progress = QuestTemplate.ItemExtensions[0] as SL_QuestProgress;
             progress.LogSignatures = list.ToArray();
 
             QuestTemplate.ApplyTemplate();
@@ -228,7 +228,7 @@ namespace AlternateStart.StartScenarios
             if (CharacterManager.Instance == null || string.IsNullOrEmpty(message))
                 return;
 
-            var player = CharacterManager.Instance.GetFirstLocalCharacter();
+            Character player = CharacterManager.Instance.GetFirstLocalCharacter();
             if (!player)
                 return;
 

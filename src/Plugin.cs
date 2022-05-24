@@ -32,7 +32,7 @@ namespace AlternateStart
 
             ScenarioManager.Init();
 
-            var harmony = new Harmony(GUID);
+            Harmony harmony = new(GUID);
             harmony.PatchAll();
         }
 

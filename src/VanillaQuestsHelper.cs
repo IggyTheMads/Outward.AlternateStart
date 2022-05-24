@@ -62,7 +62,7 @@ namespace AlternateStart
 
         internal static void SkipHostToFactionChoice(bool keepHouse)
         {
-            var host = CharacterManager.Instance.GetWorldHostCharacter();
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
 
             host.Inventory.QuestKnowledge.ReceiveQuest(callToAdventureQ);
             host.Inventory.QuestKnowledge.ReceiveQuest(lookingToTheFutureQ);

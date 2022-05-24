@@ -69,20 +69,20 @@ namespace AlternateStart.Characters
 
         private void Template_OnSpawn(Character character, string rpcData)
         {
-            var dialogueTemplate = GameObject.Instantiate(Resources.Load<GameObject>("editor/templates/DialogueTemplate"));
+            GameObject dialogueTemplate = GameObject.Instantiate(Resources.Load<GameObject>("editor/templates/DialogueTemplate"));
             dialogueTemplate.transform.parent = character.transform;
             dialogueTemplate.transform.position = character.transform.position;
 
             // set Dialogue Actor name
-            var ourActor = character.GetComponentInChildren<DialogueActor>();
+            DialogueActor ourActor = character.GetComponentInChildren<DialogueActor>();
             ourActor.SetName(Name);
 
             // setup dialogue tree
-            var graphController = character.GetComponentInChildren<DialogueTreeController>();
-            var graph = graphController.graph;
+            DialogueTreeController graphController = character.GetComponentInChildren<DialogueTreeController>();
+            Graph graph = graphController.graph;
 
             // the template comes with an empty ActorParameter, we can use that for our NPC actor.
-            var actors = (graph as DialogueTree)._actorParameters;
+            List<DialogueTree.ActorParameter> actors = (graph as DialogueTree)._actorParameters;
             actors[0].actor = ourActor;
             actors[0].name = ourActor.name;
 

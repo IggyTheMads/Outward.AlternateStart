@@ -76,22 +76,22 @@ namespace AlternateStart.StartScenarios
             if (!Instance.IsActiveScenario || PhotonNetwork.isNonMasterClientInRoom)
                 return;
 
-            var player = CharacterManager.Instance.GetWorldHostCharacter();
+            Character player = CharacterManager.Instance.GetWorldHostCharacter();
             if (SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain" && player.Inventory.OwnsOrHasEquipped(-2353))
             {
-                var myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
-                var banditAmount = 3;
+                SL_Character myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
+                int banditAmount = 3;
                 for (int i = 0; i < banditAmount; i++)
                 {
-                    var enemyOffset = new Vector3(UnityEngine.Random.Range(20f, 30f), 4f, UnityEngine.Random.Range(20f, 30f));
-                    var enemySpawn = SpawnPosition + enemyOffset;
+                    Vector3 enemyOffset = new(UnityEngine.Random.Range(20f, 30f), 4f, UnityEngine.Random.Range(20f, 30f));
+                    Vector3 enemySpawn = SpawnPosition + enemyOffset;
                     Character enemyChar = myChar.Spawn(enemySpawn, (enemySpawn + SpawnPosition).normalized, UID.Generate());
                     //ToDo: randomize bandit weapons from list
                 }
             }
             else if(SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain") //need to fix for multiplayer
             {
-                foreach (var players in Global.Lobby.PlayersInLobby)
+                foreach (PlayerSystem players in Global.Lobby.PlayersInLobby)
                 {
                     players.ControlledCharacter.Teleport(chersoneseFailSpawn, (chersoneseFailSpawn + cierzoEntrance).normalized);
                     players.ControlledCharacter.SpellCastProcess((int)Character.SpellCastType.GetUpBelly, (int)Character.SpellCastModifier.Immobilized, 0, 0);
@@ -111,7 +111,7 @@ namespace AlternateStart.StartScenarios
                     || PhotonNetwork.isNonMasterClientInRoom)
                     return true;
 
-                foreach(var player in Global.Lobby.PlayersInLobby)
+                foreach(PlayerSystem player in Global.Lobby.PlayersInLobby)
                 {
                     player.ControlledCharacter.Resurrect();
                 }
@@ -137,7 +137,7 @@ namespace AlternateStart.StartScenarios
                     InteractionActivator activator = __instance.CurrentTriggerManager as InteractionActivator;
                     if (activator.BasicInteraction != null)
                     {
-                        var interaction = activator.BasicInteraction;
+                        IInteraction interaction = activator.BasicInteraction;
                         if (SceneManagerHelper.ActiveSceneName == "CierzoNewTerrain")
                         {
                             if (interaction is InteractionMerchantDialogue && Vector3.Distance(_character.transform.position, Instance.traderPosition) < 5f)

@@ -49,7 +49,7 @@ namespace AlternateStart.StartScenarios
 
             VanillaQuestsHelper.StartHouseTimer();
 
-            var myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
+            SL_Character myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
             myChar.Spawn(prisonJump, Vector3.back, UID.Generate());
 
         }

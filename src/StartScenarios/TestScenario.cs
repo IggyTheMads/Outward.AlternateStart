@@ -92,7 +92,7 @@ namespace AlternateStart.StartScenarios
             int berryStack = QuestEventManager.Instance.GetEventCurrentStack(QE_BerriesPicked.EventUID);
 
             // Update the first log. Set it to completed if berryStack is 4 or higher.
-            var firstLog = progress.GetLogSignature(TEST_LOG_OBJECTIVE_A);
+            QuestLogEntrySignature firstLog = progress.GetLogSignature(TEST_LOG_OBJECTIVE_A);
             progress.UpdateLogEntry(firstLog, berryStack >= 4);
 
             if(berryStack > 0)
@@ -104,7 +104,7 @@ namespace AlternateStart.StartScenarios
             if (berryStack >= 4)
             {
                 // Don't update this log until 4 or more berries picked, otherwise it appears in the journal.
-                var secondLog = progress.GetLogSignature(TEST_LOG_OBJECTIVE_B);
+                QuestLogEntrySignature secondLog = progress.GetLogSignature(TEST_LOG_OBJECTIVE_B);
                 progress.UpdateLogEntry(secondLog, true);
 
                 progress.DisableQuest(QuestProgress.ProgressState.Successful);
@@ -134,12 +134,12 @@ namespace AlternateStart.StartScenarios
                 // Search all the drops for Gaberries
                 bool isGaberries = false;
                 // iterate over the "Dropable" components
-                foreach (var dropper in __instance.m_drops)
+                foreach (Dropable dropper in __instance.m_drops)
                 {
                     if (dropper.m_mainDropTables == null)
                         continue;
                     // Iterate over the Dropable's DropTables
-                    foreach (var table in dropper.m_mainDropTables)
+                    foreach (DropTable table in dropper.m_mainDropTables)
                     {
                         if (table.m_itemDrops == null)
                             continue;
@@ -166,7 +166,7 @@ namespace AlternateStart.StartScenarios
                 
 
                 // Update the quest progress (and give quest if they dont have it)
-                var quest = Instance.GetOrGiveQuestToHost();
+                Quest quest = Instance.GetOrGiveQuestToHost();
                 Instance.UpdateQuestProgress(quest);
             }
         }
@@ -190,7 +190,7 @@ namespace AlternateStart.StartScenarios
             };
 
             // Create and apply the template
-            var template = testCharacter.CreateAndApplyTemplate();
+            SL_Character template = testCharacter.CreateAndApplyTemplate();
 
             // Add a listener to set up our dialogue
             testCharacter.OnSetupDialogueGraph += TestCharacter_OnSetupDialogueGraph;
@@ -201,29 +201,29 @@ namespace AlternateStart.StartScenarios
 
         private void TestCharacter_OnSetupDialogueGraph(DialogueTree graph, Character character)
         {
-            var ourActor = graph.actorParameters[0];
+            DialogueTree.ActorParameter ourActor = graph.actorParameters[0];
 
             // Add our root statement
-            var rootStatement = graph.AddNode<StatementNodeExt>();
+            StatementNodeExt rootStatement = graph.AddNode<StatementNodeExt>();
             rootStatement.statement = new("What's up doc?");
             rootStatement.SetActorName(ourActor.name);
-            
+
             // Add a multiple choice
-            var multiChoice1 = graph.AddNode<MultipleChoiceNodeExt>();
+            MultipleChoiceNodeExt multiChoice1 = graph.AddNode<MultipleChoiceNodeExt>();
             multiChoice1.availableChoices.Add(new(statement: new("Who's the man?")));
             multiChoice1.availableChoices.Add(new(statement: new("What is the meaning of life?")));
             multiChoice1.availableChoices.Add(new(statement: new("What's up with that guy IggyTheMad?")));
 
             // Add our answers
-            var answer1 = graph.AddNode<StatementNodeExt>();
+            StatementNodeExt answer1 = graph.AddNode<StatementNodeExt>();
             answer1.statement = new("You the man!");
             answer1.SetActorName(ourActor.name);
 
-            var answer2 = graph.AddNode<StatementNodeExt>();
+            StatementNodeExt answer2 = graph.AddNode<StatementNodeExt>();
             answer2.statement = new("37.");
             answer2.SetActorName(ourActor.name);
-            
-            var answer3 = graph.AddNode<StatementNodeExt>();
+
+            StatementNodeExt answer3 = graph.AddNode<StatementNodeExt>();
             answer3.statement = new("I hear he's pretty cool.");
             answer3.SetActorName(ourActor.name);
             
