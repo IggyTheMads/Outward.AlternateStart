@@ -12,9 +12,9 @@ namespace AlternateStart.StartScenarios
     public class RobbedTraderScenario : Scenario
     {
         internal static RobbedTraderScenario Instance { get; private set; }
-        public override Scenarios Type => Scenarios.RobbedTrader;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_RobbedTrader;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioAreas Area => ScenarioAreas.AntiquePlateau;
+        public override ScenarioPassives Area => ScenarioPassives.RobbedTrader;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoOutside;
         public override Vector3 SpawnPosition => new(1157.1f, 10.6f, 1059.7f);

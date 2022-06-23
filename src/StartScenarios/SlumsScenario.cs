@@ -9,9 +9,9 @@ namespace AlternateStart.StartScenarios
 {
     public class SlumsScenario : Scenario
     {
-        public override Scenarios Type => Scenarios.LevantSlums;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_LevantSlums;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioAreas Area => ScenarioAreas.Abrassar;
+        public override ScenarioPassives Area => ScenarioPassives.LevantSlums;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Levant;
         public override Vector3 SpawnPosition => new(-161.3f, 4.4f, 66.3f);

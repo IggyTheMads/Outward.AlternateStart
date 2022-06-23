@@ -17,9 +17,9 @@ namespace AlternateStart.StartScenarios
 {
     public class SandBanditScenario : Scenario
     {
-        public override Scenarios Type => Scenarios.SandBandit;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_SandBandit;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioAreas Area => ScenarioAreas.Abrassar;
+        public override ScenarioPassives Area => ScenarioPassives.SandBandit;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.AbrassarDungeon6;
         public override Vector3 SpawnPosition => new(-53.3f, 0.5f, 55.1f);

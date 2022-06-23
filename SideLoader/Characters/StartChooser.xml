@@ -71,17 +71,51 @@
         <RowIndex>5</RowIndex>
         <Slots>
           <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>0</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2200</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
             <ColumnIndex>1</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
-            <SkillID>-2206</SkillID>
+            <SkillID>-2207</SkillID>
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2208</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
           <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
             <ColumnIndex>3</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2209</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>4</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
@@ -92,11 +126,140 @@
           </SL_BaseSkillSlot>
         </Slots>
       </SL_SkillRow>
+
       <SL_SkillRow>
         <RowIndex>4</RowIndex>
         <Slots>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlotFork">
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
             <ColumnIndex>1</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2211</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2212</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>3</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2213</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>4</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2214</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+
+      <SL_SkillRow>
+        <RowIndex>3</RowIndex>
+        <Slots>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>1</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2215</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2216</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>3</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2217</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>4</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2218</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+
+      <SL_SkillRow>
+        <RowIndex>2</RowIndex>
+        <Slots>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>1</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2219</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2220</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+
+      <SL_SkillRow>
+        <RowIndex>1</RowIndex>
+        <Slots>
+		<SL_BaseSkillSlot xsi:type="SL_SkillSlotFork">
+            <ColumnIndex>0</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
@@ -122,65 +285,31 @@
               <Breakthrough>false</Breakthrough>
             </Choice2>
           </SL_BaseSkillSlot>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>3</ColumnIndex>
-            <RequiredSkillSlot>
-              <x>0</x>
-              <y>0</y>
-            </RequiredSkillSlot>
-            <SkillID>-2209</SkillID>
-            <SilverCost>0</SilverCost>
-            <Breakthrough>false</Breakthrough>
-          </SL_BaseSkillSlot>
-        </Slots>
-      </SL_SkillRow>
-      <SL_SkillRow>
-        <RowIndex>3</RowIndex>
-        <Slots>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlotFork">
+
+		<SL_BaseSkillSlot xsi:type="SL_SkillSlot">
             <ColumnIndex>1</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
-            <Choice1>
-              <ColumnIndex>1</ColumnIndex>
-              <RequiredSkillSlot>
-                <x>0</x>
-                <y>0</y>
-              </RequiredSkillSlot>
-              <SkillID>-2203</SkillID>
-              <SilverCost>0</SilverCost>
-              <Breakthrough>false</Breakthrough>
-            </Choice1>
-            <Choice2>
-              <ColumnIndex>3</ColumnIndex>
-              <RequiredSkillSlot>
-                <x>0</x>
-                <y>0</y>
-              </RequiredSkillSlot>
-              <SkillID>-2204</SkillID>
-              <SilverCost>0</SilverCost>
-              <Breakthrough>false</Breakthrough>
-            </Choice2>
+            <SkillID>-2203</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>3</ColumnIndex>
+
+		<SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
-            <SkillID>-2208</SkillID>
+            <SkillID>-2204</SkillID>
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
-          </SL_BaseSkillSlot>
-        </Slots>
-      </SL_SkillRow>
-      <SL_SkillRow>
-        <RowIndex>2</RowIndex>
-        <Slots>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>1</ColumnIndex>
+		</SL_BaseSkillSlot>
+
+		<SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>3</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
@@ -189,31 +318,18 @@
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>3</ColumnIndex>
+
+		<SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>4</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
-            <SkillID>-2207</SkillID>
+            <SkillID>-2206</SkillID>
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
-          </SL_BaseSkillSlot>
-        </Slots>
-      </SL_SkillRow>
-      <SL_SkillRow>
-        <RowIndex>1</RowIndex>
-        <Slots>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>2</ColumnIndex>
-            <RequiredSkillSlot>
-              <x>0</x>
-              <y>0</y>
-            </RequiredSkillSlot>
-            <SkillID>-2211</SkillID>
-            <SilverCost>0</SilverCost>
-            <Breakthrough>false</Breakthrough>
-          </SL_BaseSkillSlot>
+		</SL_BaseSkillSlot>
+
         </Slots>
       </SL_SkillRow>
     </SkillRows>

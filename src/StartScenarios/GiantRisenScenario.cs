@@ -6,14 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using HarmonyLib;
+using System.Collections;
 
 namespace AlternateStart.StartScenarios
 {
     public class GiantRisenScenario : Scenario
     {
-        public override Scenarios Type => Scenarios.GiantRisen;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_GiantRisen;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioAreas Area => ScenarioAreas.HallowedMarsh;
+        public override ScenarioPassives Area => ScenarioPassives.GiantRisen;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.HallowedDungeon2;
         public override Vector3 SpawnPosition => default;
@@ -125,6 +127,19 @@ namespace AlternateStart.StartScenarios
             /// ADD restriction to giant town for a few days
             /// 
             ////////////////////////
+            ///
+
+
         }
+        #region PassiveEffects
+
+        internal static GiantRisenScenario Instance { get; private set; }
+        public GiantRisenScenario()
+        {
+            Instance = this;
+        }
+
+
+        #endregion
     }
 }

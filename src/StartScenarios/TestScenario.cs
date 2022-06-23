@@ -18,9 +18,9 @@ namespace AlternateStart.StartScenarios
     {
         internal static TestScenario Instance { get; private set; }
 
-        public override Scenarios Type => Scenarios.Test;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_UglyAF;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioAreas Area => ScenarioAreas.Test;
+        public override ScenarioPassives Area => ScenarioPassives.UglyAF;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoVillage;
         public override Vector3 SpawnPosition => default;

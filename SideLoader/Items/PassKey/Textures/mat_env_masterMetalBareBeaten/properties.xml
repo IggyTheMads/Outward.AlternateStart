@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SL_Material xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <ShaderName>Custom/Distort/HeatDistortZWriteTexRim</ShaderName>
+  <Keywords />
+  <Properties>
+    <ShaderProperty xsi:type="ColorProp">
+      <Value>
+        <r>260</r>
+        <g>0</g>
+        <b>0</b>
+        <a>0</a>
+      </Value>
+    </ShaderProperty>
+  </Properties>
+  <TextureConfigs>
+    <TextureConfig>
+      <TextureName>_MainTex</TextureName>
+      <UseMipMap>true</UseMipMap>
+      <MipMapBias>0</MipMapBias>
+    </TextureConfig>
+    <TextureConfig>
+      <TextureName>_AlphaTex</TextureName>
+      <UseMipMap>true</UseMipMap>
+      <MipMapBias>0</MipMapBias>
+    </TextureConfig>
+    <TextureConfig>
+      <TextureName>_BumpMap</TextureName>
+      <UseMipMap>true</UseMipMap>
+      <MipMapBias>0</MipMapBias>
+    </TextureConfig>
+  </TextureConfigs>
+</SL_Material>

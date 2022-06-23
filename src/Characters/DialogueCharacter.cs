@@ -15,7 +15,7 @@ namespace AlternateStart.Characters
     {
         public string UID { get; set; }
         public string Name { get; set; }
-        public Scenarios RequiredScenario { get; set; }
+        public ScenarioQuest RequiredScenario { get; set; }
 
         public string SpawnSceneBuildName { get; set; }
         public Vector3 SpawnPosition { get; set; }

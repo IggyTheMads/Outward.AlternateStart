@@ -9,9 +9,9 @@ namespace AlternateStart.StartScenarios
 {
     public class ConfluxWatcherScenario : Scenario
     {
-        public override Scenarios Type => Scenarios.ConfluxWatcher;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_ConfluxWatcher;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioAreas Area => ScenarioAreas.Chersonese;
+        public override ScenarioPassives Area => ScenarioPassives.ConfluxWatcher;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.ChersoDungeon4;
         public override Vector3 SpawnPosition => new(-435.2f, -19.1f, -96.5f);

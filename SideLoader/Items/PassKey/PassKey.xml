@@ -1,17 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<SL_Item xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <Target_ItemID>5600028</Target_ItemID>
+<?xml version="1.0"?>
+<SL_MeleeWeapon xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Target_ItemID>2020080</Target_ItemID>
   <New_ItemID>-2350</New_ItemID>
-  <Name>Ghost Key</Name>
-  <Description>Small key used to open the exits from the Ghost Pass.</Description>
+  <Name>Pass Key</Name>
+  <Description>Mysterious key used to open the exits from the Ghost Pass.
+
+&lt;color=#fffd00&gt;Can not be repaired.&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>true</IsPickable>
   <IsUsable>false</IsUsable>
   <QtyRemovedOnUse>1</QtyRemovedOnUse>
   <GroupItemInDisplay>false</GroupItemInDisplay>
   <HasPhysicsWhenWorld>false</HasPhysicsWhenWorld>
-  <RepairedInRest>true</RepairedInRest>
-  <BehaviorOnNoDurability>NotSet</BehaviorOnNoDurability>
+  <RepairedInRest>false</RepairedInRest>
+  <BehaviorOnNoDurability>Destroy</BehaviorOnNoDurability>
   <CastType>NONE</CastType>
   <CastModifier>Immobilized</CastModifier>
   <CastLocomotionEnabled>false</CastLocomotionEnabled>
@@ -19,18 +21,72 @@
   <CastSheatheRequired>1</CastSheatheRequired>
   <OverrideSellModifier>-1</OverrideSellModifier>
   <Tags>
+    <string>Bludgeon</string>
+    <string>Weapon</string>
     <string>Item</string>
+    <string>DecraftIron_Small</string>
+    <string>Decraft</string>
+    <string>Main Weapon</string>
   </Tags>
-  <StatsHolder>
-    <BaseValue>1</BaseValue>
-    <RawWeight>0.1</RawWeight>
-    <MaxDurability>-1</MaxDurability>
+  <StatsHolder xsi:type="SL_WeaponStats">
+    <BaseValue>200</BaseValue>
+    <RawWeight>1</RawWeight>
+    <MaxDurability>300</MaxDurability>
+    <Damage_Resistance>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+    </Damage_Resistance>
+    <Impact_Resistance>0</Impact_Resistance>
+    <Damage_Protection>0</Damage_Protection>
+    <Damage_Bonus>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+      <float>0</float>
+    </Damage_Bonus>
+    <Impact_Bonus>0</Impact_Bonus>
+    <Stamina_Use_Penalty>0</Stamina_Use_Penalty>
+    <Mana_Use_Modifier>0</Mana_Use_Modifier>
+    <Mana_Regen>0</Mana_Regen>
+    <Movement_Penalty>0</Movement_Penalty>
+    <Pouch_Bonus>0</Pouch_Bonus>
+    <Heat_Protection>0</Heat_Protection>
+    <Cold_Protection>0</Cold_Protection>
+    <Corruption_Protection>0</Corruption_Protection>
+    <Health_Regen>0</Health_Regen>
+    <Cooldown_Reduction>0</Cooldown_Reduction>
+    <BarrierProtection>0</BarrierProtection>
+    <GlobalStatusEffectResistance>0</GlobalStatusEffectResistance>
+    <StaminaRegenModifier>0</StaminaRegenModifier>
+    <AttackSpeed>2</AttackSpeed>
+    <BaseDamage>
+      <SL_Damage>
+        <Damage>16</Damage>
+        <Type>Ethereal</Type>
+      </SL_Damage>
+    </BaseDamage>
+    <Impact>8</Impact>
+    <StamCost>2</StamCost>
+    <AutoGenerateAttackData>true</AutoGenerateAttackData>
   </StatsHolder>
   <ExtensionsEditBehaviour>NONE</ExtensionsEditBehaviour>
   <ItemExtensions />
   <EffectBehaviour>Destroy</EffectBehaviour>
+  <EffectTransforms />
   <ItemVisuals>
-    <ResourcesPrefabPath>Assets/_Prefabs/_ItemsAssets/5000000_Others/5600000_Miscellaneous/5600028_VendavelPrisonKey_v</ResourcesPrefabPath>
+    <ResourcesPrefabPath>Assets/_Prefabs/_ItemsAssets/2000000_Weapons/2020080_GiantIronKey_v</ResourcesPrefabPath>
     <Prefab_SLPack />
     <Prefab_AssetBundle />
     <Prefab_Name />
@@ -52,4 +108,18 @@
     <PositionOffset xsi:nil="true" />
     <RotationOffset xsi:nil="true" />
   </ItemVisuals>
-</SL_Item>
+  <EquipSlot>RightHand</EquipSlot>
+  <TwoHandType>None</TwoHandType>
+  <IKType>None</IKType>
+  <VisualDetectabilityAdd>0</VisualDetectabilityAdd>
+  <RequiredPlayerType>Normal</RequiredPlayerType>
+  <WeaponType>Mace_1H</WeaponType>
+  <Unblockable>false</Unblockable>
+  <SwingSound>Default</SwingSound>
+  <SpecialIsZoom>false</SpecialIsZoom>
+  <HealthLeechRatio>0</HealthLeechRatio>
+  <HealthBurnLeechRatio>0</HealthBurnLeechRatio>
+  <IgnoreHalfResistances>false</IgnoreHalfResistances>
+  <LinecastCount>6</LinecastCount>
+  <Radius>0.1</Radius>
+</SL_MeleeWeapon>

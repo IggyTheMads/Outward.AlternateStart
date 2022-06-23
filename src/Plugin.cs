@@ -32,6 +32,9 @@ namespace AlternateStart
 
             ScenarioManager.Init();
 
+            var _obj = this.gameObject;
+            _obj.AddComponent<ExtrasManager>();
+
             Harmony harmony = new(GUID);
             harmony.PatchAll();
         }

@@ -15,7 +15,7 @@ namespace AlternateStart.StartScenarios
         // Our scenario classes will override these properties with the actual data
 
         /// <summary>Unique ID of this scenario. This value will be used as the quest ID.</summary>
-        public abstract Scenarios Type { get; }
+        public abstract ScenarioQuest Type { get; }
 
         /// <summary>Difficulty of the scenario</summary>
         public abstract ScenarioDifficulty Difficulty { get; }
@@ -25,7 +25,7 @@ namespace AlternateStart.StartScenarios
         public virtual ScenarioTheme Theme { get; }
 
         /// <summary>Region which the scenario takes place</summary>
-        public abstract ScenarioAreas Area { get; }
+        public abstract ScenarioPassives Area { get; }
 
         /// <summary>The starting scene players will spawn in</summary>
         public abstract AreaManager.AreaEnum SpawnScene { get; }

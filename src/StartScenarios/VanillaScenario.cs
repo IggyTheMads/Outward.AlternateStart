@@ -9,9 +9,9 @@ namespace AlternateStart.StartScenarios
 {
     public class VanillaScenario : Scenario
     {
-        public override Scenarios Type => Scenarios.Vanilla;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_Vanilla;
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.VANILLA;
-        public override ScenarioAreas Area => ScenarioAreas.Chersonese;
+        public override ScenarioPassives Area => ScenarioPassives.Vanilla;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Tutorial;
         public override Vector3 SpawnPosition => default;

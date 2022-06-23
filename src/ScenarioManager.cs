@@ -18,7 +18,7 @@ namespace AlternateStart
     public static class ScenarioManager
     {
         // We will fill this dictionary on Init()
-        static readonly Dictionary<Scenarios, Scenario> startScenarios = new();
+        static readonly Dictionary<ScenarioPassives, Scenario> startScenarios = new();
 
         // Our quest event to check if we already started a scenario.
         internal static QuestEventSignature QE_DestinyChosen;
@@ -42,7 +42,7 @@ namespace AlternateStart
                     Scenario scenario = Activator.CreateInstance(type) as Scenario;
                     scenario.Init();
                     // Add it to our dictionary
-                    startScenarios.Add(scenario.Type, scenario);
+                    startScenarios.Add(scenario.Area, scenario);
                 }
             }
         }
@@ -132,22 +132,27 @@ namespace AlternateStart
                 //
                 ////////////////////////////
 
-                Plugin.Instance.StartCoroutine(CheckStartPassives(_item.OwnerCharacter));
+                Plugin.Instance.StartCoroutine(CheckStartPassives(_item.OwnerCharacter, _item));
             }
         }
 
         // Called when we acquire a passive
-        static IEnumerator CheckStartPassives(Character character)
+        static IEnumerator CheckStartPassives(Character character, Item _item)
         {
             yield return new WaitForSeconds(0.2f);
 
-            // The player acquired a passive. Let's just check if both a difficulty and area are chosen...
-            // OR they chose Vanilla.
-            if (character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioDifficulty.VANILLA)
-                || (IsAnyChosen<ScenarioDifficulty>(character) && IsAnyChosen<ScenarioAreas>(character)))
+            // The player acquired a passive. If its random or it is a specific one
+            if (character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Random))
             {
                 // We are ready to pick and start our scenario.
                 Plugin.Instance.StartCoroutine(PickAndStartScenario());
+            }
+            else if ((IsAnyChosen<ScenarioPassives>(character)))
+            {
+                int scenarioID = _item.ItemID;
+                var scenario = (ScenarioPassives)scenarioID;
+                //Plugin.Instance.StartCoroutine(scenario.StartScenario());
+                Plugin.Instance.StartCoroutine(startScenarios[scenario].StartScenario());
             }
         }
 
@@ -184,36 +189,42 @@ namespace AlternateStart
         static IEnumerator PickAndStartScenario()
         {
             Character host = CharacterManager.Instance.GetWorldHostCharacter();
-
+            var knows = host.Inventory.SkillKnowledge;
             if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioDifficulty.VANILLA))
             {
                 // They chose the Vanilla scenario.
-                Plugin.Instance.StartCoroutine(startScenarios[Scenarios.Vanilla].StartScenario());
+                Plugin.Instance.StartCoroutine(startScenarios[ScenarioPassives.Vanilla].StartScenario());
                 yield break;
             }
 
             // Get our choices
-            TryGetChoice(host, out ScenarioDifficulty difficultyChoice);
-            TryGetChoice(host, out ScenarioAreas areaChoice);
+            //TryGetChoice(host, out ScenarioDifficulty difficultyChoice);
+            TryGetChoice(host, out ScenarioPassives areaChoice);
 
             // Determine eligable Scenarios based on choices.
             List<Scenario> eligable = new();
             foreach (Scenario entry in startScenarios.Values)
             {
-                if (entry.Type == Scenarios.Vanilla)
+                if (entry.Area == ScenarioPassives.Random ||
+                    entry.Area == ScenarioPassives.Vanilla ||
+                    entry.Area == ScenarioPassives.VanillaAlt ||
+                    entry.Area == ScenarioPassives.VanillaBerg ||
+                    entry.Area == ScenarioPassives.VanillaLevant ||
+                    entry.Area == ScenarioPassives.VanillaMonsoon ||
+                    entry.Area == ScenarioPassives.VanillaHarmattan)
                 {
-                    // We don't want to randomly pick the Vanilla scenario.
+                    // We don't want to randomly pick the Vanilla-like scenarios.
                     continue;
                 }
 
                 // If the Scenario's difficulty doesn't match our choice, skip.
-                if (difficultyChoice != ScenarioDifficulty.ANY && entry.Difficulty != difficultyChoice)
-                    continue;
+                /*if (difficultyChoice != ScenarioDifficulty.ANY && entry.Difficulty != difficultyChoice)
+                    continue;*/
 
                 // If the Scenario's area doesn't match our choice, skip.
-                if (areaChoice != ScenarioAreas.ANY && entry.Area != areaChoice)
-                    continue;
-
+                /*if (areaChoice != ScenarioPassives.Random && entry.Area != areaChoice)
+                    continue;*/
+                
                 // It's eligable, add it.
                 eligable.Add(entry);
             }
@@ -225,7 +236,7 @@ namespace AlternateStart
                     .GetWorldHostCharacter()
                     .CharacterUI
                     .NotificationPanel
-                    .ShowNotification($"Sorry, there are no {difficultyChoice} {areaChoice} scenarios!");
+                    .ShowNotification($"Sorry, there are no {areaChoice} scenarios!");
 
                 yield break; // Don't start the scenario!
             }
@@ -254,7 +265,7 @@ namespace AlternateStart
             {
                 GUILayout.BeginArea(new Rect(25, 25, 250, 25 * startScenarios.Count), GUI.skin.box);
 
-                foreach (KeyValuePair<Scenarios, Scenario> scenario in startScenarios)
+                foreach (KeyValuePair<ScenarioPassives, Scenario> scenario in startScenarios)
                 {
                     if (GUILayout.Button(scenario.Key.ToString()))
                     {
