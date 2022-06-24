@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<SL_CharacterTrainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SaveType>Scene</SaveType>
+  <UID>com.iggy.vanillachooser</UID>
+  <Name>Vanilla Soul-Guide</Name>
+  <DestroyOnDeath>true</DestroyOnDeath>
+  <StartingPose>Normal</StartingPose>
+  <Scale>
+    <x>1</x>
+    <y>1</y>
+    <z>1</z>
+  </Scale>
+  <StartSheathed>true</StartSheathed>
+  <SceneToSpawn>DreamWorld</SceneToSpawn>
+  <SpawnPosition>
+    <x>-12.4</x>
+    <y>0.2</y>
+    <z>0.9</z>
+  </SpawnPosition>
+  <SpawnRotation>
+    <x>0</x>
+    <y>193.8</y>
+    <z>0</z>
+  </SpawnRotation>
+  <Faction>NONE</Faction>
+  <CharacterVisualsData>
+    <Gender>Female</Gender>
+    <HairColorIndex>0</HairColorIndex>
+    <HairStyleIndex>0</HairStyleIndex>
+    <HeadVariationIndex>0</HeadVariationIndex>
+    <SkinIndex>0</SkinIndex>
+  </CharacterVisualsData>
+  <Weapon_ID xsi:nil="true" />
+  <Shield_ID xsi:nil="true" />
+  <Helmet_ID>3200041</Helmet_ID>
+  <Chest_ID>3200040</Chest_ID>
+  <Boots_ID>3200042</Boots_ID>
+  <Backpack_ID xsi:nil="true" />
+  <Backpack_Items />
+  <Pouch_Items />
+  <LootableOnDeath>false</LootableOnDeath>
+  <DropPouchContents>false</DropPouchContents>
+  <DropWeapons>false</DropWeapons>
+  <Health>1</Health>
+  <HealthRegen>0</HealthRegen>
+  <ImpactResist>0</ImpactResist>
+  <Protection>0</Protection>
+  <Barrier>0</Barrier>
+  <Damage_Resists>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+  </Damage_Resists>
+  <Damage_Bonus>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+    <float>0</float>
+  </Damage_Bonus>
+  <Status_Immunity />
+  <SkillTree>
+    <SigilIconName>SigilVanilla</SigilIconName>
+    <Name>Vanilla-like Destiny</Name>
+    <UID>com.iggy.vanilladestiny</UID>
+    <SkillRows>
+      <SL_SkillRow>
+        <RowIndex>1</RowIndex>
+        <Slots>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2201</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+      <SL_SkillRow>
+        <RowIndex>2</RowIndex>
+        <Slots>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2202</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+      <SL_SkillRow>
+        <RowIndex>3</RowIndex>
+        <Slots>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2203</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+      <SL_SkillRow>
+        <RowIndex>4</RowIndex>
+        <Slots>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>1</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2205</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>3</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2204</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+      <SL_SkillRow>
+        <RowIndex>5</RowIndex>
+        <Slots>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>2</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2206</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+        </Slots>
+      </SL_SkillRow>
+    </SkillRows>
+  </SkillTree>
+  <InitialDialogue>Do you prefer vanilla?</InitialDialogue>
+</SL_CharacterTrainer>

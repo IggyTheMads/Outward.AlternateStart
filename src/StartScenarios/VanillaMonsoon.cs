@@ -13,7 +13,7 @@ namespace AlternateStart.StartScenarios
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
         public override ScenarioPassives Area => ScenarioPassives.VanillaMonsoon;
 
-        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.HallowedMarsh;
+        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.HallowedMarsh; //NEED GEAR UPDATE
         public override Vector3 SpawnPosition => new(481.6f, -63.9f, 492.1f);
         public override Vector3 SpawnRotation => new(0, 63.1f, 0);
 

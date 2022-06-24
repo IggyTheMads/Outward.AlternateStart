@@ -14,9 +14,9 @@ namespace AlternateStart.StartScenarios
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
         public override ScenarioPassives Area => ScenarioPassives.Veteran;
 
-        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Emercar;
-        public override Vector3 SpawnPosition => new(581.3f, 14.2f, 391f);
-        public override Vector3 SpawnRotation => new(0, 207f, 0);
+        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Levant;
+        public override Vector3 SpawnPosition => new(-361.7f, -1504.6f, 571.4f);
+        public override Vector3 SpawnRotation => new(0, 274f, 0);
 
         public override bool HasQuest => false;
         public override string QuestName => "";

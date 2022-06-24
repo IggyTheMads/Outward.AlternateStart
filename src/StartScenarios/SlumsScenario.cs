@@ -31,8 +31,8 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.ReceiveSkillReward(8205070); //slow metabolism
-            character.Inventory.ReceiveItemReward(9000010, 34, false); //Starter Gold
+            //character.Inventory.ReceiveSkillReward(8205070); //slow metabolism
+            character.Inventory.ReceiveItemReward(9000010, 11, false); //Starter Gold
             character.Inventory.ReceiveItemReward(3000171, 1, true); //light chest
             character.Inventory.ReceiveItemReward(3000174, 1, true); //sandals
             character.Inventory.ReceiveItemReward(2000060, 1, false); //machete

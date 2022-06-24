@@ -17,8 +17,8 @@ namespace AlternateStart.StartScenarios
         public override ScenarioPassives Area => ScenarioPassives.RobbedTrader;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoOutside;
-        public override Vector3 SpawnPosition => new(1157.1f, 10.6f, 1059.7f);
-        public override Vector3 SpawnRotation => new(0, 48.8f, 0);
+        public override Vector3 SpawnPosition => new(300.3f, 37.3f, 1423.9f);
+        public override Vector3 SpawnRotation => new(0, 285.7f, 0);
 
         public override bool HasQuest => false;
         public override string QuestName => "";
@@ -54,7 +54,7 @@ namespace AlternateStart.StartScenarios
         public override void OnScenarioChosen(Character character)
         {
             //character.Stats.IncreaseBurntHealth(200, 1);
-            character.Inventory.ReceiveItemReward(9000010, 116, false); //bonus gold
+            character.Inventory.ReceiveItemReward(9000010, 56, false); //bonus gold
             character.Inventory.ReceiveItemReward(3000190, 1, true); //chest scholar
             character.Inventory.ReceiveItemReward(3000004, 1, true); //legs trader
             character.Inventory.ReceiveItemReward(-2353, 1, true); //bag of goods
@@ -67,7 +67,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnStartSpawn(Character character)
         {
-            ShowUIMessage("Get the goods safely to Cierzo!");
+            ShowUIMessage("I can see the lighthouse! Got to sell the goods in Cierzo!");
             //character.StatusEffectMngr.AddStatusEffect("AdrenalineRush");
         }
 
@@ -170,7 +170,7 @@ namespace AlternateStart.StartScenarios
                             if(Vector3.Distance(_character.transform.position, Instance.cierzoEntrance) < 5f) { return true; }
                             else
                             {
-                                Instance.ShowUIMessage("There is not time for this.");
+                                Instance.ShowUIMessage("There is no time for this.");
                                 return false;
                             }
                         }

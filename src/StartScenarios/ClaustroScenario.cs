@@ -16,7 +16,8 @@ namespace AlternateStart.StartScenarios
         public override ScenarioPassives Area => ScenarioPassives.Claustrophobic;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Harmattan;
-        public override Vector3 SpawnPosition => default;
+        public override Vector3 SpawnPosition => new(1499.7f, -8.9f, 54.7f);
+        public override Vector3 SpawnRotation => new(0, 99.8f, 0);
 
         public override bool HasQuest => false;
         public override string QuestName => "";
@@ -33,9 +34,10 @@ namespace AlternateStart.StartScenarios
         public override void OnScenarioChosen(Character character)
         {
             character.Stats.FullStamina();
-            character.Inventory.ReceiveItemReward(9000010, 612, false); //bonus mega gold
-            character.Inventory.ReceiveItemReward(3000190, 1, true); //chest scholar
-            character.Inventory.ReceiveItemReward(3000004, 1, true); //legs trader
+            //character.Inventory.ReceiveItemReward(9000010, 1, false); //no gold
+            character.Inventory.ReceiveItemReward(3000081, 1, true); //chest worker
+            character.Inventory.ReceiveItemReward(3000083, 1, true); //legs worker
+            character.Inventory.ReceiveItemReward(3000086, 1, true); //helm worker
         }
 
         public override void OnStartSpawn()

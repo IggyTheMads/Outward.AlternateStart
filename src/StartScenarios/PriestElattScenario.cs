@@ -15,7 +15,8 @@ namespace AlternateStart.StartScenarios
         public override ScenarioPassives Area => ScenarioPassives.PriestElatt;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Monsoon;
-        public override Vector3 SpawnPosition => default;
+        public override Vector3 SpawnPosition => new(-175.2f, -1514.6f, 751.9f);
+        public override Vector3 SpawnRotation => new(0, 359f, 0);
 
         public override bool HasQuest => false;
         public override string QuestName => "";

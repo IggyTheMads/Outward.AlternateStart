@@ -13,7 +13,7 @@ namespace AlternateStart.StartScenarios
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
         public override ScenarioPassives Area => ScenarioPassives.VanillaLevant;
 
-        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Abrassar;
+        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Abrassar; //NEED GEAR UPDATE
         public override Vector3 SpawnPosition => new(225.8f, -148.5f, -499.4f);
         public override Vector3 SpawnRotation => new(0, 73f, 0);
 

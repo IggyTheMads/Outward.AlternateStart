@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <SL_StatusEffect xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <TargetStatusIdentifier>Force Bubble</TargetStatusIdentifier>
   <NewStatusID>-233324</NewStatusID>
   <StatusIdentifier>AdrenalineRush</StatusIdentifier>
   <Name>AdrenalineRush</Name>
   <Description>Recover [E1V1] Stamina per second.</Description>
-  <Lifespan>120</Lifespan>
+  <Lifespan>60</Lifespan>
   <RefreshRate>1</RefreshRate>
   <Purgeable>true</Purgeable>
   <Priority>5</Priority>

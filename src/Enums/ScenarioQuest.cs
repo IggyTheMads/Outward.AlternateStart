@@ -22,7 +22,7 @@
         Quest_Veteran = -2314,
         Quest_WolfgangMercenary = -2315,
         Quest_RobbedTrader = -2316,
-        Quest_AdrenalineRush = -2317,
+        Quest_Survivor = -2317,
         Quest_CorruptedSoul = -2318,
         Quest_UglyAF = -2319, // WIP
         Quest_NightmareTrauma = -2320, // WIP

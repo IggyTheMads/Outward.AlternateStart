@@ -45,7 +45,7 @@ namespace AlternateStart.StartScenarios
             character.Inventory.ReceiveItemReward(3000134, 1, true); //beggarB head
             character.Inventory.ReceiveItemReward(3000131, 1, true); //beggarB chest
             character.Inventory.ReceiveItemReward(3000136, 1, true); //beggarB legs
-            character.Inventory.ReceiveItemReward(2010050, 1, false); //hatchet weapon
+            //character.Inventory.ReceiveItemReward(2010050, 1, false); //hatchet weapon
             character.Inventory.ReceiveItemReward(5100500, 1, true); //lexicon
         }
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <SL_Skill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2208</New_ItemID>
@@ -28,7 +28,17 @@
       <Position xsi:nil="true" />
       <Rotation xsi:nil="true" />
       <Scale xsi:nil="true" />
-      <Effects />
+      <Effects>
+        <SL_Effect xsi:type="SL_AffectStat">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Stat_Tag>Impact</Stat_Tag>
+          <AffectQuantity>-30</AffectQuantity>
+          <IsModifier>true</IsModifier>
+          <Duration>-1</Duration>
+        </SL_Effect>
+      </Effects>
       <EffectConditions />
       <ChildEffects />
     </SL_EffectTransform>

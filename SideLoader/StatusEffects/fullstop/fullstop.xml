@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <SL_StatusEffect xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <TargetStatusIdentifier>Doom</TargetStatusIdentifier>
   <NewStatusID>30</NewStatusID>
@@ -51,9 +51,10 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>MovementSpeed</Stat_Tag>
-          <AffectQuantity>-100</AffectQuantity>
+          <AffectQuantity>-95</AffectQuantity>
           <IsModifier>true</IsModifier>
           <Tags />
+          <Duration>-1</Duration>
         </SL_Effect>
         <SL_Effect xsi:type="SL_AffectStamina">
           <Delay>0</Delay>
