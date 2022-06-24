@@ -34,6 +34,12 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
+
+        }
+
+        public override void OnStartSpawn(Character character)
+        {
+            character.Stats.SetManaPoint(3);
             character.Inventory.ReceiveSkillReward(8100220); //shim
             character.Inventory.ReceiveSkillReward(8100230); //egoth
             character.Inventory.ReceiveItemReward(3000134, 1, true); //beggarB head
@@ -41,10 +47,6 @@ namespace AlternateStart.StartScenarios
             character.Inventory.ReceiveItemReward(3000136, 1, true); //beggarB legs
             character.Inventory.ReceiveItemReward(2010050, 1, false); //hatchet weapon
             character.Inventory.ReceiveItemReward(5100500, 1, true); //lexicon
-        }
-
-        public override void OnStartSpawn(Character character)
-        {
         }
 
         public override void UpdateQuestProgress(Quest quest)

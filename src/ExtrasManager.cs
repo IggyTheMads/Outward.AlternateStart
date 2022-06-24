@@ -12,6 +12,9 @@ namespace AlternateStart
     {
         public static ExtrasManager Instance;
 
+        Vector3 spawn = new Vector3(-12.2f, 0.2f, -0.6f);
+        Vector3 spawnRot = new Vector3(0, 75.2f, 0);
+
         internal void Awake()
         {
             Instance = this;
@@ -43,6 +46,21 @@ namespace AlternateStart
                 }
                 yield return new WaitForSeconds(0.2f);
                 _character.Animator.speed = 1f;
+            }
+        }
+
+        void Update()
+        {
+            if(SceneManagerHelper.ActiveSceneName == "DreamWorld")
+            {
+                foreach (PlayerSystem _character in Global.Lobby.PlayersInLobby)
+                {
+                    float distance = Vector3.Distance(_character.ControlledCharacter.transform.position, spawn);
+                    if (distance > 3f)
+                    {
+                        _character.ControlledCharacter.Teleport(spawn, spawnRot);
+                    }
+                }
             }
         }
     }

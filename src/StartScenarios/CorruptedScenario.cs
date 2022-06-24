@@ -39,7 +39,7 @@ namespace AlternateStart.StartScenarios
             //character.Inventory.ReceiveItemReward(9000010, 53, false); //Starter Gold
             character.Inventory.ReceiveItemReward(3000044, 1, true); //jade acolyte robes
             character.Inventory.ReceiveItemReward(3000046, 1, true); //jade acolyte boots
-            character.Inventory.ReceiveItemReward(2150001, 1, true); //fang cub
+            character.Inventory.ReceiveItemReward(2150001, 1, true); //mage stick
             //character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
         }
 
@@ -49,7 +49,7 @@ namespace AlternateStart.StartScenarios
 
         public override void UpdateQuestProgress(Quest quest)
         {
-            
+
         }
 
 
@@ -70,16 +70,19 @@ namespace AlternateStart.StartScenarios
                 if (__instance == null) { return; }
                 if (!__instance.m_character.IsLocalPlayer) { return; }
 
-                if (__instance.m_character.PlayerStats.Corruption < 900)
+                if (__instance.m_character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.CorruptedSoul))
                 {
-                    __instance.m_character.PlayerStats.AffectCorruptionLevel(900, false);
-                }
-                /*if(__instance.m_character.StatusEffectMngr.HasStatusEffect("Bleeding"))
-                {
+                    if (__instance.m_character.PlayerStats.Corruption < 900)
+                    {
+                        __instance.m_character.PlayerStats.AffectCorruptionLevel(900, false);
+                    }
+                    /*if(__instance.m_character.StatusEffectMngr.HasStatusEffect("Bleeding"))
+                    {
 
-                }*/
+                    }*/
+                }
             }
         }
         #endregion
-        }
+    }
 }

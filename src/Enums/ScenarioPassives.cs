@@ -16,15 +16,15 @@
         Claustrophobic = -2210, // helmet debuffs, reduced costs
         VendavelSlave = -2211, // bonus dmgs n pouch, easier to bleed LOC
         GiantRisen = -2212, // increased impacts, expensive dodge LOC
-        Cannibal = -2213, // only eat human flesh 
-        ConfluxWatcher = -2214, // mana regen, lower stam regen LOC
-        Veteran = -2215, // bigger hp, lower stamina lower resistance LOC
-        WolfgangMercenary = -2216, // stam bonus dmg, lower magical  LOC
-        RobbedTrader = -2217, // low prices, lower resistances LOC
-        NightmareTrauma = -2218, // always tired, hallucinate spawn ghost
-        AdrenalineRush = -2219, // enrage with low hp, lower dmg when full hp
-        CorruptedSoul = -2220, // always corrupted, immune to poison n bleed LOC
-        UglyAF = -2221, // UGLY WIP
+        ConfluxWatcher = -2213, // mana regen, lower stam regen LOC
+        Veteran = -2214, // bigger hp, lower stamina lower resistance LOC
+        WolfgangMercenary = -2215, // stam bonus dmg, lower magical  LOC
+        RobbedTrader = -2216, // low prices, lower resistances LOC
+        AdrenalineRush = -2217, // enrage with low hp, lower dmg when full hp
+        CorruptedSoul = -2218, // always corrupted, immune to poison n bleed LOC
+        UglyAF = -2219, // UGLY WIP
+        NightmareTrauma = -2220, // always tired, hallucinate spawn ghost
+        Cannibal = -2221, // only eat human flesh 
         SandBandit = -2222, //-------------- WIP
 
     }
