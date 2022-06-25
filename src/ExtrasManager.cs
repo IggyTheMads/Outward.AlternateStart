@@ -22,7 +22,8 @@ namespace AlternateStart
             Instance = this;
         }
 
-        [HarmonyPatch(typeof(Character), "DodgeInput", new Type[] { typeof(Vector3) })]
+        // GIANT RISEN
+        /*[HarmonyPatch(typeof(Character), "DodgeInput", new Type[] { typeof(Vector3) })]
         public class Character_DodgeInput
         {
             [HarmonyPostfix]
@@ -49,7 +50,7 @@ namespace AlternateStart
                 yield return new WaitForSeconds(0.2f);
                 _character.Animator.speed = 1f;
             }
-        }
+        }*/
 
         void Update()
         {

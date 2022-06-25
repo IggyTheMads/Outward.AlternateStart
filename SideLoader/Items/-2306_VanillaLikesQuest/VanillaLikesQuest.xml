@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SL_Quest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>7011620</Target_ItemID>
-  <New_ItemID>-2312</New_ItemID>
-  <Name>Giant Blood</Name>
-  <Description>GiantRisenScenario</Description>
+  <New_ItemID>-2306</New_ItemID>
+  <Name>VanillaLikesQuest</Name>
+  <Description>VanillaLikesQuest</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>
@@ -25,17 +25,17 @@
       <Savable>true</Savable>
       <LogSignatures>
         <SL_QuestLogEntrySignature>
-          <UID>giantquest.objective.a</UID>
+          <UID>vanillalike.objective.a</UID>
           <Text>A</Text>
           <Type>Static</Type>
         </SL_QuestLogEntrySignature>
         <SL_QuestLogEntrySignature>
-          <UID>giantquest.objective.b</UID>
+          <UID>vanillalike.objective.b</UID>
           <Text>B</Text>
           <Type>Static</Type>
         </SL_QuestLogEntrySignature>
         <SL_QuestLogEntrySignature>
-          <UID>giantquest.objective.c</UID>
+          <UID>vanillalike.objective.c</UID>
           <Text>C</Text>
           <Type>Static</Type>
         </SL_QuestLogEntrySignature>

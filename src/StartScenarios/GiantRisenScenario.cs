@@ -21,10 +21,11 @@ namespace AlternateStart.StartScenarios
         public override Vector3 SpawnPosition => default;
 
         public override bool HasQuest => true;
-        public override string QuestName => "Captive of the Giants";
+        public override string QuestName => "Giant Mistake";
 
         const string LogSignature_A = "giantquest.objective.a";
         const string LogSignature_B = "giantquest.objective.b";
+        const string LogSignature_C = "giantquest.objective.c";
         public override Dictionary<string, string> QuestLogSignatures => new()
         {
             {
@@ -33,7 +34,11 @@ namespace AlternateStart.StartScenarios
             },
             {
                 LogSignature_B,
-                "You have escaped the giants."
+                "Find a new home..."
+            },
+            {
+                LogSignature_C,
+                "You are ready to join a faction."
             }
         };
 
@@ -50,7 +55,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false);
+
         }
 
         public override void OnScenarioChosen(Character character)
@@ -70,7 +75,7 @@ namespace AlternateStart.StartScenarios
             VanillaQuestsHelper.AddQuestEvent(VanillaQuestsHelper.ashFight);
 
             // Add 1 to our tracker event stack. Next scene load we will reset the quest events.
-            QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart);
+            //QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart);
         }
 
         public override void OnStartSpawn(Character character)
@@ -97,21 +102,39 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            // Each scene load we add 1 to this quest event stack, until it reaches 2.
+            // Each scene load we add 1 to this quest event stack, until it reaches 3.
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedGiantRisenStart.EventUID);
 
-            if (stack < 2)
-                QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart);
+            if (stack < 3)
+            { 
+                QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart, 1);
+                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedGiantRisenStart.EventUID);
+            }
 
-            // Update the first log no matter what. It's completed if our stack is 2 or higher.
+            ShowUIMessage("Stacks -> " + stack);
             QuestProgress progress = quest.m_questProgress;
-            progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), stack >= 2);
+            if (stack == 1)
+            {
+                // Update the first log no matter what. It's completed if our stack is 2 or higher.
+                
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
+                ShowUIMessage("I've been exiled! I should flee!");
+            }
 
             // If we reached 2, remove the giant quest events and add the second log.
-            if (QuestEventManager.Instance.GetEventCurrentStack(QE_FixedGiantRisenStart.EventUID) >= 2)
+            else if (stack == 2)
             {
-                // Second log just auto-completes.
+                // Second log
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), false);
+                ShowUIMessage("I need to find a new home...");
+
+            }
+
+            if (SceneManagerHelper.ActiveSceneName == "Monsoon")
+            {
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
+                // Third log just auto-completes.
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_C), true);
 
                 // Our quest is finished i guess
                 progress.DisableQuest(QuestProgress.ProgressState.Successful);
@@ -120,16 +143,10 @@ namespace AlternateStart.StartScenarios
                 VanillaQuestsHelper.RemoveEvent(VanillaQuestsHelper.ashFight);
                 VanillaQuestsHelper.RemoveEvent(VanillaQuestsHelper.ashAllyFail);
                 VanillaQuestsHelper.RemoveEvent(VanillaQuestsHelper.ashCompleteFail);
+
+                VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+                ShowUIMessage("Maybe I should join a new faction...");
             }
-
-            ////////////////////////
-            ///
-            /// ADD restriction to giant town for a few days
-            /// 
-            ////////////////////////
-            ///
-
-
         }
         #region PassiveEffects
 
@@ -139,7 +156,34 @@ namespace AlternateStart.StartScenarios
             Instance = this;
         }
 
+        [HarmonyPatch(typeof(Character), "DodgeInput", new Type[] { typeof(Vector3) })]
+        public class Character_DodgeInput
+        {
+            [HarmonyPostfix]
+            public static void Postfix(Character __instance, Vector3 _direction)
+            {
+                if (__instance.IsLocalPlayer && __instance.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.GiantRisen) && !__instance.DodgeRestricted)
+                {
+                    Plugin.Instance.StartCoroutine(Instance.DodgeSlower(__instance));
+                }
+            }
+        }
 
+        public IEnumerator DodgeSlower(Character _character)
+        {
+
+            //yield return new WaitForSeconds(0.1f);
+            if (_character.Dodging == true)
+            {
+                _character.Animator.speed = 0.6f;
+                while (_character.Dodging == true)
+                {
+                    yield return new WaitForSeconds(0.2f);
+                }
+                yield return new WaitForSeconds(0.2f);
+                _character.Animator.speed = 1f;
+            }
+        }
         #endregion
     }
 }

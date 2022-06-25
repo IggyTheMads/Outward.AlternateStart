@@ -27,8 +27,8 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false);
-            VanillaQuestsHelper.DestroyCierzo(true);
+            VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+            VanillaQuestsHelper.DestroyCierzo(true, true);
         }
 
         public override void OnStartSpawn()

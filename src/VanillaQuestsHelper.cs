@@ -53,6 +53,8 @@ namespace AlternateStart
         public const string cierzoTimer = "bm3rB3abI0KFok2x5P0lrg";
         public const string cierzoFail = "WvGjemEntk6quLjy4rLrJQ";
 
+        public const string factionCommit = "bjVloYMQxk6KXx0gph2A1Q";
+
         //join factions
         public const string directionRISA = "seEIFfM9SkeZxc4CpR40oQ";
         public const string directionOLIELE = "Bo4-Xvq4_kudPDnOgkI3VA";
@@ -78,24 +80,27 @@ namespace AlternateStart
 
         #endregion
 
-        internal static void SkipHostToFactionChoice(bool keepHouse)
+        internal static void SkipHostToFactionChoice(bool keepHouse, bool complete)
         {
             Character host = CharacterManager.Instance.GetWorldHostCharacter();
 
             host.Inventory.QuestKnowledge.ReceiveQuest(callToAdventureQ);
             host.Inventory.QuestKnowledge.ReceiveQuest(lookingToTheFutureQ);
-            host.Inventory.QuestKnowledge.ReceiveQuest(enrollmentQ);
 
-            Plugin.Instance.StartCoroutine(AddPrefactionEvents(keepHouse));
+            Plugin.Instance.StartCoroutine(AddPrefactionEvents(keepHouse, complete));
         }
 
-        internal static void DestroyCierzo(bool instant)
+        internal static void DestroyCierzo(bool instant, bool receiveQ)
         {
             Character host = CharacterManager.Instance.GetWorldHostCharacter();
 
-            host.Inventory.QuestKnowledge.ReceiveQuest(vendavelQ);
             AddQuestEvent(cierzoWarning);
             AddQuestEvent(cierzoTimer);
+
+            if (receiveQ)
+            {
+                host.Inventory.QuestKnowledge.ReceiveQuest(vendavelQ);
+            }
 
             if (instant)
             {
@@ -113,20 +118,22 @@ namespace AlternateStart
         {
             QuestEventManager.Instance.RemoveEvent(questUID);
         }
-        
-        
-        internal static IEnumerator AddPrefactionEvents(bool keepHouse)
+
+
+        internal static IEnumerator AddPrefactionEvents(bool keepHouse, bool complete)
         {
-            yield return new WaitForSeconds(0.1f); 
-        
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+
+            yield return new WaitForSeconds(0.1f);
+
             AddQuestEvent(playerInCierzo);
             AddQuestEvent(tutorialIntroFinished);
-        
+
             AddQuestEvent(introPlayerHouse);
             AddQuestEvent(rissaBegExtension);
             AddQuestEvent(grandmother);
             AddQuestEvent(rissaTalk);
-        
+
             if (keepHouse)
             {
                 AddQuestEvent(debtPAID);
@@ -139,7 +146,7 @@ namespace AlternateStart
                 AddQuestEvent(debtNOTpaid);
                 AddQuestEvent(callToAdventureENDb);
             }
-        
+
             AddQuestEvent(directionRISA);
             AddQuestEvent(readyToChoose);
             AddQuestEvent(olieleMonsoon);
@@ -151,23 +158,29 @@ namespace AlternateStart
             AddQuestEvent(argensonMet);
             AddQuestEvent(argensonStash);
             AddQuestEvent(YzanFriendship);
-            AddQuestEvent(rissaBerg);
-            AddQuestEvent(BCproposition);
+
             AddQuestEvent(callAdventureExpired);
             AddQuestEvent(callAdventureCompleted);
+
+            if(complete)
+            {
+                AddQuestEvent(BCproposition);
+                AddQuestEvent(rissaBerg);
+                host.Inventory.QuestKnowledge.ReceiveQuest(enrollmentQ);
+            }    
         }
-        
+
         internal static void StartHouseTimer()
         {
             CharacterManager.Instance.GetWorldHostCharacter().Inventory.QuestKnowledge.ReceiveQuest(callToAdventureQ);
-        
+
             Plugin.Instance.StartCoroutine(AddHouseTimerEvents());
         }
-        
+
         static IEnumerator AddHouseTimerEvents()
         {
             yield return new WaitForSeconds(0.5f);
-        
+
             AddQuestEvent(playerInCierzo);
             AddQuestEvent(tutorialIntroFinished);
             AddQuestEvent(introPlayerHouse);

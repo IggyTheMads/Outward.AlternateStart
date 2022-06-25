@@ -26,7 +26,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false);
+            VanillaQuestsHelper.SkipHostToFactionChoice(false, false);
         }
 
         public override void OnStartSpawn()

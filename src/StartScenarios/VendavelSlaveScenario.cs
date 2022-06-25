@@ -1,11 +1,13 @@
-﻿using System;
+﻿using SideLoader;
+using SideLoader.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
-using SideLoader;
 using HarmonyLib;
+using System.Collections;
 
 namespace AlternateStart.StartScenarios
 {
@@ -19,13 +21,38 @@ namespace AlternateStart.StartScenarios
         public override Vector3 SpawnPosition => new(-4.9f, -10f, 26.9f);
         public override Vector3 SpawnRotation => new(0, 356.3f, 0);
 
-        public override bool HasQuest => false;
-        public override string QuestName => "";
+        public override bool HasQuest => true;
+        public override string QuestName => "Sweet Freedom";
+
+        const string LogSignature_A = "slavequest.objective.a";
+        const string LogSignature_B = "slavequest.objective.b";
+        const string LogSignature_C = "slavequest.objective.c";
         public override Dictionary<string, string> QuestLogSignatures => new()
         {
-
+            {
+                LogSignature_A,
+                "Find a way out. Freedom."
+            },
+            {
+                LogSignature_B,
+                "Seek help in Cierzo village."
+            },
+            {
+                LogSignature_C,
+                "You are safe in Cierzo."
+            }
         };
 
+        private QuestEventSignature QE_FixedSlaveStart;
+
+        public override void Init()
+        {
+            base.Init();
+
+            QE_FixedSlaveStart = CustomQuests.CreateQuestEvent("iggythemad.slave.fixedstart", false, true, true, Plugin.QUEST_EVENT_FAMILY_NAME);
+
+            SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
+        }
 
         //variables
         public string enemyID = "com.iggy.vendavelbandit";
@@ -34,26 +61,21 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false);
-            VanillaQuestsHelper.DestroyCierzo(false);
+            //VanillaQuestsHelper.SkipHostToFactionChoice(false);
+            
         }
 
         public override void OnScenarioChosen(Character character)
         {
             character.Stats.IncreaseBurntHealth(200, 1);
-            //character.Inventory.ReceiveItemReward(3000133, 1, true); //beggarB head
-            //character.Inventory.ReceiveItemReward(3000130, 1, true); //beggarB chest
-            //character.Inventory.ReceiveItemReward(3000136, 1, true); //beggarB legs
         }
 
         public override void OnStartSpawn()
         {
-
-            VanillaQuestsHelper.StartHouseTimer();
+            GetOrGiveQuestToHost();
 
             //SL_Character myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
             //myChar.Spawn(prisonJump, Vector3.back, UID.Generate());
-
         }
 
         public override void OnStartSpawn(Character character)
@@ -61,14 +83,67 @@ namespace AlternateStart.StartScenarios
             character.Stats.IncreaseBurntHealth(200, 1);
         }
 
+        private void SL_OnGameplayResumedAfterLoading()
+        {
+            if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
+                return;
+
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            if (host.Inventory.QuestKnowledge.IsItemLearned((int)this.Type))
+            {
+                Quest quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
+                UpdateQuestProgress(quest);
+            }
+        }
+
         public override void UpdateQuestProgress(Quest quest)
         {
-            ////////////////////////
-            ///
-            /// ADD start guards hostile event if killing the armored guy
-            /// ADD Dying OR leaving the fortress through the hole, removes the armor obtained
-            /// 
-            ////////////////////////
+            // Do nothing if we are not the host.
+            if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
+                return;
+
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSlaveStart.EventUID);
+            QuestProgress progress = quest.m_questProgress;
+
+            //ShowUIMessage("Stacks -> " + stack);
+            if (stack < 1)
+            {
+                QuestEventManager.Instance.AddEvent(QE_FixedSlaveStart, 1);
+                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSlaveStart.EventUID);
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
+                ShowUIMessage("I can't take this anymore...");
+            }
+            else if (stack == 1 && SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain")
+            {
+                // Second log
+                QuestEventManager.Instance.AddEvent(QE_FixedSlaveStart, 1);
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), false);
+                ShowUIMessage("I should seek help in Cierzo...");
+                VanillaQuestsHelper.DestroyCierzo(false, false);
+                //VanillaQuestsHelper.AddQuestEvent(VanillaQuestsHelper.factionCommit);
+
+            }
+            else if (stack == 2 && SceneManagerHelper.ActiveSceneName == "CierzoNewTerrain")
+            {
+                QuestEventManager.Instance.AddEvent(QE_FixedSlaveStart, 1);
+
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
+                // Third log just auto-completes.
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_C), true);
+
+                // Our quest is finished i guess
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+
+                VanillaQuestsHelper.SkipHostToFactionChoice(false, false);
+                ShowUIMessage("I should ask around...");
+
+            }
+            /*else if (stack > 2 && SceneManagerHelper.ActiveSceneName != "CierzoNewTerrain" && host.Inventory.QuestKnowledge.IsItemLearned(VanillaQuestsHelper.vendavelQ))
+            {
+                ShowUIMessage("Maybe I should join a faction...");
+            }*/
         }
 
         internal static VendavelSlaveScenario Instance { get; private set; }
