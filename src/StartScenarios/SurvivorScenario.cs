@@ -14,7 +14,7 @@ namespace AlternateStart.StartScenarios
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
         public override ScenarioPassives Area => ScenarioPassives.Survivor;
 
-        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Emercar;
+        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoOutside;
         public override Vector3 SpawnPosition => new(133.7f, 33.4f, 1456.8f);
         public override Vector3 SpawnRotation => new(0, 68.4f, 0);
 
@@ -27,7 +27,8 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.StartHouseTimer();
+            VanillaQuestsHelper.SkipHostToFactionChoice(false);
+            VanillaQuestsHelper.DestroyCierzo(true);
         }
 
         public override void OnStartSpawn()

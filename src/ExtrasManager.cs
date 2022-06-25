@@ -5,6 +5,8 @@ using System.Reflection;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 namespace AlternateStart
 {
@@ -61,6 +63,18 @@ namespace AlternateStart
                         _character.ControlledCharacter.Teleport(spawn, spawnRot);
                     }
                 }
+            }
+        }
+
+        //to get UIDs from Debug window
+        [HarmonyPatch(typeof(DT_QuestEventCheats), "OnClickNewQEEvent")]
+        public class DT_QuestEventCheats_OnClickNewQEEvent
+        {
+            [HarmonyPostfix]
+            public static void Postfix(string _eventUID, Button _item, BaseEventData _eventData)
+            {
+                Debug.Log("UID: " + _eventUID);
+                System.Windows.Forms.Clipboard.SetText(_eventUID);
             }
         }
     }

@@ -3,7 +3,10 @@
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2215</New_ItemID>
   <Name>Wolfgang Mercenary</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Description>muricaa
+
+&lt;color=#00f5ff&gt;[Deal 0.5% more physical damage per current stamina point.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[All Magic Resistances -40.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>

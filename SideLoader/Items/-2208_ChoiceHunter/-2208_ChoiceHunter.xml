@@ -2,8 +2,11 @@
 <SL_Skill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2208</New_ItemID>
-  <Name>Emercar Hunter</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Name>Enmerkar Hunter</Name>
+  <Description>You hunt
+
+&lt;color=#00f5ff&gt;[Bow draw speed greatly increased.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[Damage dealt reduced without a bow equipped.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>
@@ -34,7 +37,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>Impact</Stat_Tag>
-          <AffectQuantity>-30</AffectQuantity>
+          <AffectQuantity>0</AffectQuantity>
           <IsModifier>true</IsModifier>
           <Duration>-1</Duration>
         </SL_Effect>

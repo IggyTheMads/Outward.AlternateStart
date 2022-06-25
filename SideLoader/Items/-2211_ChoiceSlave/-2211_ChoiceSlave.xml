@@ -2,8 +2,11 @@
 <SL_Skill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2211</New_ItemID>
-  <Name>Slave</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Name>Escaped Slave</Name>
+  <Description>vendavel asses
+
+&lt;color=#00f5ff&gt;[Pouch size +5, max stamina +30 and physical damage +20%.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[You bleed very easily when taking damage.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>
@@ -34,7 +37,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>PouchCapacity</Stat_Tag>
-          <AffectQuantity>10</AffectQuantity>
+          <AffectQuantity>5</AffectQuantity>
           <IsModifier>false</IsModifier>
           <Duration>-1</Duration>
         </SL_Effect>

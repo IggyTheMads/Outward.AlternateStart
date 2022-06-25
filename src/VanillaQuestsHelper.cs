@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using HarmonyLib;
+using UnityEngine.UI;
+//using System.Windows.Forms;
 
 namespace AlternateStart
 {
@@ -37,6 +40,20 @@ namespace AlternateStart
         public const string debtNOTpaid = "sAc2Dj-T_kysKXFV48Hp0A";
         public const string callToAdventureENDb = "8iAJYhhqj02ODuwZ9VvXMw";
 
+        // FREE HOUSES
+        public const string bergHouse = "g403vlCU6EG0s1mI6t_rFA";
+        public const string harmattanHouse = "0r087PIxTUqoj6N7z2HFNw";
+        public const string levantHouse = "LpVUuoxfhkaWOgh6XLbarA";
+        public const string monsoonHouse = "shhCMFa-lUqbIYS9hRcsdg";
+
+        // Cierzo Destroy
+        public const int vendavelQ = 7011004;
+        public const string cierzoDestroy = "lDHL_XMS7kKEs0uOqrLQjw";
+        public const string cierzoWarning = "-vFSY-MNoUuLH1XXBkcqvQ";
+        public const string cierzoTimer = "bm3rB3abI0KFok2x5P0lrg";
+        public const string cierzoFail = "WvGjemEntk6quLjy4rLrJQ";
+
+        //join factions
         public const string directionRISA = "seEIFfM9SkeZxc4CpR40oQ";
         public const string directionOLIELE = "Bo4-Xvq4_kudPDnOgkI3VA";
         public const string directionYSAN = "gAJAjuzl7ESFpMooq1oOCg";
@@ -53,6 +70,7 @@ namespace AlternateStart
         public const string callAdventureExpired = "zoKR1_bqiUiAetJ3uxw-Ug"; //house obtain timer
         public const string callAdventureCompleted = "ZYzrMi1skUiJ4BgXXQ3sfw";
 
+        //ash Giants
         public const string ashAllyFail = "nDy01eTHlUa_BPDlbIhZPQ";
         public const string ashCompleteFail = "f1JVZyhg2UiBA8xmC-w6Hw";
         public const string ashFight = "XqlcpbTJC0aTDZfjD4xCTg";
@@ -66,10 +84,25 @@ namespace AlternateStart
 
             host.Inventory.QuestKnowledge.ReceiveQuest(callToAdventureQ);
             host.Inventory.QuestKnowledge.ReceiveQuest(lookingToTheFutureQ);
+            host.Inventory.QuestKnowledge.ReceiveQuest(enrollmentQ);
 
             Plugin.Instance.StartCoroutine(AddPrefactionEvents(keepHouse));
         }
 
+        internal static void DestroyCierzo(bool instant)
+        {
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+
+            host.Inventory.QuestKnowledge.ReceiveQuest(vendavelQ);
+            AddQuestEvent(cierzoWarning);
+            AddQuestEvent(cierzoTimer);
+
+            if (instant)
+            {
+                AddQuestEvent(cierzoDestroy);
+                AddQuestEvent(cierzoFail);
+            }
+        }
 
         internal static void AddQuestEvent(string questUID)
         {

@@ -80,10 +80,10 @@ namespace AlternateStart.StartScenarios
             if (SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain" && player.Inventory.OwnsOrHasEquipped(-2353))
             {
                 SL_Character myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
-                int banditAmount = 3;
+                int banditAmount = 2;
                 for (int i = 0; i < banditAmount; i++)
                 {
-                    Vector3 enemyOffset = new(UnityEngine.Random.Range(20f, 30f), 4f, UnityEngine.Random.Range(20f, 30f));
+                    Vector3 enemyOffset = new(UnityEngine.Random.Range(30f, 40f), 4f, UnityEngine.Random.Range(20f, 30f));
                     Vector3 enemySpawn = SpawnPosition + enemyOffset;
                     Character enemyChar = myChar.Spawn(enemySpawn, (enemySpawn + SpawnPosition).normalized, UID.Generate());
                     //ToDo: randomize bandit weapons from list

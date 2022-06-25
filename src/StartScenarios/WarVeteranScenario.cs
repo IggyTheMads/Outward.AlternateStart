@@ -27,7 +27,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.StartHouseTimer();
+            VanillaQuestsHelper.SkipHostToFactionChoice(false);
         }
 
         public override void OnStartSpawn()
@@ -39,7 +39,7 @@ namespace AlternateStart.StartScenarios
             character.Inventory.ReceiveItemReward(9000010, 53, false); //Starter Gold
             character.Inventory.ReceiveItemReward(3000010, 1, true); //padded chest
             character.Inventory.ReceiveItemReward(3000012, 1, true); //padded legs
-            character.Inventory.ReceiveItemReward(2100080, 1, true); //fang cub
+            character.Inventory.ReceiveItemReward(2000061, 1, true); //gold machete
             character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
         }
 
@@ -49,7 +49,7 @@ namespace AlternateStart.StartScenarios
 
         public override void UpdateQuestProgress(Quest quest)
         {
-            
+
         }
 
 
@@ -68,16 +68,39 @@ namespace AlternateStart.StartScenarios
             public static void Prefix(Character __instance, UnityEngine.Object _damageSource, DamageList _damage, Vector3 _hitDir, Vector3 _hitPoint, float _angle, float _angleDir, Character _dealerChar, ref float _knockBack, bool _hitInventory)
             {
                 if (__instance == null) { return; }
-                if(!__instance.IsLocalPlayer) { return; }
+                if (!__instance.IsLocalPlayer) { return; }
 
-                if(__instance.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Veteran))
+                if (__instance.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Veteran))
                 {
                     //lower stamina, more knockback received
-                    float blockExtra = 2f;
-                    if(__instance.Blocking) { blockExtra = 4f; }
-                    float multiplier = ((100 / __instance.Stats.MaxStamina) * __instance.Stats.CurrentStamina) / 100;
+                    float blockExtra = 1f;
+                    if (__instance.Blocking) { blockExtra = 3f; }
+                    float multiplier = ((1 / __instance.Stats.MaxStamina) * __instance.Stats.CurrentStamina);
                     _knockBack = _knockBack + ((_knockBack * (1 - multiplier) * blockExtra));
                 }
+            }
+        }
+
+        [HarmonyPatch(typeof(LocalCharacterControl), "DetectMovementInputs")]
+        public class LocalCharacterControl_DetectMovementInputs
+        {
+            [HarmonyPostfix]
+            public static void Postfix(LocalCharacterControl __instance, ref Character ___m_character)
+            {
+                if (__instance == null) { return; }
+                if (!__instance.Character.IsLocalPlayer) { return; }
+
+                if (__instance.Character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Veteran))
+                {
+                    float minMov = 0.6f;
+                    float multiplier = 1 / __instance.Character.Stats.MaxStamina * __instance.Character.Stats.CurrentStamina;
+                    float slowedX = Mathf.Abs(__instance.m_moveInput.x * (minMov + (1f - minMov) * multiplier));
+                    float slowedY = Mathf.Abs(__instance.m_moveInput.y * (minMov + (1f - minMov) * multiplier)); // Input * (min + (max - min) * ratio)
+
+                    __instance.m_moveInput *= new Vector2(slowedX, slowedY);
+                    __instance.m_modifMoveInput *= new Vector2(slowedX, slowedY);
+                }
+                return;
             }
         }
         #endregion

@@ -3,7 +3,10 @@
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2218</New_ItemID>
   <Name>Corrupted</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Description>politician
+
+&lt;color=#00f5ff&gt;[Permanently at full Corruption.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[Immune to all poisons.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>

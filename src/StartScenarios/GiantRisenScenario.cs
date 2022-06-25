@@ -55,8 +55,8 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.ReceiveSkillReward(8205040); //fitness passive
-            character.Inventory.ReceiveSkillReward(8205030); //steady arm passive
+            //character.Inventory.ReceiveSkillReward(8205040); //fitness passive
+            //character.Inventory.ReceiveSkillReward(8205030); //steady arm passive
             character.Inventory.ReceiveItemReward(3000221, 1, true); //ash head
             character.Inventory.ReceiveItemReward(3000220, 1, true); //ash chest
             character.Inventory.ReceiveItemReward(3000222, 1, true); //ash legs

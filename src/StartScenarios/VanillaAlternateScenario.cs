@@ -26,7 +26,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.StartHouseTimer();
+            VanillaQuestsHelper.SkipHostToFactionChoice(false);
         }
 
         public override void OnScenarioChosen(Character character)

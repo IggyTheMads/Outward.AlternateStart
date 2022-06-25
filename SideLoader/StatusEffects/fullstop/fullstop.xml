@@ -51,7 +51,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>MovementSpeed</Stat_Tag>
-          <AffectQuantity>-95</AffectQuantity>
+          <AffectQuantity>-90</AffectQuantity>
           <IsModifier>true</IsModifier>
           <Tags />
           <Duration>-1</Duration>

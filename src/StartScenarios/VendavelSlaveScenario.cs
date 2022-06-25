@@ -34,7 +34,8 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.StartHouseTimer();
+            VanillaQuestsHelper.SkipHostToFactionChoice(false);
+            VanillaQuestsHelper.DestroyCierzo(false);
         }
 
         public override void OnScenarioChosen(Character character)

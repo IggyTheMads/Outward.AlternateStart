@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using HarmonyLib;
+using SideLoader;
 
 namespace AlternateStart.StartScenarios
 {
@@ -24,6 +25,27 @@ namespace AlternateStart.StartScenarios
         {
 
         };
+
+        public override void Init()
+        {
+            base.Init();
+
+            SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
+        }
+
+        private void SL_OnGameplayResumedAfterLoading()
+        {
+            foreach(Character player in CharacterManager.Instance.Characters.Values)
+            {
+                if (player.IsLocalPlayer && player.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.CorruptedSoul))
+                {
+                    if (player.PlayerStats.Corruption < 900)
+                    {
+                        player.PlayerStats.AffectCorruptionLevel(900, false);
+                    }
+                }
+            }
+        }
 
         public override void OnScenarioChosen()
         {
@@ -63,6 +85,7 @@ namespace AlternateStart.StartScenarios
             Instance = this;
         }
 
+        //NEEDS TO BE OPTIMIZED
         [HarmonyPatch(typeof(CharacterStats), "UseStamina", new Type[] { typeof(float), typeof(float) })]
         public class Character_UseStamina
         {

@@ -27,7 +27,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.StartHouseTimer();
+            VanillaQuestsHelper.SkipHostToFactionChoice(false);
         }
 
         public override void OnStartSpawn()
@@ -55,6 +55,7 @@ namespace AlternateStart.StartScenarios
         #region PassiveEffects
 
         float wolfgangMagicNerf = 0.4f;
+        float wolfgangBonusPerStam = 0.5f;
 
         internal static WolfgangScenario Instance { get; private set; }
         public WolfgangScenario()
@@ -77,7 +78,7 @@ namespace AlternateStart.StartScenarios
                         if (_damage[0] != null)
                         {
                             float baseDmg = _damage[0].Damage;
-                            float multiplier = (_dealerChar.Stats.CurrentStamina * 0.5f) / 100f;
+                            float multiplier = (_dealerChar.Stats.CurrentStamina * Instance.wolfgangBonusPerStam) / 100f;
                             _damage[0].Damage += baseDmg * multiplier;
                         }
                     }

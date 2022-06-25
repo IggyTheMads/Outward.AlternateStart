@@ -3,7 +3,10 @@
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2212</New_ItemID>
   <Name>Giant Risen</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Description>giant penus
+
+&lt;color=#00f5ff&gt;[Impact Resistance and Impact dealt +30%.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[Stamina costs increased by 30% and dodge slower.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>
@@ -46,7 +49,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>StaminaUse</Stat_Tag>
-          <AffectQuantity>40</AffectQuantity>
+          <AffectQuantity>30</AffectQuantity>
           <IsModifier>true</IsModifier>
           <Duration>-1</Duration>
         </SL_Effect>

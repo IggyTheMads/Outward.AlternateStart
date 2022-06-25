@@ -15,7 +15,7 @@ namespace AlternateStart.StartScenarios
         public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
         public override ScenarioPassives Area => ScenarioPassives.Claustrophobic;
 
-        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Harmattan;
+        public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.EmercarDungeonsSmall;
         public override Vector3 SpawnPosition => new(1499.7f, -8.9f, 54.7f);
         public override Vector3 SpawnRotation => new(0, 99.8f, 0);
 

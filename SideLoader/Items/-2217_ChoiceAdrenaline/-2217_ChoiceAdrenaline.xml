@@ -2,8 +2,13 @@
 <SL_Skill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2217</New_ItemID>
-  <Name>Short fuse</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Name>Survivor</Name>
+  <Description>wa wa wa
+
+&lt;color=#00f5ff&gt;[When below 75% HP: +20% Damage Dealt.
+When below 50% HP: Gain Rage boon.
+When below 25% HP: +0.2 attack speed.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[All resistances reduced by 20]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>

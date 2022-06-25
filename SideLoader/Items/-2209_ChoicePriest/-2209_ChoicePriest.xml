@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
 <SL_Skill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2209</New_ItemID>
   <Name>Priest of Elatt</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Description>Holy moly
+
+&lt;color=#00f5ff&gt;[All damage dealt is turned into electric damage.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[Damage dealt reduced by 25%.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>

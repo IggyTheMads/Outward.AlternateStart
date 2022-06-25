@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SL_Quest xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>7011620</Target_ItemID>
-  <New_ItemID>-2301</New_ItemID>
-  <Name>Lord of Berries</Name>
-  <Description>Gather 4 berries</Description>
+  <New_ItemID>-2312</New_ItemID>
+  <Name>Lord of Giants</Name>
+  <Description>Run or something.</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>
@@ -25,13 +25,13 @@
       <Savable>true</Savable>
       <LogSignatures>
         <SL_QuestLogEntrySignature>
-          <UID>teststart.objective.a</UID>
-          <Text>Gather 4 berries</Text>
+          <UID>giantquest.objective.a</UID>
+          <Text>Run or something.</Text>
           <Type>Static</Type>
         </SL_QuestLogEntrySignature>
         <SL_QuestLogEntrySignature>
-          <UID>teststart.objective.b</UID>
-          <Text>be happy</Text>
+          <UID>giantquest.objective.b</UID>
+          <Text>Find help</Text>
           <Type>Static</Type>
         </SL_QuestLogEntrySignature>
       </LogSignatures>

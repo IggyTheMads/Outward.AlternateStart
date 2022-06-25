@@ -3,7 +3,10 @@
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2214</New_ItemID>
   <Name>War Veteran</Name>
-  <Description>Let destiny decide the difficulty of your starting conditions.</Description>
+  <Description>muricaa
+
+&lt;color=#00f5ff&gt;[Max Health increased by 60.]&lt;/color&gt;
+&lt;color=#ff5043&gt;[Move up to 30% slower and take up to 50% more impact as your stamina goes down.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>
