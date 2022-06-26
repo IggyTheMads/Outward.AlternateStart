@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using HarmonyLib;
+using SideLoader.Managers;
+using SideLoader;
 
 namespace AlternateStart.StartScenarios
 {
@@ -19,16 +21,99 @@ namespace AlternateStart.StartScenarios
         public override Vector3 SpawnPosition => new(1499.7f, -8.9f, 54.7f);
         public override Vector3 SpawnRotation => new(0, 99.8f, 0);
 
-        public override bool HasQuest => false;
-        public override string QuestName => "";
+        public override bool HasQuest => true;
+        public override string QuestName => "Kidnap Miracle";
+
+        const string LogSignature_A = "claustro.objective.a";
+        const string LogSignature_B = "claustro.objective.b";
+        const string LogSignature_C = "claustro.objective.c";
         public override Dictionary<string, string> QuestLogSignatures => new()
         {
-
+            {
+                LogSignature_A,
+                "Escape before your kidnappers return."
+            },
+            {
+                LogSignature_B,
+                "Reach somewhere safe. A city perhaps."
+            },
+            {
+                LogSignature_C,
+                "You are ready to join a faction."
+            }
         };
+
+        private QuestEventSignature QE_FixedClaustroStart;
+
+        public override void Init()
+        {
+            base.Init();
+
+            QE_FixedClaustroStart = CustomQuests.CreateQuestEvent("iggythemad.claustro.fixedstart", false, true, true, Plugin.QUEST_EVENT_FAMILY_NAME);
+
+            SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
+        }
+
+        private void SL_OnGameplayResumedAfterLoading()
+        {
+            if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
+                return;
+
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            if (host.Inventory.QuestKnowledge.IsItemLearned((int)this.Type))
+            {
+                Quest quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
+                UpdateQuestProgress(quest);
+            }
+        }
+
+        public override void UpdateQuestProgress(Quest quest)
+        {
+            // Do nothing if we are not the host.
+            if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
+                return;
+
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedClaustroStart.EventUID);
+            QuestProgress progress = quest.m_questProgress;
+
+            //ShowUIMessage("Stacks -> " + stack);
+            if (stack < 1)
+            {
+                QuestEventManager.Instance.AddEvent(QE_FixedClaustroStart, 1);
+                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedClaustroStart.EventUID);
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
+                ShowUIMessage("Something happened... this is my chance to escape.");
+            }
+            else if (stack < 2)
+            {
+                // Second log
+                QuestEventManager.Instance.AddEvent(QE_FixedClaustroStart, 1);
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), false);
+                ShowUIMessage("I should go somewhere safe...");
+
+            }
+            else if (AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
+            {
+                QuestEventManager.Instance.AddEvent(QE_FixedClaustroStart, 1);
+
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
+                // Third log just auto-completes.
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_C), true);
+
+                // Our quest is finished i guess
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+
+                VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+                ShowUIMessage("It would be safer to join a faction...");
+
+            }
+        }
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+            
         }
 
         public override void OnScenarioChosen(Character character)
@@ -42,16 +127,11 @@ namespace AlternateStart.StartScenarios
 
         public override void OnStartSpawn()
         {
-            CharacterManager.Instance.GetWorldHostCharacter().Inventory.QuestKnowledge.ReceiveQuest(VanillaQuestsHelper.enrollmentQ);
+            GetOrGiveQuestToHost();
         }
 
         public override void OnStartSpawn(Character character)
         {
-        }
-
-        public override void UpdateQuestProgress(Quest quest)
-        {
-
         }
 
         string claustroEffectID = "claustroEffect";

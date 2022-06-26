@@ -142,8 +142,11 @@ namespace AlternateStart.StartScenarios
             yield return new WaitForSeconds(1f);
 
             // Teleport to start area
-
-            NetworkLevelLoader.Instance.RequestSwitchArea(AreaManager.Instance.GetArea(this.SpawnScene).SceneName, 0, 1.5f);
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            if (host = CharacterManager.Instance.GetFirstLocalCharacter())
+            {
+                NetworkLevelLoader.Instance.RequestSwitchArea(AreaManager.Instance.GetArea(this.SpawnScene).SceneName, 0, 1.5f);
+            }
 
             SL.OnGameplayResumedAfterLoading += OnGameplayResumedAfterScenarioStart;
         }
@@ -232,7 +235,7 @@ namespace AlternateStart.StartScenarios
             if (!player)
                 return;
 
-            player.CharacterUI.NotificationPanel.ShowNotification(message);
+            player.CharacterUI.NotificationPanel.ShowNotification(message, 4f);
         }
     }
 }

@@ -27,14 +27,13 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+
         }
 
         public override void OnScenarioChosen(Character character)
         {
             character.Stats.FullStamina();
-            character.Inventory.ReceiveSkillReward(8100250); //chakram arc
-            character.Inventory.ReceiveItemReward(9000010, 190, false); //Starter Gold
+            character.Inventory.ReceiveItemReward(9000010, 32, false); //Starter Gold
             character.Inventory.ReceiveItemReward(3000071, 1, true); //apprentice helm
             character.Inventory.ReceiveItemReward(3000070, 1, true); //apprentice chest
             character.Inventory.ReceiveItemReward(3000174, 1, true); //sandals
@@ -44,10 +43,12 @@ namespace AlternateStart.StartScenarios
 
         public override void OnStartSpawn()
         {
+            VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
         }
 
         public override void OnStartSpawn(Character character)
         {
+            character.Inventory.ReceiveSkillReward(8100250); //chakram arc
         }
 
         public override void UpdateQuestProgress(Quest quest)

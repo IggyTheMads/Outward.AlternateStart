@@ -30,10 +30,14 @@ namespace AlternateStart
 
             Logger.LogMessage($"{NAME} Awake()");
 
-            ScenarioManager.Init();
+            
 
             var _obj = this.gameObject;
             _obj.AddComponent<ExtrasManager>();
+
+            ScenarioManager.Init();
+
+            SL.OnPacksLoaded += SL_OnPacksLoaded;
 
             Harmony harmony = new(GUID);
             harmony.PatchAll();
@@ -42,6 +46,11 @@ namespace AlternateStart
         internal void OnGUI()
         {
             ScenarioManager.OnGUI();
+        }
+
+        private void SL_OnPacksLoaded()
+        {
+            TrainerManager.Init();
         }
 
         internal static void Log(object log) => Instance.Logger.LogMessage(log?.ToString() ?? string.Empty);

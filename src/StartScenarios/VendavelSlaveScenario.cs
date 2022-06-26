@@ -24,9 +24,9 @@ namespace AlternateStart.StartScenarios
         public override bool HasQuest => true;
         public override string QuestName => "Sweet Freedom";
 
-        const string LogSignature_A = "slavequest.objective.a";
-        const string LogSignature_B = "slavequest.objective.b";
-        const string LogSignature_C = "slavequest.objective.c";
+        const string LogSignature_A = "slave.objective.a";
+        const string LogSignature_B = "slave.objective.b";
+        const string LogSignature_C = "slave.objective.c";
         public override Dictionary<string, string> QuestLogSignatures => new()
         {
             {
@@ -52,35 +52,6 @@ namespace AlternateStart.StartScenarios
             QE_FixedSlaveStart = CustomQuests.CreateQuestEvent("iggythemad.slave.fixedstart", false, true, true, Plugin.QUEST_EVENT_FAMILY_NAME);
 
             SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
-        }
-
-        //variables
-        public string enemyID = "com.iggy.vendavelbandit";
-        public Vector3 prisonJump = new(43f, -9.7f, 34.7f);
-        public Vector3 prisonDoors = new(15f, -10f, 4.4f);
-
-        public override void OnScenarioChosen()
-        {
-            //VanillaQuestsHelper.SkipHostToFactionChoice(false);
-            
-        }
-
-        public override void OnScenarioChosen(Character character)
-        {
-            character.Stats.IncreaseBurntHealth(200, 1);
-        }
-
-        public override void OnStartSpawn()
-        {
-            GetOrGiveQuestToHost();
-
-            //SL_Character myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
-            //myChar.Spawn(prisonJump, Vector3.back, UID.Generate());
-        }
-
-        public override void OnStartSpawn(Character character)
-        {
-            character.Stats.IncreaseBurntHealth(200, 1);
         }
 
         private void SL_OnGameplayResumedAfterLoading()
@@ -144,6 +115,35 @@ namespace AlternateStart.StartScenarios
             {
                 ShowUIMessage("Maybe I should join a faction...");
             }*/
+        }
+
+        //variables
+        public string enemyID = "com.iggy.vendavelbandit";
+        public Vector3 prisonJump = new(43f, -9.7f, 34.7f);
+        public Vector3 prisonDoors = new(15f, -10f, 4.4f);
+
+        public override void OnScenarioChosen()
+        {
+            //VanillaQuestsHelper.SkipHostToFactionChoice(false);
+            
+        }
+
+        public override void OnScenarioChosen(Character character)
+        {
+            character.Stats.IncreaseBurntHealth(200, 1);
+        }
+
+        public override void OnStartSpawn()
+        {
+            GetOrGiveQuestToHost();
+
+            //SL_Character myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
+            //myChar.Spawn(prisonJump, Vector3.back, UID.Generate());
+        }
+
+        public override void OnStartSpawn(Character character)
+        {
+            character.Stats.IncreaseBurntHealth(200, 1);
         }
 
         internal static VendavelSlaveScenario Instance { get; private set; }

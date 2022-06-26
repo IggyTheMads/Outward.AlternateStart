@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using SideLoader;
 
 namespace AlternateStart
 {
@@ -17,9 +18,49 @@ namespace AlternateStart
         Vector3 spawn = new Vector3(-12.2f, 0.2f, -0.6f);
         Vector3 spawnRot = new Vector3(0, 75.2f, 0);
 
+        public List<Character> allPlayers;
+
         internal void Awake()
         {
             Instance = this;
+            ExtrasManager.Init();
+            allPlayers = new List<Character>();
+        }
+
+        internal static void Init()
+        {
+            SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
+        }
+
+        private static void SL_OnGameplayResumedAfterLoading()
+        {
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            if (SceneManagerHelper.ActiveSceneName == "Berg")
+            {
+                Debug.Log("In Berg");
+                if (!host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Survivor))
+                {
+                    Debug.Log("Not Survivor");
+                    Instance.StartCoroutine(Instance.DeactivateTrainer(1f));
+                }
+            }
+        }
+
+
+        public IEnumerator DeactivateTrainer(float timer)
+        {
+            yield return new WaitForSeconds(timer);
+
+            var characters = CharacterManager.Instance.Characters.Values;
+            foreach (Character character in characters)
+            {
+                //Debug.Log(character.Name);
+                if (!character.IsLocalPlayer && character.Name == "Eto Akiyuki")
+                {
+                    Debug.Log("Found Eto");
+                    character.gameObject.SetActive(false);
+                }
+            }
         }
 
         // GIANT RISEN
@@ -54,7 +95,7 @@ namespace AlternateStart
 
         void Update()
         {
-            if(SceneManagerHelper.ActiveSceneName == "DreamWorld")
+            if (SceneManagerHelper.ActiveSceneName == "DreamWorld")
             {
                 foreach (PlayerSystem _character in Global.Lobby.PlayersInLobby)
                 {

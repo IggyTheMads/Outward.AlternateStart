@@ -23,9 +23,9 @@ namespace AlternateStart.StartScenarios
         public override bool HasQuest => true;
         public override string QuestName => "Giant Mistake";
 
-        const string LogSignature_A = "giantquest.objective.a";
-        const string LogSignature_B = "giantquest.objective.b";
-        const string LogSignature_C = "giantquest.objective.c";
+        const string LogSignature_A = "giant.objective.a";
+        const string LogSignature_B = "giant.objective.b";
+        const string LogSignature_C = "giant.objective.c";
         public override Dictionary<string, string> QuestLogSignatures => new()
         {
             {

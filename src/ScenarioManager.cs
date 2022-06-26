@@ -25,6 +25,7 @@ namespace AlternateStart
         const string QE_DESTINY_CHOSEN_UID = "iggythemad.altstart.destinyChosen";
 
         const string FULL_STOP_STATUS_IDENTIFIER = "fullstop";
+        const string startTag = "StartTag";
 
         internal static void Init()
         {
@@ -131,8 +132,11 @@ namespace AlternateStart
                 //
                 //
                 ////////////////////////////
-
-                Plugin.Instance.StartCoroutine(CheckStartPassives(_item.OwnerCharacter, _item));
+                Character host = CharacterManager.Instance.GetWorldHostCharacter();
+                if (host == _item.OwnerCharacter)
+                {
+                    Plugin.Instance.StartCoroutine(CheckStartPassives(_item.OwnerCharacter, _item));
+                }
             }
         }
 
@@ -140,6 +144,25 @@ namespace AlternateStart
         static IEnumerator CheckStartPassives(Character character, Item _item)
         {
             yield return new WaitForSeconds(0.2f);
+
+            ///////////////////This part does not work
+            /*List<Character> characterList = new List<Character>();
+            while (characterList.Count < Global.Lobby.PlayersInLobby.Count)
+            {
+                yield return new WaitForSeconds(1f);
+                foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
+                {
+                    if (player.ControlledCharacter.StatusEffectMngr.HasStatusEffect(startTag) && !characterList.Contains(player.ControlledCharacter))
+                    {
+                        Debug.Log("PlayersLobby: " + Global.Lobby.PlayersInLobby.Count);
+                        Debug.Log("PlayerCount: " + characterList.Count);
+                        characterList.Add(player.ControlledCharacter);
+                    }
+                }
+            }*/
+            /////////////////////
+
+            //Bellow part works 
 
             // The player acquired a passive. If its random or it is a specific one
             if (character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Random))
@@ -224,7 +247,7 @@ namespace AlternateStart
                 // If the Scenario's area doesn't match our choice, skip.
                 /*if (areaChoice != ScenarioPassives.Random && entry.Area != areaChoice)
                     continue;*/
-                
+
                 // It's eligable, add it.
                 eligable.Add(entry);
             }

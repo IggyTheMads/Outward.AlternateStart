@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using HarmonyLib;
+using SideLoader;
+using SideLoader.Managers;
 
 namespace AlternateStart.StartScenarios
 {
@@ -18,21 +20,106 @@ namespace AlternateStart.StartScenarios
         public override Vector3 SpawnPosition => new(133.7f, 33.4f, 1456.8f);
         public override Vector3 SpawnRotation => new(0, 68.4f, 0);
 
-        public override bool HasQuest => false;
-        public override string QuestName => "";
+        public override bool HasQuest => true;
+        public override string QuestName => "Lone Survivor";
+
+        const string LogSignature_A = "survivor.objective.a";
+        const string LogSignature_B = "survivor.objective.b";
+        const string LogSignature_C = "survivor.objective.c";
         public override Dictionary<string, string> QuestLogSignatures => new()
         {
-
+            {
+                LogSignature_A,
+                "Travel to Berg and search for refugees."
+            },
+            {
+                LogSignature_B,
+                "Ask the kazites if they saw any other survivors."
+            },
+            {
+                LogSignature_C,
+                "You found Eto. You are now ready to join a faction."
+            }
         };
+
+        private QuestEventSignature QE_FixedSurvivorStart;
+
+        public override void Init()
+        {
+            base.Init();
+
+            QE_FixedSurvivorStart = CustomQuests.CreateQuestEvent("iggythemad.survivor.fixedstart", false, true, true, Plugin.QUEST_EVENT_FAMILY_NAME);
+
+            SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
+        }
+
+        private void SL_OnGameplayResumedAfterLoading()
+        {
+            if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
+                return;
+
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            if (host.Inventory.QuestKnowledge.IsItemLearned((int)this.Type))
+            {
+                Quest quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
+                UpdateQuestProgress(quest);
+            }
+        }
+
+        public override void UpdateQuestProgress(Quest quest)
+        {
+            // Do nothing if we are not the host.
+            if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
+                return;
+
+            Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSurvivorStart.EventUID);
+            QuestProgress progress = quest.m_questProgress;
+
+            //ShowUIMessage("Stacks -> " + stack);
+            if (stack < 1)
+            {
+                QuestEventManager.Instance.AddEvent(QE_FixedSurvivorStart, 1);
+                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSurvivorStart.EventUID);
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
+                ShowUIMessage("I barely escaped... I hope others made it...");
+            }
+            else if (stack < 2 && SceneManagerHelper.ActiveSceneName == "Berg")
+            {
+                // Second log
+                QuestEventManager.Instance.AddEvent(QE_FixedSurvivorStart, 1);
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), false);
+                ShowUIMessage("I should ask the kazites. They might've seen more survivors.");
+
+            }
+            else if (stack < 3 && talkEto == true)
+            {
+                talkEto = false;
+                QuestEventManager.Instance.AddEvent(QE_FixedSurvivorStart, 1);
+
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
+                // Third log just auto-completes.
+                progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_C), true);
+
+                // Our quest is finished i guess
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+
+                VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+                VanillaQuestsHelper.DestroyCierzo(true, true);
+                ShowUIMessage("I will get my vengeance... Eventually.");
+            }
+        }
 
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
-            VanillaQuestsHelper.DestroyCierzo(true, true);
+            //VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+            VanillaQuestsHelper.DestroyCierzo(true, false);
         }
 
         public override void OnStartSpawn()
         {
+            GetOrGiveQuestToHost();
         }
 
         public override void OnScenarioChosen(Character character)
@@ -46,13 +133,52 @@ namespace AlternateStart.StartScenarios
 
         public override void OnStartSpawn(Character character)
         {
+            /*var pack = SL.GetSLPack("iggythemad AlternateStart");
+
+            bergSpellblade = pack.CharacterTemplates["com.iggy.berg.spellblade.trainer"];
+            bergSpellblade.OnSpawn += SpellbladeSetup;*/
         }
 
-        public override void UpdateQuestProgress(Quest quest)
+        Vector3 SpellbladeSpawn = new Vector3(1284.4f, -3.7f, 1622.2f);
+        bool talkEto = false;
+
+        [HarmonyPatch(typeof(InteractionTriggerBase), "TryActivateBasicAction", new Type[] { typeof(Character), typeof(int) })]
+        public class InteractionTriggerBase_TryActivateBasicAction
         {
+            [HarmonyPrefix]
+            public static void Prefix(InteractionTriggerBase __instance, Character _character, int _toggleState)
+            {
+                if (!Instance.IsActiveScenario
+                    || PhotonNetwork.isNonMasterClientInRoom
+                    || !_character
+                    || SceneManagerHelper.ActiveSceneName != "Berg")
+                    return;
 
+                if (__instance.CurrentTriggerManager as InteractionActivator == true)
+                {
+                    InteractionActivator activator = __instance.CurrentTriggerManager as InteractionActivator;
+                    if (activator.BasicInteraction != null)
+                    {
+                        IInteraction interaction = activator.BasicInteraction;
+                        if (interaction is InteractionTrainerDialogue)
+                        {
+
+                            if((Vector3.Distance(_character.CenterPosition, Instance.SpellbladeSpawn) < 2f))
+                            {
+                                Quest quest = _character.Inventory.QuestKnowledge.GetItemFromItemID((int)Instance.Type) as Quest;
+                                int stack = QuestEventManager.Instance.GetEventCurrentStack(Instance.QE_FixedSurvivorStart.EventUID);
+                                //Debug.Log("isTrainerDialogue");
+                                if (stack < 3)
+                                {
+                                    Instance.talkEto = true;
+                                    Instance.UpdateQuestProgress(quest);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-
 
         #region PassiveEffects
 
@@ -62,10 +188,15 @@ namespace AlternateStart.StartScenarios
         float injuredBonus = 0.3f;
 
         internal static SurvivorScenario Instance { get; private set; }
+        //internal static SL_Character bergSpellblade;
+
         public SurvivorScenario()
         {
             Instance = this;
+
+            //TrainerManager.bergSpellblade.ShouldSpawn = () => this.IsActiveScenario;
         }
+
 
         [HarmonyPatch(typeof(Character), "VitalityHit")]
         public class Character_VitalityHitPre
