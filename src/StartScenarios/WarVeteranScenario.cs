@@ -11,13 +11,20 @@ namespace AlternateStart.StartScenarios
     public class WarVeteranScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_Veteran;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.Veteran;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.Veteran;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Levant;
         public override Vector3 SpawnPosition => new(-361.7f, -1504.6f, 571.4f);
         public override Vector3 SpawnRotation => new(0, 274f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.ReceiveItemReward(9000010, 53, false); //Starter Gold
+            character.Inventory.ReceiveItemReward(3000010, 1, true); //padded chest
+            character.Inventory.ReceiveItemReward(3000012, 1, true); //padded legs
+            character.Inventory.ReceiveItemReward(2000061, 1, true); //gold machete
+            character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
+        }
         public override bool HasQuest => false;
         public override string QuestName => "";
         public override Dictionary<string, string> QuestLogSignatures => new()
@@ -37,11 +44,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.ReceiveItemReward(9000010, 53, false); //Starter Gold
-            character.Inventory.ReceiveItemReward(3000010, 1, true); //padded chest
-            character.Inventory.ReceiveItemReward(3000012, 1, true); //padded legs
-            character.Inventory.ReceiveItemReward(2000061, 1, true); //gold machete
-            character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
+
         }
 
         public override void OnStartSpawn(Character character)

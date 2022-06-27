@@ -63,13 +63,15 @@
     <float>0</float>
   </Damage_Bonus>
   <Status_Immunity />
+  <AutoTeleportWhenFar>false</AutoTeleportWhenFar>
+  <AutoTeleportDistanceThreshold>25</AutoTeleportDistanceThreshold>
   <SkillTree>
     <SigilIconName>SigilVanilla</SigilIconName>
     <Name>Vanilla-like Destiny</Name>
     <UID>com.iggy.vanilladestiny</UID>
     <SkillRows>
       <SL_SkillRow>
-        <RowIndex>1</RowIndex>
+        <RowIndex>2</RowIndex>
         <Slots>
           <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
             <ColumnIndex>2</ColumnIndex>
@@ -84,30 +86,25 @@
         </Slots>
       </SL_SkillRow>
       <SL_SkillRow>
-        <RowIndex>2</RowIndex>
-        <Slots>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>2</ColumnIndex>
-            <RequiredSkillSlot>
-              <x>0</x>
-              <y>0</y>
-            </RequiredSkillSlot>
-            <SkillID>-2202</SkillID>
-            <SilverCost>0</SilverCost>
-            <Breakthrough>false</Breakthrough>
-          </SL_BaseSkillSlot>
-        </Slots>
-      </SL_SkillRow>
-      <SL_SkillRow>
         <RowIndex>3</RowIndex>
         <Slots>
           <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>2</ColumnIndex>
+            <ColumnIndex>4</ColumnIndex>
             <RequiredSkillSlot>
               <x>0</x>
               <y>0</y>
             </RequiredSkillSlot>
             <SkillID>-2203</SkillID>
+            <SilverCost>0</SilverCost>
+            <Breakthrough>false</Breakthrough>
+          </SL_BaseSkillSlot>
+          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
+            <ColumnIndex>0</ColumnIndex>
+            <RequiredSkillSlot>
+              <x>0</x>
+              <y>0</y>
+            </RequiredSkillSlot>
+            <SkillID>-2202</SkillID>
             <SilverCost>0</SilverCost>
             <Breakthrough>false</Breakthrough>
           </SL_BaseSkillSlot>

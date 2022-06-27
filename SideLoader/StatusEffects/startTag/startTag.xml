@@ -3,11 +3,11 @@
   <TargetStatusIdentifier>Doom</TargetStatusIdentifier>
   <NewStatusID>30</NewStatusID>
   <StatusIdentifier>StartTag</StatusIdentifier>
-  <Name>Fullstop</Name>
-  <Description>Unable to act.</Description>
+  <Name>StartTag</Name>
+  <Description>Ready</Description>
   <Lifespan>-1</Lifespan>
-  <RefreshRate>0.5</RefreshRate>
-  <Purgeable>true</Purgeable>
+  <RefreshRate>5</RefreshRate>
+  <Purgeable>false</Purgeable>
   <Priority>1</Priority>
   <IgnoreBarrier>false</IgnoreBarrier>
   <BuildupRecoverySpeed>3</BuildupRecoverySpeed>
@@ -20,7 +20,7 @@
   <IsMalusEffect>false</IsMalusEffect>
   <DelayedDestroyTime>0</DelayedDestroyTime>
   <ActionOnHit>None</ActionOnHit>
-  <FamilyMode>Reference</FamilyMode>
+  <FamilyMode>Bind</FamilyMode>
   <BindFamily>
     <UID>com.iggy.starttagfam</UID>
     <Name>StartTagFam</Name>
@@ -39,7 +39,5 @@
   <SpecialSFX>NONE</SpecialSFX>
   <PlaySpecialFXOnStop>false</PlaySpecialFXOnStop>
   <EffectBehaviour>Destroy</EffectBehaviour>
-  <Effects>
-
-  </Effects>
+  <Effects />
 </SL_StatusEffect>

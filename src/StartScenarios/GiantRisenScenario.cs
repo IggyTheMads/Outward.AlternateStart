@@ -14,12 +14,20 @@ namespace AlternateStart.StartScenarios
     public class GiantRisenScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_GiantRisen;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.GiantRisen;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.GiantRisen;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.HallowedDungeon2;
         public override Vector3 SpawnPosition => default;
-
+        public override void Gear(Character character)
+        {
+            //character.Inventory.ReceiveSkillReward(8205040); //fitness passive
+            //character.Inventory.ReceiveSkillReward(8205030); //steady arm passive
+            character.Inventory.ReceiveItemReward(3000221, 1, true); //ash head
+            character.Inventory.ReceiveItemReward(3000220, 1, true); //ash chest
+            character.Inventory.ReceiveItemReward(3000222, 1, true); //ash legs
+            character.Inventory.ReceiveItemReward(2110000, 1, true); //brutal greataxe
+        }
         public override bool HasQuest => true;
         public override string QuestName => "Giant Mistake";
 
@@ -60,12 +68,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            //character.Inventory.ReceiveSkillReward(8205040); //fitness passive
-            //character.Inventory.ReceiveSkillReward(8205030); //steady arm passive
-            character.Inventory.ReceiveItemReward(3000221, 1, true); //ash head
-            character.Inventory.ReceiveItemReward(3000220, 1, true); //ash chest
-            character.Inventory.ReceiveItemReward(3000222, 1, true); //ash legs
-            character.Inventory.ReceiveItemReward(2110000, 1, true); //brutal greataxe
+
         }
 
         public override void OnStartSpawn()
@@ -111,7 +114,7 @@ namespace AlternateStart.StartScenarios
                 stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedGiantRisenStart.EventUID);
             }
 
-            ShowUIMessage("Stacks -> " + stack);
+            //ShowUIMessage("Stacks -> " + stack);
             QuestProgress progress = quest.m_questProgress;
             if (stack == 1)
             {
@@ -130,7 +133,7 @@ namespace AlternateStart.StartScenarios
 
             }
 
-            if (SceneManagerHelper.ActiveSceneName == "Monsoon")
+            if (AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
             {
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 // Third log just auto-completes.

@@ -14,13 +14,16 @@ namespace AlternateStart.StartScenarios
     public class VendavelSlaveScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_VendavelSlave;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.VendavelSlave;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.VendavelSlave;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.ChersoDungeon1;
         public override Vector3 SpawnPosition => new(-4.9f, -10f, 26.9f);
         public override Vector3 SpawnRotation => new(0, 356.3f, 0);
+        public override void Gear(Character character)
+        {
 
+        }
         public override bool HasQuest => true;
         public override string QuestName => "Sweet Freedom";
 

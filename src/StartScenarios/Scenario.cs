@@ -18,14 +18,14 @@ namespace AlternateStart.StartScenarios
         public abstract ScenarioQuest Type { get; }
 
         /// <summary>Difficulty of the scenario</summary>
-        public abstract ScenarioDifficulty Difficulty { get; }
+        public abstract ScenarioType Difficulty { get; }
 
         /// <summary>[CURRENTLY UNUSED] Theme of the scenario</summary>
         [Obsolete("Not yet implemented.")]
         public virtual ScenarioTheme Theme { get; }
 
         /// <summary>Region which the scenario takes place</summary>
-        public abstract ScenarioPassives Area { get; }
+        public abstract ScenarioPassives Passive { get; }
 
         /// <summary>The starting scene players will spawn in</summary>
         public abstract AreaManager.AreaEnum SpawnScene { get; }
@@ -35,6 +35,17 @@ namespace AlternateStart.StartScenarios
 
         /// <summary>Optional rotation for players to spawn with, if custom position is set</summary>
         public virtual Vector3 SpawnRotation => Quaternion.identity.eulerAngles;
+
+        public virtual void Gear(Character character)
+        {
+
+        }
+
+        public virtual void OnStartDestiny()
+        {
+            Debug.Log("OnStartDestiny");
+            GearManager.StartingGear();
+        }
 
         /// <summary>Does this Scenario have a custom quest associated with it?</summary>
         public abstract bool HasQuest { get; }
@@ -137,7 +148,7 @@ namespace AlternateStart.StartScenarios
                 OnScenarioChosen(character);
             }
 
-            ScenarioManager.SetFullStop(false);
+            //ScenarioManager.SetFullStop(false);
 
             yield return new WaitForSeconds(1f);
 
@@ -167,6 +178,7 @@ namespace AlternateStart.StartScenarios
             }
 
             OnStartSpawn();
+            OnStartDestiny();
 
             SL.OnGameplayResumedAfterLoading -= OnGameplayResumedAfterScenarioStart;
         }

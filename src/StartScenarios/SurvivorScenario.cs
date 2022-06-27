@@ -13,9 +13,16 @@ namespace AlternateStart.StartScenarios
     public class SurvivorScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_Survivor;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.Survivor;
-
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.Survivor;
+        public override void Gear(Character character)
+        {
+            character.Inventory.ReceiveItemReward(4100550, 4, false); //rations
+            character.Inventory.ReceiveItemReward(3000240, 1, true); //fur chest
+            character.Inventory.ReceiveItemReward(3000242, 1, true); //fur legs
+            character.Inventory.ReceiveItemReward(2160020, 1, true); //cloth fists
+            //character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
+        }
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoOutside;
         public override Vector3 SpawnPosition => new(133.7f, 33.4f, 1456.8f);
         public override Vector3 SpawnRotation => new(0, 68.4f, 0);
@@ -124,11 +131,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.ReceiveItemReward(4100550, 4, false); //rations
-            character.Inventory.ReceiveItemReward(3000240, 1, true); //fur chest
-            character.Inventory.ReceiveItemReward(3000242, 1, true); //fur legs
-            character.Inventory.ReceiveItemReward(2160020, 1, true); //cloth fists
-            //character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
+
         }
 
         public override void OnStartSpawn(Character character)
@@ -150,7 +153,7 @@ namespace AlternateStart.StartScenarios
             {
                 if (!Instance.IsActiveScenario
                     || PhotonNetwork.isNonMasterClientInRoom
-                    || !_character
+                    || !_character.IsLocalPlayer
                     || SceneManagerHelper.ActiveSceneName != "Berg")
                     return;
 

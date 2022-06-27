@@ -3,7 +3,7 @@
   <Target_ItemID>8205100</Target_ItemID>
   <New_ItemID>-2203</New_ItemID>
   <Name>Vanilla-like: Berg</Name>
-  <Description>Choose the Emercar Forest as your starting zone, ready to join any faction.</Description>
+  <Description>Choose the Enmerkar Forest as your starting zone, ready to join any faction.</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>

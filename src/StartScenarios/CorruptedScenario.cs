@@ -13,13 +13,22 @@ namespace AlternateStart.StartScenarios
     public class CorruptedScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_CorruptedSoul;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.CorruptedSoul;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.CorruptedSoul;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.ChersoDungeon6; 
         public override Vector3 SpawnPosition => new(-37.3f, -7f, -126.4f);
         public override Vector3 SpawnRotation => new(0, 222.9f, 0);
+        public override void Gear(Character character)
+        {
+            //character.Inventory.ReceiveItemReward(9000010, 53, false); //Starter Gold
+            character.Inventory.ReceiveItemReward(3000044, 1, true); //jade acolyte robes
+            character.Inventory.ReceiveItemReward(3000046, 1, true); //jade acolyte boots
+            character.Inventory.ReceiveItemReward(2150001, 1, false); //mage stick
+            character.Inventory.ReceiveItemReward(5100060, 1, true); //torch
 
+            //character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
+        }
         public override bool HasQuest => true;
         public override string QuestName => "Corruption Reborn";
 
@@ -55,9 +64,6 @@ namespace AlternateStart.StartScenarios
 
         private void SL_OnGameplayResumedAfterLoading()
         {
-            if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
-                return;
-
             foreach (Character player in CharacterManager.Instance.Characters.Values)
             {
                 if (player.IsLocalPlayer && player.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.CorruptedSoul))
@@ -133,13 +139,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            //character.Inventory.ReceiveItemReward(9000010, 53, false); //Starter Gold
-            character.Inventory.ReceiveItemReward(3000044, 1, true); //jade acolyte robes
-            character.Inventory.ReceiveItemReward(3000046, 1, true); //jade acolyte boots
-            character.Inventory.ReceiveItemReward(2150001, 1, false); //mage stick
-            character.Inventory.ReceiveItemReward(5100060, 1, true); //torch
 
-            //character.Inventory.ReceiveItemReward(4400010, 3, false); //bandage
         }
 
         public override void OnStartSpawn(Character character)

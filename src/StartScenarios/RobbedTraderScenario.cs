@@ -13,9 +13,15 @@ namespace AlternateStart.StartScenarios
     {
         internal static RobbedTraderScenario Instance { get; private set; }
         public override ScenarioQuest Type => ScenarioQuest.Quest_RobbedTrader;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.RobbedTrader;
-
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.RobbedTrader;
+        public override void Gear(Character character)
+        {
+            character.Inventory.ReceiveItemReward(9000010, 56, false); //bonus gold
+            character.Inventory.ReceiveItemReward(3000190, 1, true); //chest scholar
+            character.Inventory.ReceiveItemReward(3000004, 1, true); //legs trader
+            character.Inventory.ReceiveItemReward(-2353, 1, true); //bag of goods
+        }
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoOutside;
         public override Vector3 SpawnPosition => new(300.3f, 37.3f, 1423.9f);
         public override Vector3 SpawnRotation => new(0, 285.7f, 0);
@@ -48,16 +54,12 @@ namespace AlternateStart.StartScenarios
         }
         public override void OnScenarioChosen()
         {
-            VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+            //VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
         }
 
         public override void OnScenarioChosen(Character character)
         {
-            //character.Stats.IncreaseBurntHealth(200, 1);
-            character.Inventory.ReceiveItemReward(9000010, 56, false); //bonus gold
-            character.Inventory.ReceiveItemReward(3000190, 1, true); //chest scholar
-            character.Inventory.ReceiveItemReward(3000004, 1, true); //legs trader
-            character.Inventory.ReceiveItemReward(-2353, 1, true); //bag of goods
+
         }
 
         public override void OnStartSpawn()
@@ -76,7 +78,7 @@ namespace AlternateStart.StartScenarios
             if (!Instance.IsActiveScenario || PhotonNetwork.isNonMasterClientInRoom)
                 return;
 
-            Character player = CharacterManager.Instance.GetWorldHostCharacter();
+            /*Character player = CharacterManager.Instance.GetWorldHostCharacter();
             if (SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain" && player.Inventory.OwnsOrHasEquipped(-2353))
             {
                 SL_Character myChar = SL.GetSLPack("iggythemad AlternateStart").CharacterTemplates[enemyID];
@@ -98,7 +100,7 @@ namespace AlternateStart.StartScenarios
                     Instance.ShowUIMessage("I lost the goods... I should speak to my fellow trader in Cierzo");
                 }
                 
-            }
+            }*/
         }
 
         [HarmonyPatch(typeof(DefeatScenariosManager), "StartDefeat")]
@@ -131,7 +133,9 @@ namespace AlternateStart.StartScenarios
                     || PhotonNetwork.isNonMasterClientInRoom
                     || !_character)
                     return true;
-                
+
+                if (!_character.IsLocalPlayer) { return true; }
+
                 if (__instance.CurrentTriggerManager as InteractionActivator == true)
                 {
                     InteractionActivator activator = __instance.CurrentTriggerManager as InteractionActivator;
@@ -147,7 +151,8 @@ namespace AlternateStart.StartScenarios
                                 else
                                 {
                                     Instance.ShowUIMessage("Going back to Harmattan!");
-                                    CharacterManager.Instance.GetWorldHostCharacter().Inventory.QuestKnowledge.ReceiveQuest(VanillaQuestsHelper.enrollmentQ);
+                                    VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
+                                    //CharacterManager.Instance.GetWorldHostCharacter().Inventory.QuestKnowledge.ReceiveQuest(VanillaQuestsHelper.enrollmentQ);
                                     NetworkLevelLoader.Instance.RequestSwitchArea(AreaManager.Instance.GetArea(AreaManager.AreaEnum.Harmattan).SceneName, 0, 1.5f);
                                 }
                                 return false;

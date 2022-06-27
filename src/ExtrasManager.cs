@@ -37,10 +37,10 @@ namespace AlternateStart
             Character host = CharacterManager.Instance.GetWorldHostCharacter();
             if (SceneManagerHelper.ActiveSceneName == "Berg")
             {
-                Debug.Log("In Berg");
+                //Debug.Log("In Berg");
                 if (!host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Survivor))
                 {
-                    Debug.Log("Not Survivor");
+                    //Debug.Log("Not Survivor");
                     Instance.StartCoroutine(Instance.DeactivateTrainer(1f));
                 }
             }
@@ -63,42 +63,14 @@ namespace AlternateStart
             }
         }
 
-        // GIANT RISEN
-        /*[HarmonyPatch(typeof(Character), "DodgeInput", new Type[] { typeof(Vector3) })]
-        public class Character_DodgeInput
-        {
-            [HarmonyPostfix]
-            public static void Postfix(Character __instance, Vector3 _direction)
-            {
-                if (__instance.IsLocalPlayer && __instance.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.GiantRisen) && !__instance.DodgeRestricted)
-                {
-                    Instance.StartCoroutine(Instance.DodgeSlower(__instance));
-                }
-            }
-        }
-
-        public IEnumerator DodgeSlower(Character _character)
-        {
-
-            //yield return new WaitForSeconds(0.1f);
-            if (_character.Dodging == true)
-            {
-                _character.Animator.speed = 0.6f;
-                while (_character.Dodging == true)
-                {
-                    yield return new WaitForSeconds(0.2f);
-                }
-                yield return new WaitForSeconds(0.2f);
-                _character.Animator.speed = 1f;
-            }
-        }*/
-
+        //might optimize-----------------------------
         void Update()
         {
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld")
             {
                 foreach (PlayerSystem _character in Global.Lobby.PlayersInLobby)
                 {
+                    if(!_character.IsLocalPlayer) { return; }
                     float distance = Vector3.Distance(_character.ControlledCharacter.transform.position, spawn);
                     if (distance > 3f)
                     {
@@ -108,8 +80,11 @@ namespace AlternateStart
             }
         }
 
+        //////////////////////////////////////
+        // DO NOT DELETE
+        //////////////////////////////////////
         //to get UIDs from Debug window
-        [HarmonyPatch(typeof(DT_QuestEventCheats), "OnClickNewQEEvent")]
+        /*[HarmonyPatch(typeof(DT_QuestEventCheats), "OnClickNewQEEvent")]
         public class DT_QuestEventCheats_OnClickNewQEEvent
         {
             [HarmonyPostfix]
@@ -118,6 +93,6 @@ namespace AlternateStart
                 Debug.Log("UID: " + _eventUID);
                 System.Windows.Forms.Clipboard.SetText(_eventUID);
             }
-        }
+        }*/
     }
 }

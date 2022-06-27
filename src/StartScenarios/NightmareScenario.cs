@@ -14,13 +14,19 @@ namespace AlternateStart.StartScenarios
         internal static NightmareScenario Instance { get; private set; }
 
         public override ScenarioQuest Type => ScenarioQuest.Quest_NightmareTrauma;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.NightmareTrauma;
+        public override ScenarioType Difficulty => ScenarioType.WIPtest;
+        public override ScenarioPassives Passive => ScenarioPassives.NightmareTrauma;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.ChersoDungeon3;
         public override Vector3 SpawnPosition => new(-29.4f, 0, -40.9f);
         public override Vector3 SpawnRotation => new(0, 182.0f, 0);
-
+        public override void Gear(Character character)
+        {
+            //character.Stats.IncreaseBurntHealth(700, 1);
+            //character.Inventory.ReceiveItemReward(3000133, 1, true); //beggarB head
+            character.Inventory.ReceiveItemReward(3000130, 1, true); //beggarB chest
+            character.Inventory.ReceiveItemReward(3000136, 1, true); //beggarB legs
+        }
         public override bool HasQuest => true;
         public override string QuestName => "Ghost Quest";
 
@@ -52,11 +58,6 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            //character.Stats.IncreaseBurntHealth(700, 1);
-            //character.Inventory.ReceiveItemReward(3000133, 1, true); //beggarB head
-            character.Inventory.ReceiveItemReward(3000130, 1, true); //beggarB chest
-            character.Inventory.ReceiveItemReward(3000136, 1, true); //beggarB legs
-
             character.ChangeFaction(Character.Factions.Deer); //neutral ghosts
         }
 

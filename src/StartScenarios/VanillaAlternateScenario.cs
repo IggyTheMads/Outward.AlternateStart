@@ -12,13 +12,19 @@ namespace AlternateStart.StartScenarios
     public class VanillaAlternateScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_VanillaAlt;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.VanillaAlt;
+        public override ScenarioType Difficulty => ScenarioType.VanillaLike;
+        public override ScenarioPassives Passive => ScenarioPassives.VanillaAlt;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoOutside;
         public override Vector3 SpawnPosition => new(1440.4f, 4.9f, 527.6f);
         public override Vector3 SpawnRotation => new(0, 45.81f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.AddMoney(27);
+            character.Inventory.ReceiveItemReward(3000132, 1, true); //rag chest
+            character.Inventory.ReceiveItemReward(3000136, 1, true); //rag legs
+            character.Inventory.ReceiveItemReward(2130030, 1, false); //stick weapon
+        }
         public override bool HasQuest => true;
         public override string QuestName => "A New Beginning";
 
@@ -108,11 +114,6 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.AddMoney(27);
-            character.Inventory.ReceiveItemReward(3000132, 1, true); //rag chest
-            character.Inventory.ReceiveItemReward(3000136, 1, true); //rag legs
-            character.Inventory.ReceiveItemReward(2130030, 1, true); //stick weapon
-            //character.Inventory.ReceiveItemReward(5110003, 1, true); //shiv
         }
 
         public override void OnStartSpawn()

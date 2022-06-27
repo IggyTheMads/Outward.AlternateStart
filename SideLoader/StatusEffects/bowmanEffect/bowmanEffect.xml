@@ -15,8 +15,8 @@
   <AmplifiedStatusIdentifier>Discipline Amplified</AmplifiedStatusIdentifier>
   <RemoveRequiredStatus>false</RemoveRequiredStatus>
   <NormalizeDamageDisplay>false</NormalizeDamageDisplay>
-  <DisplayedInHUD>true</DisplayedInHUD>
-  <IsHidden>false</IsHidden>
+  <DisplayedInHUD>false</DisplayedInHUD>
+  <IsHidden>true</IsHidden>
   <IsMalusEffect>false</IsMalusEffect>
   <DelayedDestroyTime>0</DelayedDestroyTime>
   <ActionOnHit>None</ActionOnHit>

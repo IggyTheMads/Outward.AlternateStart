@@ -12,13 +12,20 @@ namespace AlternateStart.StartScenarios
     public class VanillaMonsoon : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_VanillaMonsoon;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.VanillaMonsoon;
+        public override ScenarioType Difficulty => ScenarioType.VanillaLike;
+        public override ScenarioPassives Passive => ScenarioPassives.VanillaMonsoon;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.HallowedMarsh; //NEED GEAR UPDATE
         public override Vector3 SpawnPosition => new(481.6f, -63.9f, 492.1f);
         public override Vector3 SpawnRotation => new(0, 63.1f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.AddMoney(27);
+            character.Inventory.ReceiveItemReward(3000280, 1, true); //leather chest
+            character.Inventory.ReceiveItemReward(3000282, 1, true); //leather legs
+            character.Inventory.ReceiveItemReward(2010000, 1, false); //axe weapon
+            character.Inventory.ReceiveItemReward(2300080, 1, false); //plank shield
+        }
         public override bool HasQuest => true;
         public override string QuestName => "A New Beginning";
 
@@ -108,11 +115,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.AddMoney(27);
-            character.Inventory.ReceiveItemReward(3000280, 1, true); //leather chest
-            character.Inventory.ReceiveItemReward(3000282, 1, true); //leather legs
-            character.Inventory.ReceiveItemReward(2010000, 1, true); //axe weapon
-            character.Inventory.ReceiveItemReward(2300080, 1, true); //plank shield
+
         }
 
         public override void OnStartSpawn()

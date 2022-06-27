@@ -12,13 +12,20 @@ namespace AlternateStart.StartScenarios
     public class VanillaLevant : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_VanillaLevant;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.VanillaLevant;
+        public override ScenarioType Difficulty => ScenarioType.VanillaLike;
+        public override ScenarioPassives Passive => ScenarioPassives.VanillaLevant;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Abrassar; //NEED GEAR UPDATE
-        public override Vector3 SpawnPosition => new(225.8f, -148.5f, -499.4f);
+        public override Vector3 SpawnPosition => new(225.8f, 148.5f, -499.4f);
         public override Vector3 SpawnRotation => new(0, 73f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.AddMoney(27);
+            character.Inventory.ReceiveItemReward(3000181, 1, true); //dancer chest
+            character.Inventory.ReceiveItemReward(3000184, 1, true); //dancer legs
+            character.Inventory.ReceiveItemReward(2000110, 1, false); //desertsword weapon
+            character.Inventory.ReceiveItemReward(4200040, 1, false); //water
+        }
         public override bool HasQuest => true;
         public override string QuestName => "A New Beginning";
 
@@ -107,11 +114,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.AddMoney(27);
-            character.Inventory.ReceiveItemReward(3000181, 1, true); //dancer chest
-            character.Inventory.ReceiveItemReward(3000184, 1, true); //dancer legs
-            character.Inventory.ReceiveItemReward(2000110, 1, true); //desertsword weapon
-            character.Inventory.ReceiveItemReward(4200040, 1, false); //water
+
         }
 
         public override void OnStartSpawn()

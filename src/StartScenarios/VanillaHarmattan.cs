@@ -12,13 +12,20 @@ namespace AlternateStart.StartScenarios
     public class VanillaHarmattan : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_VanillaHarmattan;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.VanillaHarmattan;
+        public override ScenarioType Difficulty => ScenarioType.VanillaLike;
+        public override ScenarioPassives Passive => ScenarioPassives.VanillaHarmattan;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.AntiqueField; //NEED GEAR UPDATE
         public override Vector3 SpawnPosition => new(1208.4f, 18.6f, 758.3f);
         public override Vector3 SpawnRotation => new(0, 285.5f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.AddMoney(27);
+            character.Inventory.ReceiveItemReward(3000280, 1, true); //leather chest
+            character.Inventory.ReceiveItemReward(3000282, 1, true); //leather legs
+            character.Inventory.ReceiveItemReward(2120080, 1, true); //greathammer
+            character.Inventory.ReceiveItemReward(4400010, 2, false); //bandage
+        }
         public override bool HasQuest => true;
         public override string QuestName => "A New Beginning";
 
@@ -108,11 +115,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-                        character.Inventory.AddMoney(27);
-            character.Inventory.ReceiveItemReward(3000280, 1, true); //leather chest
-            character.Inventory.ReceiveItemReward(3000282, 1, true); //leather legs
-            character.Inventory.ReceiveItemReward(2120080, 1, true); //greathammer
-            character.Inventory.ReceiveItemReward(4400010, 2, false); //bandage
+
         }
 
         public override void OnStartSpawn()

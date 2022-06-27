@@ -15,16 +15,25 @@ using NodeCanvas.Tasks.Actions;
 
 namespace AlternateStart.StartScenarios
 {
+
     public class SandBanditScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_SandBandit;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.SandBandit;
+        public override ScenarioType Difficulty => ScenarioType.WIPtest;
+        public override ScenarioPassives Passive => ScenarioPassives.SandBandit;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.AbrassarDungeon6;
         public override Vector3 SpawnPosition => new(-53.3f, 0.5f, 55.1f);
         public override Vector3 SpawnRotation => new(0, 227.3f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.ReceiveItemReward(9000010, 26, false); //Starter Gold
+            character.Inventory.ReceiveItemReward(5100010, 1, true); //lamp
+            character.Inventory.ReceiveItemReward(3000087, 1, true); //beggar helm
+            character.Inventory.ReceiveItemReward(3000201, 1, true); //desert armor
+            character.Inventory.ReceiveItemReward(3000205, 1, true); //desert legs
+            character.Inventory.ReceiveItemReward(2000110, 1, true); //curved sword
+        }
         public override bool HasQuest => true;
         public override string QuestName => "Sand Corsair Exile";
 
@@ -71,12 +80,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.ReceiveItemReward(9000010, 26, false); //Starter Gold
-            character.Inventory.ReceiveItemReward(5100010, 1, true); //lamp
-            character.Inventory.ReceiveItemReward(3000087, 1, true); //beggar helm
-            character.Inventory.ReceiveItemReward(3000201, 1, true); //desert armor
-            character.Inventory.ReceiveItemReward(3000205, 1, true); //desert legs
-            character.Inventory.ReceiveItemReward(2000110, 1, true); //curved sword
+
         }
 
         public override void OnStartSpawn()
@@ -251,19 +255,10 @@ namespace AlternateStart.StartScenarios
                  if (PhotonNetwork.isNonMasterClientInRoom)
                      return true;
          
-                 if (_areaToSwitchTo.SceneName == "Levant") //IGGY: Cant make quest completion requierement work, I get null reference exception
+                 if (_areaToSwitchTo.SceneName == "Levant")
                  {
                     _character.CharacterUI.ShowInfoNotification("You are not welcome here");
                     return false;
-                     /*var host = CharacterManager.Instance.GetWorldHostCharacter();
-                     var quest = host.Inventory.SkillKnowledge.GetItemFromItemID(Instance.SL_Quest_ItemID) as Quest;
-                     QuestProgress progress = quest.GetComponent<QuestProgress>();
-                     if (progress.m_progressState != QuestProgress.ProgressState.Successful)
-                     {
-                         _character.CharacterUI.ShowInfoNotification("You are not welcome here");
-                         return false;
-                     }
-                     return true;*/
                  }
                  else { return true; }
              }

@@ -36,6 +36,7 @@ namespace AlternateStart
             _obj.AddComponent<ExtrasManager>();
 
             ScenarioManager.Init();
+            GearManager.Init();
 
             SL.OnPacksLoaded += SL_OnPacksLoaded;
 
@@ -45,7 +46,7 @@ namespace AlternateStart
 
         internal void OnGUI()
         {
-            ScenarioManager.OnGUI();
+            //ScenarioManager.OnGUI();
         }
 
         private void SL_OnPacksLoaded()

@@ -26,6 +26,5 @@
         NightmareTrauma = -2220, // always tired, hallucinate spawn ghost
         Cannibal = -2221, // only eat human flesh 
         SandBandit = -2222, //-------------- WIP
-
     }
 }

@@ -14,13 +14,21 @@ namespace AlternateStart.StartScenarios
     public class EnmerkarHunterScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_EmercarHunter;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.EnmerkarHunter;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.EnmerkarHunter;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.EmercarDungeonsSmall;
         public override Vector3 SpawnPosition => new(600.6f, 0.8f, 8.1f);
         public override Vector3 SpawnRotation => new(0, 29.3f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.ReceiveItemReward(9000010, 13, false); //Starter Gold
+            character.Inventory.ReceiveItemReward(3000020, 1, true); //adventurer armor
+            character.Inventory.ReceiveItemReward(3000022, 1, true); //adventurer boots
+            character.Inventory.ReceiveItemReward(2200000, 1, false); //bow
+            character.Inventory.ReceiveItemReward(5200001, 30, true); //arrows
+            character.Inventory.ReceiveItemReward(4000060, 4, false); //meat
+        }
         public override bool HasQuest => true;
         public override string QuestName => "A Good Hunt";
 
@@ -117,13 +125,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Stats.FullStamina();
-            character.Inventory.ReceiveItemReward(9000010, 13, false); //Starter Gold
-            character.Inventory.ReceiveItemReward(3000020, 1, true); //adventurer armor
-            character.Inventory.ReceiveItemReward(3000022, 1, true); //adventurer boots
-            character.Inventory.ReceiveItemReward(2200000, 1, false); //bow
-            character.Inventory.ReceiveItemReward(5200001, 30, true); //arrows
-            character.Inventory.ReceiveItemReward(4000060, 4, false); //meat
+
         }
 
         public override void OnStartSpawn()

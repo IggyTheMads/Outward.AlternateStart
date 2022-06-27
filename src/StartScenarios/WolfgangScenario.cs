@@ -13,13 +13,20 @@ namespace AlternateStart.StartScenarios
     public class WolfgangScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_WolfgangMercenary;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Hard;
-        public override ScenarioPassives Area => ScenarioPassives.WolfgangMercenary;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.WolfgangMercenary;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.AntiqueField;
         public override Vector3 SpawnPosition => new(125.8f, 30.8f, 742.8f);
         public override Vector3 SpawnRotation => new(0, 350.5f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.ReceiveItemReward(9000010, 11, false); //Starter Gold
+            character.Inventory.ReceiveItemReward(3100260, 1, true); //virgin chest
+            character.Inventory.ReceiveItemReward(3100262, 1, true); //virgin legs
+            character.Inventory.ReceiveItemReward(2140010, 1, true); //halbert cleaver
+            character.Inventory.ReceiveItemReward(4300010, 2, false); //potion
+        }
         public override bool HasQuest => true;
         public override string QuestName => "New Contract";
 
@@ -113,11 +120,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.ReceiveItemReward(9000010, 11, false); //Starter Gold
-            character.Inventory.ReceiveItemReward(3100260, 1, true); //virgin chest
-            character.Inventory.ReceiveItemReward(3100262, 1, true); //virgin legs
-            character.Inventory.ReceiveItemReward(2140010, 1, true); //halbert cleaver
-            character.Inventory.ReceiveItemReward(4300010, 2, false); //potion
+
         }
 
         public override void OnStartSpawn(Character character)

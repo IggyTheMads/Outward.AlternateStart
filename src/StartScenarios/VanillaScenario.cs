@@ -10,11 +10,16 @@ namespace AlternateStart.StartScenarios
     public class VanillaScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_Vanilla;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.VANILLA;
-        public override ScenarioPassives Area => ScenarioPassives.Vanilla;
+        public override ScenarioType Difficulty => ScenarioType.VanillaLike;
+        public override ScenarioPassives Passive => ScenarioPassives.Vanilla;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Tutorial;
         public override Vector3 SpawnPosition => default;
+
+        public override void Gear(Character character)
+        {
+            character.Inventory.AddMoney(27);
+        }
 
         public override bool HasQuest => false;
 
@@ -24,7 +29,6 @@ namespace AlternateStart.StartScenarios
 
         public override void OnStartSpawn(Character character)
         {
-            character.Inventory.AddMoney(27);
             character.Stats.FullStamina();
         }
 

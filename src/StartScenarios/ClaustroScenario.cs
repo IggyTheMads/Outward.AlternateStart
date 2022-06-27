@@ -14,13 +14,20 @@ namespace AlternateStart.StartScenarios
     public class ClaustroScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_Claustro;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.Claustrophobic;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.Claustrophobic;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.EmercarDungeonsSmall;
         public override Vector3 SpawnPosition => new(1499.7f, -8.9f, 54.7f);
         public override Vector3 SpawnRotation => new(0, 99.8f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Stats.FullStamina();
+            //character.Inventory.ReceiveItemReward(9000010, 1, false); //no gold
+            character.Inventory.ReceiveItemReward(3000081, 1, true); //chest worker
+            character.Inventory.ReceiveItemReward(3000083, 1, true); //legs worker
+            character.Inventory.ReceiveItemReward(3000086, 1, true); //helm worker
+        }
         public override bool HasQuest => true;
         public override string QuestName => "Kidnap Miracle";
 
@@ -118,11 +125,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Stats.FullStamina();
-            //character.Inventory.ReceiveItemReward(9000010, 1, false); //no gold
-            character.Inventory.ReceiveItemReward(3000081, 1, true); //chest worker
-            character.Inventory.ReceiveItemReward(3000083, 1, true); //legs worker
-            character.Inventory.ReceiveItemReward(3000086, 1, true); //helm worker
+
         }
 
         public override void OnStartSpawn()

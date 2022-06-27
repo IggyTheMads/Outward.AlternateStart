@@ -11,13 +11,23 @@ namespace AlternateStart.StartScenarios
     public class PriestElattScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_PriestElatt;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.PriestElatt;
+        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioPassives Passive => ScenarioPassives.PriestElatt;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Monsoon;
         public override Vector3 SpawnPosition => new(-175.2f, -1514.6f, 751.9f);
         public override Vector3 SpawnRotation => new(0, 359f, 0);
+        public override void Gear(Character character)
+        {
+            character.Inventory.ReceiveSkillReward(8100250); //chakram arc
 
+            character.Inventory.ReceiveItemReward(9000010, 32, false); //Starter Gold
+            character.Inventory.ReceiveItemReward(3000071, 1, true); //apprentice helm
+            character.Inventory.ReceiveItemReward(3000070, 1, true); //apprentice chest
+            character.Inventory.ReceiveItemReward(3000174, 1, true); //sandals
+            character.Inventory.ReceiveItemReward(2020010, 1, false); //mace
+            character.Inventory.ReceiveItemReward(5110030, 1, true); //chakram
+        }
         public override bool HasQuest => false;
         public override string QuestName => "";
         public override Dictionary<string, string> QuestLogSignatures => new()
@@ -32,13 +42,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Stats.FullStamina();
-            character.Inventory.ReceiveItemReward(9000010, 32, false); //Starter Gold
-            character.Inventory.ReceiveItemReward(3000071, 1, true); //apprentice helm
-            character.Inventory.ReceiveItemReward(3000070, 1, true); //apprentice chest
-            character.Inventory.ReceiveItemReward(3000174, 1, true); //sandals
-            character.Inventory.ReceiveItemReward(2020010, 1, false); //mace
-            character.Inventory.ReceiveItemReward(5110030, 1, true); //chakram
+
         }
 
         public override void OnStartSpawn()
@@ -48,7 +52,6 @@ namespace AlternateStart.StartScenarios
 
         public override void OnStartSpawn(Character character)
         {
-            character.Inventory.ReceiveSkillReward(8100250); //chakram arc
         }
 
         public override void UpdateQuestProgress(Quest quest)

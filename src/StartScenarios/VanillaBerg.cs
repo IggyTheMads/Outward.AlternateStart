@@ -12,13 +12,20 @@ namespace AlternateStart.StartScenarios
     public class VanillaBerg : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_VanillaBerg;
-        public override ScenarioDifficulty Difficulty => ScenarioDifficulty.Easy;
-        public override ScenarioPassives Area => ScenarioPassives.VanillaBerg;
+        public override ScenarioType Difficulty => ScenarioType.VanillaLike;
+        public override ScenarioPassives Passive => ScenarioPassives.VanillaBerg;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Emercar; //NEED GEAR UPDATE
         public override Vector3 SpawnPosition => new(722.1f, -34f, 892.8f);
         public override Vector3 SpawnRotation => new(0, 236.6f, 0);
-
+        public override void Gear(Character character)
+        {
+            character.Inventory.AddMoney(27);
+            character.Inventory.ReceiveItemReward(3000280, 1, true); //leather chest
+            character.Inventory.ReceiveItemReward(3000282, 1, true); //leather legs
+            character.Inventory.ReceiveItemReward(2000010, 1, false); //iron weapon
+            character.Inventory.ReceiveItemReward(5110003, 1, false); //shiv
+        }
         public override bool HasQuest => true;
         public override string QuestName => "A New Beginning";
 
@@ -108,11 +115,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnScenarioChosen(Character character)
         {
-            character.Inventory.AddMoney(27);
-            character.Inventory.ReceiveItemReward(3000280, 1, true); //leather chest
-            character.Inventory.ReceiveItemReward(3000282, 1, true); //leather legs
-            character.Inventory.ReceiveItemReward(2000010, 1, true); //iron weapon
-            character.Inventory.ReceiveItemReward(5110003, 1, true); //shiv
+
         }
 
         public override void OnStartSpawn()

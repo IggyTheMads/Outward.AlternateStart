@@ -18,7 +18,7 @@ namespace AlternateStart
     public static class ScenarioManager
     {
         // We will fill this dictionary on Init()
-        static readonly Dictionary<ScenarioPassives, Scenario> startScenarios = new();
+        public static readonly Dictionary<ScenarioPassives, Scenario> startScenarios = new();
 
         // Our quest event to check if we already started a scenario.
         internal static QuestEventSignature QE_DestinyChosen;
@@ -43,7 +43,7 @@ namespace AlternateStart
                     Scenario scenario = Activator.CreateInstance(type) as Scenario;
                     scenario.Init();
                     // Add it to our dictionary
-                    startScenarios.Add(scenario.Area, scenario);
+                    startScenarios.Add(scenario.Passive, scenario);
                 }
             }
         }
@@ -84,14 +84,37 @@ namespace AlternateStart
         {
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld" && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
             {
-                SetFullStop(true);
+                //SetFullStop(true);
 
                 // Remove starting silver
-                foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
+                foreach (PlayerSystem playerSys in Global.Lobby.PlayersInLobby)
                 {
-                    Character character = CharacterManager.Instance.GetCharacter(uid);
-                    character.Inventory.RemoveMoney(27, true);
+                    playerSys.ControlledCharacter.Inventory.RemoveMoney(27, true);
                 }
+                // ADD TELEPORT CHECK
+                Plugin.Instance.StartCoroutine(DreamworldStopper());
+            }
+        }
+        //teleporter if moved to far Dreamworld
+        static IEnumerator DreamworldStopper()
+        {
+            yield return new WaitForSeconds(0.2f);
+            Vector3 spawn = new Vector3(-12.2f, 0.2f, -0.6f);
+            Vector3 spawnRot = new Vector3(0, 75.2f, 0);
+            while (SceneManagerHelper.ActiveSceneName == "DreamWorld")
+            {
+                foreach (PlayerSystem _character in Global.Lobby.PlayersInLobby)
+                {
+                    if (_character.IsLocalPlayer)
+                    {
+                        float distance = Vector3.Distance(_character.ControlledCharacter.transform.position, spawn);
+                        if (distance > 3f)
+                        {
+                            _character.ControlledCharacter.Teleport(spawn, spawnRot);
+                        }
+                    }
+                }
+                yield return new WaitForSeconds(0.5f);
             }
         }
 
@@ -102,14 +125,12 @@ namespace AlternateStart
             if (PhotonNetwork.isNonMasterClientInRoom)
                 return;
 
-            foreach (string uid in CharacterManager.Instance.PlayerCharacters.Values)
+            foreach (PlayerSystem playerSys in Global.Lobby.PlayersInLobby)
             {
-                Character character = CharacterManager.Instance.GetCharacter(uid);
-
                 if (add)
-                    character.StatusEffectMngr.AddStatusEffect(FULL_STOP_STATUS_IDENTIFIER);
+                    playerSys.ControlledCharacter.StatusEffectMngr.AddStatusEffect(FULL_STOP_STATUS_IDENTIFIER);
                 else
-                    character.StatusEffectMngr.RemoveStatusWithIdentifierName(FULL_STOP_STATUS_IDENTIFIER);
+                    playerSys.ControlledCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName(FULL_STOP_STATUS_IDENTIFIER);
             }
         }
 
@@ -120,11 +141,12 @@ namespace AlternateStart
         {
             internal static void Postfix(Item _item)
             {
+                if (_item.OwnerCharacter == null || !_item.OwnerCharacter.IsLocalPlayer) { return; }
                 if (QuestEventManager.Instance.HasQuestEvent(QE_DESTINY_CHOSEN_UID))
                     return;
-
+                if (_item.ItemID > 0) { return; }
                 // Make sure we are in DreamWorld, and we are the host.
-                if (SceneManagerHelper.ActiveSceneName != "DreamWorld" || PhotonNetwork.isNonMasterClientInRoom)
+                if (SceneManagerHelper.ActiveSceneName != "DreamWorld" /*|| PhotonNetwork.isNonMasterClientInRoom*/)
                     return;
 
                 // TODO add logic to remove passives if ones are already chosen!!!
@@ -132,6 +154,9 @@ namespace AlternateStart
                 //
                 //
                 ////////////////////////////
+                ///
+                _item.OwnerCharacter.StatusEffectMngr.AddStatusEffect(startTag);
+                _item.OwnerCharacter.AutoKnock(true, Vector3.back, _item.OwnerCharacter);
                 Character host = CharacterManager.Instance.GetWorldHostCharacter();
                 if (host == _item.OwnerCharacter)
                 {
@@ -145,24 +170,24 @@ namespace AlternateStart
         {
             yield return new WaitForSeconds(0.2f);
 
-            ///////////////////This part does not work
-            /*List<Character> characterList = new List<Character>();
+            List<Character> characterList = new List<Character>();
+            while (Global.Lobby?.PlayersInLobby == null)
+                yield return null;
             while (characterList.Count < Global.Lobby.PlayersInLobby.Count)
             {
+                //Debug.Log("PlayersLobby: " + Global.Lobby.PlayersInLobby.Count);
                 yield return new WaitForSeconds(1f);
                 foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
                 {
                     if (player.ControlledCharacter.StatusEffectMngr.HasStatusEffect(startTag) && !characterList.Contains(player.ControlledCharacter))
                     {
-                        Debug.Log("PlayersLobby: " + Global.Lobby.PlayersInLobby.Count);
-                        Debug.Log("PlayerCount: " + characterList.Count);
+                        //Debug.Log("PlayerCount: " + characterList.Count);
                         characterList.Add(player.ControlledCharacter);
+                        //player.ControlledCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName(startTag);
                     }
+                    //else { Debug.Log("No status"); }
                 }
-            }*/
-            /////////////////////
-
-            //Bellow part works 
+            }
 
             // The player acquired a passive. If its random or it is a specific one
             if (character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Random))
@@ -176,6 +201,41 @@ namespace AlternateStart
                 var scenario = (ScenarioPassives)scenarioID;
                 //Plugin.Instance.StartCoroutine(scenario.StartScenario());
                 Plugin.Instance.StartCoroutine(startScenarios[scenario].StartScenario());
+            }
+            //remove Start status
+            foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
+            {
+                if (player.ControlledCharacter.StatusEffectMngr.HasStatusEffect(startTag))
+                {
+                    player.ControlledCharacter.StatusEffectMngr.RemoveStatusWithIdentifierName(startTag);
+                }
+            }
+        }
+
+        //stop taking multiple passives
+        [HarmonyPatch(typeof(InteractionTriggerBase), "TryActivateBasicAction", new Type[] { typeof(Character), typeof(int) })]
+        public class InteractionTriggerBase_TryActivateBasicAction
+        {
+            [HarmonyPrefix]
+            public static bool Prefix(InteractionTriggerBase __instance, Character _character, int _toggleState)
+            {
+                if (!_character.IsLocalPlayer || SceneManagerHelper.ActiveSceneName != "DreamWorld")
+                    return true;
+                if (_character.StatusEffectMngr.HasStatusEffect(startTag)) { return false; }
+                return true;
+
+                /*if (__instance.CurrentTriggerManager as InteractionActivator == true)
+                {
+                    InteractionActivator activator = __instance.CurrentTriggerManager as InteractionActivator;
+                    if (activator.BasicInteraction != null)
+                    {
+                        IInteraction interaction = activator.BasicInteraction;
+                        if (interaction is InteractionTrainerDialogue)
+                        {
+
+                        }
+                    }
+                }*/
             }
         }
 
@@ -213,40 +273,28 @@ namespace AlternateStart
         {
             Character host = CharacterManager.Instance.GetWorldHostCharacter();
             var knows = host.Inventory.SkillKnowledge;
-            if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioDifficulty.VANILLA))
+            /*if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioType.VANILLA))
             {
-                // They chose the Vanilla scenario.
-                Plugin.Instance.StartCoroutine(startScenarios[ScenarioPassives.Vanilla].StartScenario());
+                // They chose the VanillaLike scenario.
+                Plugin.Instance.StartCoroutine(startScenarios[ScenarioPassives.VanillaLike].StartScenario());
                 yield break;
-            }
+            }*/
 
             // Get our choices
-            //TryGetChoice(host, out ScenarioDifficulty difficultyChoice);
+            //TryGetChoice(host, out ScenarioType difficultyChoice);
             TryGetChoice(host, out ScenarioPassives areaChoice);
 
             // Determine eligable Scenarios based on choices.
             List<Scenario> eligable = new();
             foreach (Scenario entry in startScenarios.Values)
             {
-                if (entry.Area == ScenarioPassives.Random ||
-                    entry.Area == ScenarioPassives.Vanilla ||
-                    entry.Area == ScenarioPassives.VanillaAlt ||
-                    entry.Area == ScenarioPassives.VanillaBerg ||
-                    entry.Area == ScenarioPassives.VanillaLevant ||
-                    entry.Area == ScenarioPassives.VanillaMonsoon ||
-                    entry.Area == ScenarioPassives.VanillaHarmattan)
+                if (entry.Difficulty == ScenarioType.WIPtest ||
+                    entry.Difficulty == ScenarioType.VanillaLike ||
+                    entry.Difficulty == ScenarioType.Outlaw)
                 {
-                    // We don't want to randomly pick the Vanilla-like scenarios.
+                    // We don't want to randomly pick the Vanilla or wip scenarios.
                     continue;
                 }
-
-                // If the Scenario's difficulty doesn't match our choice, skip.
-                /*if (difficultyChoice != ScenarioDifficulty.ANY && entry.Difficulty != difficultyChoice)
-                    continue;*/
-
-                // If the Scenario's area doesn't match our choice, skip.
-                /*if (areaChoice != ScenarioPassives.Random && entry.Area != areaChoice)
-                    continue;*/
 
                 // It's eligable, add it.
                 eligable.Add(entry);
@@ -267,17 +315,36 @@ namespace AlternateStart
             // for debug
             Plugin.Log($"Eligable scenarios: {string.Join(",", eligable.Select(it => it.GetType().Name))}");
 
+
             // Pick a random scenario
-            Scenario scenario = eligable[UnityEngine.Random.Range(0, eligable.Count)];
-            Plugin.Log($"Chosen scenario: {scenario.GetType().Name}");
+            Scenario scenarioHost = eligable[UnityEngine.Random.Range(0, eligable.Count)];
+            Plugin.Log($"Chosen scenario: {scenarioHost.GetType().Name}");
 
             // Start it!
-            Plugin.Instance.StartCoroutine(scenario.StartScenario());
+            Plugin.Instance.StartCoroutine(scenarioHost.StartScenario());
+            
+            // Add scenario passive
+            foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
+            {
+                if(player.ControlledCharacter.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Random))
+                {
+                    if(host == player.ControlledCharacter)
+                    {
+                        player.ControlledCharacter.Inventory.ReceiveSkillReward((int)scenarioHost.Passive);
+                    }
+                    else 
+                    {
+                        Scenario scenarioOthers = eligable[UnityEngine.Random.Range(0, eligable.Count)];
+                        player.ControlledCharacter.Inventory.ReceiveSkillReward((int)scenarioOthers.Passive); 
+                    }
+                }
+            }
         }
 
 
         // FOR DEBUG
 
+        /*
         internal static void OnGUI()
         {
             if (!NetworkLevelLoader.Instance.AllPlayerDoneLoading)
@@ -299,7 +366,7 @@ namespace AlternateStart
                 GUILayout.EndArea();
             }
         }
-
+        */
 
         #region Iggy's Tests
 

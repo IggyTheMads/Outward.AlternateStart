@@ -20,7 +20,7 @@
   <IsMalusEffect>false</IsMalusEffect>
   <DelayedDestroyTime>0</DelayedDestroyTime>
   <ActionOnHit>None</ActionOnHit>
-  <FamilyMode>Reference</FamilyMode>
+  <FamilyMode>Bind</FamilyMode>
   <BindFamily>
     <UID>com.iggy.fullstop</UID>
     <Name>fullstopFam</Name>
