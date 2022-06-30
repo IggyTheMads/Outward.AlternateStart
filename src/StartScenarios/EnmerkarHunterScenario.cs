@@ -81,10 +81,15 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            Character host = CharacterManager.Instance.GetWorldHostCharacter();
-            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int maxStacks = 3;
+            //Character host = CharacterManager.Instance.GetWorldHostCharacter();
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedHunterStart.EventUID);
             QuestProgress progress = quest.m_questProgress;
+            if (stack >= maxStacks)
+            {
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+                return;
+            }
 
             //ShowUIMessage("Stacks -> " + stack);
             if (stack < 1)
@@ -102,9 +107,9 @@ namespace AlternateStart.StartScenarios
                 ShowUIMessage("I should sell my goods in the city...");
 
             }
-            else if (AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
+            if (stack < 3 && AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
             {
-                QuestEventManager.Instance.AddEvent(QE_FixedHunterStart, 1);
+                QuestEventManager.Instance.AddEvent(QE_FixedHunterStart, 2);
 
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 // Third log just auto-completes.
@@ -115,6 +120,22 @@ namespace AlternateStart.StartScenarios
 
                 VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
                 ShowUIMessage("Huh... Should I join a faction?");
+            }
+            ReloadLogs(stack, progress);
+        }
+
+        public void ReloadLogs(int stack, QuestProgress progress)
+        {
+            int stackCounter = 0;
+            foreach (KeyValuePair<string, string> entry in QuestLogSignatures)
+            {
+                if (stackCounter < stack && entry.Key != null)
+                {
+                    // do something with entry.Value or entry.Key
+                    Debug.Log("log: " + entry.Key);
+                    progress.UpdateLogEntry(progress.GetLogSignature(entry.Key), false);
+                    stackCounter += 1;
+                }
             }
         }
 

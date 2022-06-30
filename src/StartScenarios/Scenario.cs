@@ -243,11 +243,18 @@ namespace AlternateStart.StartScenarios
             if (CharacterManager.Instance == null || string.IsNullOrEmpty(message))
                 return;
 
-            Character player = CharacterManager.Instance.GetFirstLocalCharacter();
-            if (!player)
-                return;
 
-            player.CharacterUI.NotificationPanel.ShowNotification(message, 4f);
+            Plugin.Instance.StartCoroutine(UIMessageCo(message));
+        }
+
+        IEnumerator UIMessageCo(string message)
+        {
+            Character player = CharacterManager.Instance.GetFirstLocalCharacter();
+            if (player)
+            {
+                yield return new WaitForSeconds(2f);
+                player.CharacterUI.NotificationPanel.ShowNotification(message, 4f);
+            }
         }
     }
 }

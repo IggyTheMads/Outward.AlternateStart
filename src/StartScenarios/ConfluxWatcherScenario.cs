@@ -82,10 +82,15 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            Character host = CharacterManager.Instance.GetWorldHostCharacter();
-            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int maxStacks = 3;
+            //Character host = CharacterManager.Instance.GetWorldHostCharacter();
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedWatcherStart.EventUID);
             QuestProgress progress = quest.m_questProgress;
+            if (stack >= maxStacks)
+            {
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+                return;
+            }
 
             //ShowUIMessage("Stacks -> " + stack);
             if (stack < 1)
@@ -95,7 +100,7 @@ namespace AlternateStart.StartScenarios
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
                 ShowUIMessage("My watch is over. The world might need me.");
             }
-            else if (stack == 1 && SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain")
+            else if (stack < 2 && SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain")
             {
                 // Second log
                 QuestEventManager.Instance.AddEvent(QE_FixedWatcherStart, 1);
@@ -103,9 +108,9 @@ namespace AlternateStart.StartScenarios
                 ShowUIMessage("There used to be a village nearby...Cierzo, is it?");
                 //VanillaQuestsHelper.DestroyCierzo(false, false);
             }
-            else if (/*stack == 2 &&*/ SceneManagerHelper.ActiveSceneName == "CierzoNewTerrain")
+            if (stack < 3 && SceneManagerHelper.ActiveSceneName == "CierzoNewTerrain")
             {
-                QuestEventManager.Instance.AddEvent(QE_FixedWatcherStart, 1);
+                QuestEventManager.Instance.AddEvent(QE_FixedWatcherStart, 2);
 
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 // Third log just auto-completes.
@@ -117,6 +122,22 @@ namespace AlternateStart.StartScenarios
                 VanillaQuestsHelper.SkipHostToFactionChoice(false, false);
                 ShowUIMessage("I should ask around...");
 
+            }
+            ReloadLogs(stack, progress);
+        }
+
+        public void ReloadLogs(int stack, QuestProgress progress)
+        {
+            int stackCounter = 0;
+            foreach (KeyValuePair<string, string> entry in QuestLogSignatures)
+            {
+                if (stackCounter < stack && entry.Key != null)
+                {
+                    // do something with entry.Value or entry.Key
+                    Debug.Log("log: " + entry.Key);
+                    progress.UpdateLogEntry(progress.GetLogSignature(entry.Key), false);
+                    stackCounter += 1;
+                }
             }
         }
 

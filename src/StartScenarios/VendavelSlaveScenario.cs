@@ -76,20 +76,25 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            Character host = CharacterManager.Instance.GetWorldHostCharacter();
-            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int maxStacks = 3;
+            //Character host = CharacterManager.Instance.GetWorldHostCharacter();
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSlaveStart.EventUID);
             QuestProgress progress = quest.m_questProgress;
+            if (stack >= maxStacks)
+            {
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+                return;
+            }
 
             //ShowUIMessage("Stacks -> " + stack);
             if (stack < 1)
             {
                 QuestEventManager.Instance.AddEvent(QE_FixedSlaveStart, 1);
-                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSlaveStart.EventUID);
+
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
                 ShowUIMessage("I can't take this anymore...");
             }
-            else if (stack == 1 && SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain")
+            else if (stack < 2 && SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain")
             {
                 // Second log
                 QuestEventManager.Instance.AddEvent(QE_FixedSlaveStart, 1);
@@ -99,9 +104,9 @@ namespace AlternateStart.StartScenarios
                 //VanillaQuestsHelper.AddQuestEvent(VanillaQuestsHelper.factionCommit);
 
             }
-            else if (stack == 2 && SceneManagerHelper.ActiveSceneName == "CierzoNewTerrain")
+            else if (stack < 3 && SceneManagerHelper.ActiveSceneName == "CierzoNewTerrain")
             {
-                QuestEventManager.Instance.AddEvent(QE_FixedSlaveStart, 1);
+                QuestEventManager.Instance.AddEvent(QE_FixedSlaveStart, 2);
 
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 // Third log just auto-completes.
@@ -114,10 +119,22 @@ namespace AlternateStart.StartScenarios
                 ShowUIMessage("I should ask around...");
 
             }
-            /*else if (stack > 2 && SceneManagerHelper.ActiveSceneName != "CierzoNewTerrain" && host.Inventory.QuestKnowledge.IsItemLearned(VanillaQuestsHelper.vendavelQ))
+            ReloadLogs(stack, progress);
+        }
+
+        public void ReloadLogs(int stack, QuestProgress progress)
+        {
+            int stackCounter = 0;
+            foreach (KeyValuePair<string, string> entry in QuestLogSignatures)
             {
-                ShowUIMessage("Maybe I should join a faction...");
-            }*/
+                if (stackCounter < stack && entry.Key != null)
+                {
+                    // do something with entry.Value or entry.Key
+                    Debug.Log("log: " + entry.Key);
+                    progress.UpdateLogEntry(progress.GetLogSignature(entry.Key), false);
+                    stackCounter += 1;
+                }
+            }
         }
 
         //variables

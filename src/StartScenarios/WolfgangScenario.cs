@@ -71,6 +71,7 @@ namespace AlternateStart.StartScenarios
                 Quest quest = host.Inventory.QuestKnowledge.GetItemFromItemID((int)this.Type) as Quest;
                 UpdateQuestProgress(quest);
             }
+
         }
 
         public override void UpdateQuestProgress(Quest quest)
@@ -79,20 +80,24 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            Character host = CharacterManager.Instance.GetWorldHostCharacter();
-            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int maxStacks = 3;
+            //Character host = CharacterManager.Instance.GetWorldHostCharacter();
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedWolfgangStart.EventUID);
             QuestProgress progress = quest.m_questProgress;
+            if (stack >= maxStacks)
+            {
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+                return;
+            }
 
             //ShowUIMessage("Stacks -> " + stack);
             if (stack < 1)
             {
                 QuestEventManager.Instance.AddEvent(QE_FixedWolfgangStart, 1);
-                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedWolfgangStart.EventUID);
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
                 ShowUIMessage("No mercenary work... I need a new purpose.");
             }
-            else if (stack < 2 && AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
+            if (stack < 2 && AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
             {
                 QuestEventManager.Instance.AddEvent(QE_FixedWolfgangStart, 2);
 
@@ -105,6 +110,22 @@ namespace AlternateStart.StartScenarios
 
                 VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
                 ShowUIMessage("I could join a faction...");
+            }
+            ReloadLogs(stack, progress);
+        }
+
+        public void ReloadLogs(int stack, QuestProgress progress)
+        {
+            int stackCounter = 0;
+            foreach (KeyValuePair<string, string> entry in QuestLogSignatures)
+            {
+                if (stackCounter < stack && entry.Key != null)
+                {
+                    // do something with entry.Value or entry.Key
+                    Debug.Log("log: " + entry.Key);
+                    progress.UpdateLogEntry(progress.GetLogSignature(entry.Key), false);
+                    stackCounter += 1;
+                }
             }
         }
 

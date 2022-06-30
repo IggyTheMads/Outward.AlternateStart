@@ -30,7 +30,7 @@ namespace AlternateStart
 
             Logger.LogMessage($"{NAME} Awake()");
 
-            
+
 
             var _obj = this.gameObject;
             _obj.AddComponent<ExtrasManager>();
@@ -52,6 +52,7 @@ namespace AlternateStart
         private void SL_OnPacksLoaded()
         {
             TrainerManager.Init();
+            //ScenarioManager.OnGUI();
         }
 
         internal static void Log(object log) => Instance.Logger.LogMessage(log?.ToString() ?? string.Empty);

@@ -89,10 +89,15 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            Character host = CharacterManager.Instance.GetWorldHostCharacter();
-            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int maxStacks = 3;
+            //Character host = CharacterManager.Instance.GetWorldHostCharacter();
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedCorruptedStart.EventUID);
             QuestProgress progress = quest.m_questProgress;
+            if (stack >= maxStacks)
+            {
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+                return;
+            }
 
             //ShowUIMessage("Stacks -> " + stack);
             if (stack < 1)
@@ -110,9 +115,9 @@ namespace AlternateStart.StartScenarios
                 ShowUIMessage("I should find others... Living, preferably.");
 
             }
-            else if (AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
+            if (stack < 3 && AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
             {
-                QuestEventManager.Instance.AddEvent(QE_FixedCorruptedStart, 1);
+                QuestEventManager.Instance.AddEvent(QE_FixedCorruptedStart, 2);
 
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 // Third log just auto-completes.
@@ -124,6 +129,22 @@ namespace AlternateStart.StartScenarios
                 VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
                 ShowUIMessage("I'm somehow back to life. I should do something with it.");
 
+            }
+            ReloadLogs(stack, progress);
+        }
+
+        public void ReloadLogs(int stack, QuestProgress progress)
+        {
+            int stackCounter = 0;
+            foreach (KeyValuePair<string, string> entry in QuestLogSignatures)
+            {
+                if (stackCounter < stack && entry.Key != null)
+                {
+                    // do something with entry.Value or entry.Key
+                    Debug.Log("log: " + entry.Key);
+                    progress.UpdateLogEntry(progress.GetLogSignature(entry.Key), false);
+                    stackCounter += 1;
+                }
             }
         }
 

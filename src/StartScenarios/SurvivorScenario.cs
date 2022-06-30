@@ -79,20 +79,27 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
+            int maxStacks = 3;
             Character host = CharacterManager.Instance.GetWorldHostCharacter();
             // Each scene load we add 1 to this quest event stack, until it reaches 3.
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSurvivorStart.EventUID);
             QuestProgress progress = quest.m_questProgress;
+            if (stack >= maxStacks)
+            {
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+                return;
+            }
+            //if(stack >= maxStacks) { return; }
 
             //ShowUIMessage("Stacks -> " + stack);
             if (stack < 1)
             {
                 QuestEventManager.Instance.AddEvent(QE_FixedSurvivorStart, 1);
-                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedSurvivorStart.EventUID);
+
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
                 ShowUIMessage("I barely escaped... I hope others made it...");
             }
-            else if (stack < 2 && SceneManagerHelper.ActiveSceneName == "Berg")
+            if (stack < 2 && SceneManagerHelper.ActiveSceneName == "Berg")
             {
                 // Second log
                 QuestEventManager.Instance.AddEvent(QE_FixedSurvivorStart, 1);
@@ -100,10 +107,11 @@ namespace AlternateStart.StartScenarios
                 ShowUIMessage("I should ask the kazites. They might've seen more survivors.");
 
             }
-            else if (stack < 3 && talkEto == true)
+            if (stack < 3 && talkEto == true)
             {
                 talkEto = false;
-                QuestEventManager.Instance.AddEvent(QE_FixedSurvivorStart, 1);
+                QuestEventManager.Instance.AddEvent(QE_FixedSurvivorStart, 2);
+                //QuestEventManager.Instance.SetQuestEventStack(QE_FixedSurvivorStart.EventUID, 3, true); //force stacks?
 
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 // Third log just auto-completes.
@@ -115,6 +123,22 @@ namespace AlternateStart.StartScenarios
                 VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
                 VanillaQuestsHelper.DestroyCierzo(true, true);
                 ShowUIMessage("I will get my vengeance... Eventually.");
+            }
+            ReloadLogs(stack, progress);
+        }
+
+        public void ReloadLogs(int stack, QuestProgress progress)
+        {
+            int stackCounter = 0;
+            foreach (KeyValuePair<string, string> entry in QuestLogSignatures)
+            {
+                if (stackCounter < stack && entry.Key != null)
+                {
+                    // do something with entry.Value or entry.Key
+                    Debug.Log("log: " + entry.Key);
+                    progress.UpdateLogEntry(progress.GetLogSignature(entry.Key), false);
+                    stackCounter += 1;
+                }
             }
         }
 

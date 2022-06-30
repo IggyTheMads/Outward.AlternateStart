@@ -105,36 +105,38 @@ namespace AlternateStart.StartScenarios
             if (PhotonNetwork.isNonMasterClientInRoom || !IsActiveScenario)
                 return;
 
-            // Each scene load we add 1 to this quest event stack, until it reaches 3.
+            int maxStacks = 3;
+            //Character host = CharacterManager.Instance.GetWorldHostCharacter();
             int stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedGiantRisenStart.EventUID);
-
-            if (stack < 3)
-            { 
-                QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart, 1);
-                stack = QuestEventManager.Instance.GetEventCurrentStack(QE_FixedGiantRisenStart.EventUID);
+            QuestProgress progress = quest.m_questProgress;
+            if (stack >= maxStacks)
+            {
+                progress.DisableQuest(QuestProgress.ProgressState.Successful);
+                return;
             }
 
-            //ShowUIMessage("Stacks -> " + stack);
-            QuestProgress progress = quest.m_questProgress;
-            if (stack == 1)
+            if (stack < 1)
             {
                 // Update the first log no matter what. It's completed if our stack is 2 or higher.
-                
+                QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart, 1);
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_A), true);
                 ShowUIMessage("I've been exiled! I should flee!");
             }
 
             // If we reached 2, remove the giant quest events and add the second log.
-            else if (stack == 2)
+            else if (stack < 2)
             {
                 // Second log
+                QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart, 1);
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), false);
                 ShowUIMessage("I need to find a new home...");
 
             }
 
-            if (AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
+            else if (stack < 3 && AreaManager.Instance.GetIsCurrentAreaTownOrCity() == true)
             {
+                QuestEventManager.Instance.AddEvent(QE_FixedGiantRisenStart, 1);
+
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_B), true);
                 // Third log just auto-completes.
                 progress.UpdateLogEntry(progress.GetLogSignature(LogSignature_C), true);
@@ -150,7 +152,24 @@ namespace AlternateStart.StartScenarios
                 VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
                 ShowUIMessage("Maybe I should join a new faction...");
             }
+            ReloadLogs(stack, progress);
         }
+
+        public void ReloadLogs(int stack, QuestProgress progress)
+        {
+            int stackCounter = 0;
+            foreach (KeyValuePair<string, string> entry in QuestLogSignatures)
+            {
+                if (stackCounter < stack && entry.Key != null)
+                {
+                    // do something with entry.Value or entry.Key
+                    Debug.Log("log: " + entry.Key);
+                    progress.UpdateLogEntry(progress.GetLogSignature(entry.Key), false);
+                    stackCounter += 1;
+                }
+            }
+        }
+
         #region PassiveEffects
 
         internal static GiantRisenScenario Instance { get; private set; }

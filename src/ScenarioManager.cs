@@ -32,6 +32,7 @@ namespace AlternateStart
             QE_DestinyChosen = CustomQuests.CreateQuestEvent(QE_DESTINY_CHOSEN_UID, false, false, true, Plugin.QUEST_EVENT_FAMILY_NAME);
 
             SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
+            //SL.OnGameplayResumedAfterLoading += OnGUI;
 
             // Get all types in this dll
             foreach (Type type in typeof(Scenario).Assembly.GetTypes())
@@ -344,8 +345,8 @@ namespace AlternateStart
 
         // FOR DEBUG
 
-        /*
-        internal static void OnGUI()
+
+        /*internal static void OnGUI()
         {
             if (!NetworkLevelLoader.Instance.AllPlayerDoneLoading)
                 return;
@@ -365,8 +366,8 @@ namespace AlternateStart
 
                 GUILayout.EndArea();
             }
-        }
-        */
+        }*/
+
 
         #region Iggy's Tests
 
