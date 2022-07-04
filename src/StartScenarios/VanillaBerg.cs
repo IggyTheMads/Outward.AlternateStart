@@ -1,4 +1,5 @@
-﻿using SideLoader;
+﻿using HarmonyLib;
+using SideLoader;
 using SideLoader.Managers;
 using System;
 using System.Collections.Generic;

@@ -13,9 +13,9 @@ namespace AlternateStart.StartScenarios
     {
         internal static NightmareScenario Instance { get; private set; }
 
-        public override ScenarioQuest Type => ScenarioQuest.Quest_NightmareTrauma;
+        public override ScenarioQuest Type => ScenarioQuest.Quest_Vanilla;
         public override ScenarioType Difficulty => ScenarioType.WIPtest;
-        public override ScenarioPassives Passive => ScenarioPassives.NightmareTrauma;
+        public override ScenarioPassives Passive => ScenarioPassives.NONE;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.ChersoDungeon3;
         public override Vector3 SpawnPosition => new(-29.4f, 0, -40.9f);

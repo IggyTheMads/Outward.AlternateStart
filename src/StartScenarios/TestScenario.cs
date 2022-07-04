@@ -14,7 +14,7 @@ using UnityEngine;
 
 namespace AlternateStart.StartScenarios
 {
-    public class TestScenario : Scenario
+    /*public class TestScenario : Scenario
     {
         internal static TestScenario Instance { get; private set; }
 
@@ -248,5 +248,5 @@ namespace AlternateStart.StartScenarios
             graph.ConnectNodes(multiChoice1, answer3, 2);       // choice3: answer3
             graph.ConnectNodes(answer3, rootStatement);         // - choice3 goes back to root node
         }
-    }
+    }*/
 }

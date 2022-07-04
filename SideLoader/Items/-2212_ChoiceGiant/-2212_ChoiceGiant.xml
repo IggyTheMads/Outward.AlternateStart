@@ -37,7 +37,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>StaminaUse</Stat_Tag>
-          <AffectQuantity>6</AffectQuantity>
+          <AffectQuantity>2</AffectQuantity>
           <IsModifier>false</IsModifier>
           <Tags>
             <string>Dodge</string>

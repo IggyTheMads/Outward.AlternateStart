@@ -22,8 +22,8 @@
         RobbedTrader = -2216, // low prices, lower resistances LOC
         Survivor = -2217, // enrage with low hp, lower dmg when full hp
         CorruptedSoul = -2218, // always corrupted, immune to poison n bleed LOC
-        UglyAF = -2219, // UGLY WIP
-        NightmareTrauma = -2220, // always tired, hallucinate spawn ghost
+        ChosenOne = -2219, // Chosen One 4 breakthroughs
+        Unbound = -2220, // always tired, hallucinate spawn ghost
         Cannibal = -2221, // only eat human flesh 
         SandBandit = -2222, //-------------- WIP
     }

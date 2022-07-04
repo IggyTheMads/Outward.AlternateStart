@@ -20,6 +20,7 @@ namespace AlternateStart.StartScenarios
         public override Vector3 SpawnRotation => new(0, 172.4f, 0);
         public override void Gear(Character character)
         {
+            character.Inventory.ReceiveSkillReward(8200040); //spark
             character.Inventory.ReceiveSkillReward(8100220); //shim
             character.Inventory.ReceiveSkillReward(8100230); //egoth
             character.Stats.SetManaPoint(3);

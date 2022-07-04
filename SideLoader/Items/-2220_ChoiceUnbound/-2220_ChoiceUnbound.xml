@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <SL_Skill xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Target_ItemID>8205100</Target_ItemID>
-  <New_ItemID>-2223</New_ItemID>
-  <Name>Traumatized</Name>
-  <Description>WIP</Description>
+  <New_ItemID>-2220</New_ItemID>
+  <Name>Unbound</Name>
+  <Description>Allows the purchase of any skills, regardless of prerequisites, breakthroughs or requirements. However, you can only buy 15 skills in total. Mutually exclusive skills are still locked to each other. 
+[Skill rewards, skills not bought from a skill tree, and free skills, don't count towards the total.]</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
   <IsUsable>false</IsUsable>

@@ -24,8 +24,8 @@
         Quest_RobbedTrader = -2316,
         Quest_Survivor = -2317,
         Quest_CorruptedSoul = -2318,
-        Quest_UglyAF = -2319, // WIP
-        Quest_NightmareTrauma = -2320, // WIP
+        Quest_ChosenOne = -2319, // WIP
+        Quest_Unbound = -2320, // WIP
         Quest_Cannibal = -2321, // WIP
         Quest_SandBandit = -2322, // WIP
 
