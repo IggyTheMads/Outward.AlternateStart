@@ -268,10 +268,10 @@ namespace AlternateStart.StartScenarios
                     }
                     else
                     {
-                        if (__instance.StatusEffectMngr.HasStatusEffect(Instance.rageID))
+                        /*if (__instance.StatusEffectMngr.HasStatusEffect(Instance.rageID))
                         {
                             __instance.StatusEffectMngr.RemoveStatusWithIdentifierName(Instance.rageID);
-                        }
+                        }*/
                         if (percentHP > 0.3f)
                         {
                             if (__instance.StatusEffectMngr.HasStatusEffect(Instance.adrenalineSpeedID))

@@ -153,6 +153,9 @@ namespace AlternateStart.StartScenarios
         {
         }
 
+        //TESTING
+        /*
+
         static int maxLimitless = 15;
         internal static LimitlessScenario Instance { get; private set; }
         public LimitlessScenario()
@@ -220,6 +223,7 @@ namespace AlternateStart.StartScenarios
                 return true;
             }
         }
+        */
 
     }
 }

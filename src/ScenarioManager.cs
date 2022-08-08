@@ -85,8 +85,17 @@ namespace AlternateStart
         {
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld" && !QuestEventManager.Instance.HasQuestEvent(QE_DestinyChosen))
             {
-                //SetFullStop(true);
+                Character host = CharacterManager.Instance.GetWorldHostCharacter();
 
+                //SetFullStop(true);
+                foreach (Item skill in host.Inventory.SkillKnowledge.m_learnedItems)
+                {
+                    if (System.Enum.IsDefined(typeof(ScenarioPassives), skill.ItemID))
+                    {
+                        Debug.Log("HAS START SCENARIO");
+                        return;
+                    }
+                }
                 // Remove starting silver
                 foreach (PlayerSystem playerSys in Global.Lobby.PlayersInLobby)
                 {
@@ -102,6 +111,7 @@ namespace AlternateStart
             yield return new WaitForSeconds(0.2f);
             Vector3 spawn = new Vector3(-12.2f, 0.2f, -0.6f);
             Vector3 spawnRot = new Vector3(0, 75.2f, 0);
+
             while (SceneManagerHelper.ActiveSceneName == "DreamWorld")
             {
                 foreach (PlayerSystem _character in Global.Lobby.PlayersInLobby)
@@ -323,20 +333,20 @@ namespace AlternateStart
 
             // Start it!
             Plugin.Instance.StartCoroutine(scenarioHost.StartScenario());
-            
+
             // Add scenario passive
             foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
             {
-                if(player.ControlledCharacter.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Random))
+                if (player.ControlledCharacter.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Random))
                 {
-                    if(host == player.ControlledCharacter)
+                    if (host == player.ControlledCharacter)
                     {
                         player.ControlledCharacter.Inventory.ReceiveSkillReward((int)scenarioHost.Passive);
                     }
-                    else 
+                    else
                     {
                         Scenario scenarioOthers = eligable[UnityEngine.Random.Range(0, eligable.Count)];
-                        player.ControlledCharacter.Inventory.ReceiveSkillReward((int)scenarioOthers.Passive); 
+                        player.ControlledCharacter.Inventory.ReceiveSkillReward((int)scenarioOthers.Passive);
                     }
                 }
             }

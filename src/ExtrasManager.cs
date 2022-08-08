@@ -64,7 +64,7 @@ namespace AlternateStart
         }
 
         //might optimize-----------------------------
-        void Update()
+        /*void Update()
         {
             if (SceneManagerHelper.ActiveSceneName == "DreamWorld")
             {
@@ -78,7 +78,7 @@ namespace AlternateStart
                     }
                 }
             }
-        }
+        }*/
 
         //////////////////////////////////////
         // DO NOT DELETE

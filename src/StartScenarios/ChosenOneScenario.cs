@@ -130,6 +130,9 @@ namespace AlternateStart.StartScenarios
             character.SpellCastAnim(Character.SpellCastType.Sit, Character.SpellCastModifier.Immobilized, 0);
         }
 
+        //TESTING
+        /*
+
         static string ChosenOneNerf = "ChosenOneNerf";
         static int maxBreakthroughs = 4;
 
@@ -154,12 +157,12 @@ namespace AlternateStart.StartScenarios
             [HarmonyPostfix]
             public static void Postfix(SkillSlot __instance, Character _character)
             {
-                if(!_character.IsLocalPlayer || !_character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.ChosenOne))
+                if(!_character.IsLocalPlayer || !_character.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.ChosenOne)) { return; }
                 if (__instance.IsBreakthrough)
                 {
                     _character.StatusEffectMngr.AddStatusEffect(ChosenOneNerf);
                 }
             }
-        }
+        }*/
     }
 }
