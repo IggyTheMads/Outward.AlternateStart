@@ -5,7 +5,7 @@
   <Name>Claustrophobic</Name>
   <Description>You've lived a simple life in the confort of the city walls. Until you were kidnapped unto a small cell with barely any room to move. It broke something inside you. Forever.
 
-&lt;color=#00f5ff&gt;[While not wearing a helmet: Stamina costs, Mana costs and cooldowns reduced by 30%.]&lt;/color&gt;
+&lt;color=#00f5ff&gt;[While not wearing a helmet: Stamina costs, Mana costs and cooldowns reduced by 20%.]&lt;/color&gt;
 &lt;color=#ff5043&gt;[While wearing a helmet: Panic and loose stamina every second.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>

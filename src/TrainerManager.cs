@@ -18,21 +18,50 @@ namespace AlternateStart
         // This class is just used for setting up the Trainer NPC. The Skill Tree is set up by the XML file.
 
         internal static SL_Character bergSpellblade;
+        static SLPack pack;
 
         public static void Init()
         {
-            var pack = SL.GetSLPack("iggythemad AlternateStart");
+            pack = SL.GetSLPack("iggythemad AlternateStart");
 
             bergSpellblade = pack.CharacterTemplates["com.iggy.berg.spellblade.trainer"];
             bergSpellblade.OnSpawn += SpellbladeSetup;
 
+            SL.OnGameplayResumedAfterLoading += spawnSpellblade;
+        }
+
+        private static void spawnSpellblade()
+        {
+            string scene = SceneManagerHelper.ActiveSceneName;
+            if (scene == "Berg")
+            {
+                Character host = CharacterManager.Instance.GetWorldHostCharacter();
+                if(!host.IsLocalPlayer) { return; }
+                if(QuestEventManager.Instance.HasQuestEvent(QuestEventDictionary.GetQuestEvent(VanillaQuestsHelper.cierzoDestroy)))
+                {
+                    string trainerID;
+                    Vector3 trainerPos;
+                    Vector3 trainerRot;
+                    trainerPos = new Vector3(1284.4f, -3.7f, 1622.2f);
+                    trainerRot = new Vector3(0, 203f, 0);
+                    trainerID = "com.iggy.berg.spellblade.trainer";
+                    SpawnCharacter(trainerID, trainerPos, trainerRot);
+                }
+            }
+        }
+
+        public static Character SpawnCharacter(string trainerID, Vector3 trainerPos, Vector3 trainerRot)
+        {
+            var myChar = pack.CharacterTemplates[trainerID];
+            Character spawnee = myChar.Spawn(trainerPos, trainerRot, UID.Generate());
+            return spawnee;
         }
 
         public static void SpellbladeSetup(Character trainer, string _)
         {
-            Character host = CharacterManager.Instance.GetWorldHostCharacter();
-            if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Survivor))
-            {
+            //Character host = CharacterManager.Instance.GetWorldHostCharacter();
+            //if (host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Survivor))
+            //{
                 GenericTrainerSetup(trainer,
                 bergSpellblade,
                 "com.iggy.bergspellblade",
@@ -42,7 +71,7 @@ namespace AlternateStart
                 "What should I do now?",
                 "The Vendavel Scum. We were not prepared for an attack. I tried to fight back, but it was too late.",
                 "Move on. Join a faction. Rissa is here, but you are free to do as you like.");
-            }
+            //}
         }
 
         public static void GenericTrainerSetup(Character trainer, SL_Character currentCharacter, string treeUID, string introDialogue, string ask1, string ask2, string ask3, string reply2, string reply3)

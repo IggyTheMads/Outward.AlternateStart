@@ -176,6 +176,24 @@ namespace AlternateStart.StartScenarios
             }
         }
 
+        [HarmonyPatch(typeof(CharacterInventory), "TakeItem", new Type[] { typeof(Item), typeof(bool) })]
+        public class CharacterInventory_TakeItem
+        {
+            [HarmonyPrefix]
+            public static void Prefix(CharacterInventory __instance, Item takenItem, ref bool _tryToEquip, ref Character ___m_character)
+            {
+                Character player = ___m_character;
+                if (player == null || !player.IsLocalPlayer) { return; }
+                Equipment takenEquipment;
+                if(takenItem is Equipment) { takenEquipment = takenItem as Equipment; } else { takenEquipment = null; }
+
+                if (player.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Claustrophobic) && takenEquipment?.EquipSlot == ArmorEquipmentSlot.EquipmentSlotIDs.Helmet)
+                {
+                    _tryToEquip = false;
+                }
+            }
+        }
+
         [HarmonyPatch(typeof(CharacterInventory), "UnequipItem", new Type[] { typeof(Equipment), typeof(bool) })]
         public class CharacterInventory_UnequipItem
         {

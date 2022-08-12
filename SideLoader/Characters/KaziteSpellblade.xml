@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <SL_CharacterTrainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SaveType>Scene</SaveType>
+  <SaveType>Temporary</SaveType>
   <UID>com.iggy.berg.spellblade.trainer</UID>
   <Name>Eto Akiyuki</Name>
   <DestroyOnDeath>false</DestroyOnDeath>
@@ -13,13 +13,13 @@
   <StartSheathed>true</StartSheathed>
   <SceneToSpawn>Berg</SceneToSpawn>
   <SpawnPosition>
-    <x>1284.4</x>
-    <y>-3.7</y>
-    <z>1622.2</z>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
   </SpawnPosition>
   <SpawnRotation>
     <x>0</x>
-    <y>203</y>
+    <y>0</y>
     <z>0</z>
   </SpawnRotation>
   <Faction>NONE</Faction>

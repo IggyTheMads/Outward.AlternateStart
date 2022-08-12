@@ -15,19 +15,19 @@ namespace AlternateStart
     {
         public static ExtrasManager Instance;
 
-        Vector3 spawn = new Vector3(-12.2f, 0.2f, -0.6f);
-        Vector3 spawnRot = new Vector3(0, 75.2f, 0);
+        Vector3 spawn = new Vector3(1284.4f, -3.7f, 1622.2f);
+        Vector3 spawnRot = new Vector3(0, 203f, 0);
 
         public List<Character> allPlayers;
 
         internal void Awake()
         {
             Instance = this;
-            ExtrasManager.Init();
+            //ExtrasManager.Init();
             allPlayers = new List<Character>();
         }
 
-        internal static void Init()
+        /*internal static void Init()
         {
             SL.OnGameplayResumedAfterLoading += SL_OnGameplayResumedAfterLoading;
         }
@@ -35,7 +35,8 @@ namespace AlternateStart
         private static void SL_OnGameplayResumedAfterLoading()
         {
             Character host = CharacterManager.Instance.GetWorldHostCharacter();
-            if (SceneManagerHelper.ActiveSceneName == "Berg")
+            string scene = SceneManagerHelper.ActiveSceneName;
+            if (scene == "Berg")
             {
                 //Debug.Log("In Berg");
                 if (!host.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Survivor))
@@ -45,6 +46,7 @@ namespace AlternateStart
                 }
             }
         }
+
 
 
         public IEnumerator DeactivateTrainer(float timer)
@@ -59,23 +61,6 @@ namespace AlternateStart
                 {
                     Debug.Log("Found Eto");
                     character.gameObject.SetActive(false);
-                }
-            }
-        }
-
-        //might optimize-----------------------------
-        /*void Update()
-        {
-            if (SceneManagerHelper.ActiveSceneName == "DreamWorld")
-            {
-                foreach (PlayerSystem _character in Global.Lobby.PlayersInLobby)
-                {
-                    if(!_character.IsLocalPlayer) { return; }
-                    float distance = Vector3.Distance(_character.ControlledCharacter.transform.position, spawn);
-                    if (distance > 3f)
-                    {
-                        _character.ControlledCharacter.Teleport(spawn, spawnRot);
-                    }
                 }
             }
         }*/

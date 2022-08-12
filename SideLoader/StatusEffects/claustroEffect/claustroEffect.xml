@@ -51,7 +51,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>Activation</OverrideCategory>
           <Stat_Tag>StaminaUse</Stat_Tag>
-          <AffectQuantity>-25</AffectQuantity>
+          <AffectQuantity>-20</AffectQuantity>
           <IsModifier>true</IsModifier>
           <Tags />
           <Duration>-1</Duration>
@@ -61,7 +61,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>ManaUse</Stat_Tag>
-          <AffectQuantity>-25</AffectQuantity>
+          <AffectQuantity>-20</AffectQuantity>
           <IsModifier>true</IsModifier>
           <Duration>-1</Duration>
         </SL_Effect>
@@ -70,7 +70,7 @@
           <SyncType>OwnerSync</SyncType>
           <OverrideCategory>None</OverrideCategory>
           <Stat_Tag>SkillCooldownModifier</Stat_Tag>
-          <AffectQuantity>-0.25</AffectQuantity>
+          <AffectQuantity>-0.20</AffectQuantity>
           <IsModifier>false</IsModifier>
           <Duration>-1</Duration>
         </SL_Effect>

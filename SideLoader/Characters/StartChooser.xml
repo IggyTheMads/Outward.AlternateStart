@@ -73,31 +73,6 @@
         <Slots />
       </SL_SkillRow>
       <SL_SkillRow>
-        <RowIndex>2</RowIndex>
-        <Slots>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>1</ColumnIndex>
-            <RequiredSkillSlot>
-              <x>0</x>
-              <y>0</y>
-            </RequiredSkillSlot>
-            <SkillID>-2219</SkillID>
-            <SilverCost>0</SilverCost>
-            <Breakthrough>false</Breakthrough>
-          </SL_BaseSkillSlot>
-          <SL_BaseSkillSlot xsi:type="SL_SkillSlot">
-            <ColumnIndex>2</ColumnIndex>
-            <RequiredSkillSlot>
-              <x>0</x>
-              <y>0</y>
-            </RequiredSkillSlot>
-            <SkillID>-2220</SkillID>
-            <SilverCost>0</SilverCost>
-            <Breakthrough>false</Breakthrough>
-          </SL_BaseSkillSlot>
-        </Slots>
-      </SL_SkillRow>
-      <SL_SkillRow>
         <RowIndex>3</RowIndex>
         <Slots>
           <SL_BaseSkillSlot xsi:type="SL_SkillSlot">

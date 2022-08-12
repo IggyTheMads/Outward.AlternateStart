@@ -6,7 +6,8 @@
   <Description>Life hasn't been easy for you. You've spent your days begging and suffering, but you've learned to survive despite everything... Not always by the best means.
 
 &lt;color=#00f5ff&gt;[Hunger rate -20%.
-All weather resistance +5]&lt;/color&gt;
+All weather resistance +5.
+Movement Speed +15%.]&lt;/color&gt;
 &lt;color=#ff5043&gt;[Health and Stamina reduced by 20.]&lt;/color&gt;</Description>
   <LegacyItemID>-1</LegacyItemID>
   <IsPickable>false</IsPickable>
@@ -33,6 +34,24 @@ All weather resistance +5]&lt;/color&gt;
       <Rotation xsi:nil="true" />
       <Scale xsi:nil="true" />
       <Effects>
+        <SL_Effect xsi:type="SL_AffectStat">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Stat_Tag>MaxHealth</Stat_Tag>
+          <AffectQuantity>-20</AffectQuantity>
+          <IsModifier>false</IsModifier>
+          <Duration>-1</Duration>
+        </SL_Effect>
+        <SL_Effect xsi:type="SL_AffectStat">
+          <Delay>0</Delay>
+          <SyncType>OwnerSync</SyncType>
+          <OverrideCategory>None</OverrideCategory>
+          <Stat_Tag>MaxStamina</Stat_Tag>
+          <AffectQuantity>-20</AffectQuantity>
+          <IsModifier>false</IsModifier>
+          <Duration>-1</Duration>
+        </SL_Effect>
         <SL_Effect xsi:type="SL_AffectStat">
           <Delay>0</Delay>
           <SyncType>OwnerSync</SyncType>
