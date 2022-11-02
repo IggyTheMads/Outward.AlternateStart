@@ -238,21 +238,22 @@ namespace AlternateStart.StartScenarios
         /// <summary>
         /// Show a UI Notification message.
         /// </summary>
-        public void ShowUIMessage(string message)
+        public void ShowUIMessage(string message, bool instant = false)
         {
             if (CharacterManager.Instance == null || string.IsNullOrEmpty(message))
                 return;
 
 
-            Plugin.Instance.StartCoroutine(UIMessageCo(message));
+            Plugin.Instance.StartCoroutine(UIMessageCo(message, instant));
         }
 
-        IEnumerator UIMessageCo(string message)
+        IEnumerator UIMessageCo(string message, bool instant)
         {
             Character player = CharacterManager.Instance.GetFirstLocalCharacter();
             if (player)
             {
-                yield return new WaitForSeconds(2f);
+                if(!instant) { yield return new WaitForSeconds(2f); }
+                
                 player.CharacterUI.NotificationPanel.ShowNotification(message, 4f);
             }
         }

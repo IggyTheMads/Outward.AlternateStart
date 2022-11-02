@@ -13,7 +13,7 @@ namespace AlternateStart.StartScenarios
     public class ChosenOneScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_ChosenOne;
-        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioType Difficulty => ScenarioType.WIPtest;
         public override ScenarioPassives Passive => ScenarioPassives.ChosenOne;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.CierzoOutside; //NEED GEAR UPDATE

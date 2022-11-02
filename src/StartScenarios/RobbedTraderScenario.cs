@@ -64,7 +64,7 @@ namespace AlternateStart.StartScenarios
 
         public override void OnStartSpawn()
         {
-            
+
         }
 
         public override void OnStartSpawn(Character character)
@@ -103,6 +103,8 @@ namespace AlternateStart.StartScenarios
             }*/
         }
 
+
+        //NEEDS FIXING
         [HarmonyPatch(typeof(DefeatScenariosManager), "StartDefeat")]
         public class DefeatScenariosManager_StartDefeat
         {
@@ -113,7 +115,13 @@ namespace AlternateStart.StartScenarios
                     || PhotonNetwork.isNonMasterClientInRoom)
                     return true;
 
-                foreach(PlayerSystem player in Global.Lobby.PlayersInLobby)
+                if (QuestEventManager.Instance.HasQuestEvent(QuestEventDictionary.GetQuestEvent(VanillaQuestsHelper.readyToChoose)))
+                {
+                    return true;
+                }
+
+
+                foreach (PlayerSystem player in Global.Lobby.PlayersInLobby)
                 {
                     player.ControlledCharacter.Resurrect();
                 }
@@ -136,6 +144,11 @@ namespace AlternateStart.StartScenarios
 
                 if (!_character.IsLocalPlayer) { return true; }
 
+                if (QuestEventManager.Instance.HasQuestEvent(QuestEventDictionary.GetQuestEvent(VanillaQuestsHelper.readyToChoose)))
+                {
+                    return true;
+                }
+
                 if (__instance.CurrentTriggerManager as InteractionActivator == true)
                 {
                     InteractionActivator activator = __instance.CurrentTriggerManager as InteractionActivator;
@@ -147,10 +160,10 @@ namespace AlternateStart.StartScenarios
                             if (interaction is InteractionMerchantDialogue && Vector3.Distance(_character.transform.position, Instance.traderPosition) < 5f)
                             {
                                 if (_character.Inventory.OwnsOrHasEquipped(-2353))
-                                { Instance.ShowUIMessage("I need to sell the goods before leaving."); }
+                                { Instance.ShowUIMessage("I need to sell the goods before leaving.", true); }
                                 else
                                 {
-                                    Instance.ShowUIMessage("Going back to Harmattan!");
+                                    //Instance.ShowUIMessage("Going back to Harmattan!", true);
                                     VanillaQuestsHelper.SkipHostToFactionChoice(false, true);
                                     //CharacterManager.Instance.GetWorldHostCharacter().Inventory.QuestKnowledge.ReceiveQuest(VanillaQuestsHelper.enrollmentQ);
                                     NetworkLevelLoader.Instance.RequestSwitchArea(AreaManager.Instance.GetArea(AreaManager.AreaEnum.Harmattan).SceneName, 0, 1.5f);
@@ -165,17 +178,17 @@ namespace AlternateStart.StartScenarios
                             else
                             {
                                 if (_character.Inventory.OwnsOrHasEquipped(-2353))
-                                { Instance.ShowUIMessage("I have no time for this..."); }
-                                else { Instance.ShowUIMessage("I should go back to harmattan..."); }
+                                { Instance.ShowUIMessage("I have no time for this...", true); }
+                                else { Instance.ShowUIMessage("I should go back to harmattan...", true); }
                                 return false;
                             }
                         }
                         else if (SceneManagerHelper.ActiveSceneName == "ChersoneseNewTerrain")
                         {
-                            if(Vector3.Distance(_character.transform.position, Instance.cierzoEntrance) < 5f) { return true; }
+                            if (Vector3.Distance(_character.transform.position, Instance.cierzoEntrance) < 5f) { return true; }
                             else
                             {
-                                Instance.ShowUIMessage("There is no time for this.");
+                                Instance.ShowUIMessage("There is no time for this.", true);
                                 return false;
                             }
                         }

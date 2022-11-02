@@ -14,7 +14,7 @@ namespace AlternateStart.StartScenarios
     public class LimitlessScenario : Scenario
     {
         public override ScenarioQuest Type => ScenarioQuest.Quest_Unbound;
-        public override ScenarioType Difficulty => ScenarioType.Normal;
+        public override ScenarioType Difficulty => ScenarioType.WIPtest;
         public override ScenarioPassives Passive => ScenarioPassives.Unbound;
 
         public override AreaManager.AreaEnum SpawnScene => AreaManager.AreaEnum.Emercar;

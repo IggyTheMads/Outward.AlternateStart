@@ -65,27 +65,29 @@ namespace AlternateStart.StartScenarios
             Instance = this;
         }
 
-        [HarmonyPatch(typeof(Character), "ReceiveHit", new Type[] { typeof(UnityEngine.Object), typeof(DamageList), typeof(Vector3), typeof(Vector3), typeof(float), typeof(float), typeof(Character), typeof(float), typeof(bool) })]
-        public class Character_ReceiveHit
+        [HarmonyPatch(typeof(Character), "StabilityHit")]
+        public class Character_StabilityHit
         {
             [HarmonyPrefix]
-            public static void Prefix(Character __instance, UnityEngine.Object _damageSource, DamageList _damage, Vector3 _hitDir, Vector3 _hitPoint, float _angle, float _angleDir, Character _dealerChar, ref float _knockBack, bool _hitInventory)
+            public static void Prefix(Character __instance, ref float _knockValue, float _angle, bool _block, Character _dealerChar)
             {
                 if (__instance == null) { return; }
                 if (!__instance.IsLocalPlayer) { return; }
 
                 if (__instance.Inventory.SkillKnowledge.IsItemLearned((int)ScenarioPassives.Veteran))
                 {
+                    //Debug.Log("BLOCK");
                     //lower stamina, more knockback received
                     float blockExtra = 1f;
-                    if (__instance.Blocking) { blockExtra = 3f; }
+                    if (__instance.Blocking) { blockExtra = 2f; }
                     float multiplier = ((1 / __instance.Stats.MaxStamina) * __instance.Stats.CurrentStamina);
-                    _knockBack = _knockBack + ((_knockBack * (1 - multiplier) * blockExtra));
+                    _knockValue = _knockValue + ((_knockValue * (1 - multiplier) * blockExtra));
                 }
             }
         }
 
-        [HarmonyPatch(typeof(LocalCharacterControl), "DetectMovementInputs")]
+        //DISABLED SPEED NERF
+        /*[HarmonyPatch(typeof(LocalCharacterControl), "DetectMovementInputs")]
         public class LocalCharacterControl_DetectMovementInputs
         {
             [HarmonyPostfix]
@@ -101,12 +103,12 @@ namespace AlternateStart.StartScenarios
                     float slowedX = Mathf.Abs(__instance.m_moveInput.x * (minMov + (1f - minMov) * multiplier));
                     float slowedY = Mathf.Abs(__instance.m_moveInput.y * (minMov + (1f - minMov) * multiplier)); // Input * (min + (max - min) * ratio)
 
-                    __instance.m_moveInput *= new Vector2(slowedX, slowedY);
-                    __instance.m_modifMoveInput *= new Vector2(slowedX, slowedY);
+                    __instance.m_moveInput = (__instance.m_moveInput * new Vector2(slowedX, slowedY)).normalized;
+                    __instance.m_modifMoveInput = (__instance.m_modifMoveInput * new Vector2(slowedX, slowedY)).normalized;
                 }
                 return;
             }
-        }
+        }*/
         #endregion
     }
 }
