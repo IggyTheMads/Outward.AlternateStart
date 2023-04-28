@@ -209,10 +209,10 @@ namespace AlternateStart.StartScenarios
 
         #region PassiveEffects
 
-        string rageID = "Rage";
-        string adrenalineSpeedID = "AdrenalineSpeed";
+        static string rageID = "Rage";
+        static string adrenalineSpeedID = "AdrenalineSpeed";
 
-        float injuredBonus = 0.3f;
+        static float injuredBonus = 0.2f;
 
         internal static SurvivorScenario Instance { get; private set; }
         //internal static SL_Character bergSpellblade;
@@ -236,7 +236,7 @@ namespace AlternateStart.StartScenarios
                     float percentHP = (1 / _dealerChar.Stats.MaxHealth) * _dealerChar.Stats.CurrentHealth;
                     if (percentHP <= 0.75f)
                     {
-                        _damage += _damage * Instance.injuredBonus;
+                        _damage += _damage * injuredBonus;
                     }
                     /*else
                     {
@@ -257,13 +257,13 @@ namespace AlternateStart.StartScenarios
                     float percentHP = (1 / __instance.Stats.MaxHealth) * __instance.Stats.CurrentHealth;
                     if (percentHP <= 0.5f)
                     {
-                        if (!__instance.StatusEffectMngr.HasStatusEffect(Instance.rageID))
+                        if (!__instance.StatusEffectMngr.HasStatusEffect(rageID))
                         {
-                            __instance.StatusEffectMngr.AddStatusEffect(Instance.rageID);
+                            __instance.StatusEffectMngr.AddStatusEffect(rageID);
                         }
                         if (percentHP <= 0.3f)
                         {
-                            __instance.StatusEffectMngr.AddStatusEffect(Instance.adrenalineSpeedID);
+                            __instance.StatusEffectMngr.AddStatusEffect(adrenalineSpeedID);
                         }
                     }
                     else
@@ -274,9 +274,9 @@ namespace AlternateStart.StartScenarios
                         }*/
                         if (percentHP > 0.3f)
                         {
-                            if (__instance.StatusEffectMngr.HasStatusEffect(Instance.adrenalineSpeedID))
+                            if (__instance.StatusEffectMngr.HasStatusEffect(adrenalineSpeedID))
                             {
-                                __instance.StatusEffectMngr.RemoveStatusWithIdentifierName(Instance.adrenalineSpeedID);
+                                __instance.StatusEffectMngr.RemoveStatusWithIdentifierName(adrenalineSpeedID);
                             }
                         }
                     }
@@ -303,20 +303,20 @@ namespace AlternateStart.StartScenarios
                         }
                         if (percentHP <= 0.3f)
                         {
-                            __instance.m_character.StatusEffectMngr.AddStatusEffect(Instance.adrenalineSpeedID);
+                            __instance.m_character.StatusEffectMngr.AddStatusEffect(adrenalineSpeedID);
                         }
                     }
                     else
                     {
-                        if (__instance.m_character.StatusEffectMngr.HasStatusEffect("Rage"))
+                        /*if (__instance.m_character.StatusEffectMngr.HasStatusEffect("Rage"))
                         {
                             __instance.m_character.StatusEffectMngr.RemoveStatusWithIdentifierName("Rage");
-                        }
+                        }*/
                         if (percentHP > 0.3f)
                         {
-                            if (__instance.m_character.StatusEffectMngr.HasStatusEffect(Instance.adrenalineSpeedID))
+                            if (__instance.m_character.StatusEffectMngr.HasStatusEffect(adrenalineSpeedID))
                             {
-                                __instance.m_character.StatusEffectMngr.RemoveStatusWithIdentifierName(Instance.adrenalineSpeedID);
+                                __instance.m_character.StatusEffectMngr.RemoveStatusWithIdentifierName(adrenalineSpeedID);
                             }
                         }
                     }
